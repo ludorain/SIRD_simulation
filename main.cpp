@@ -37,10 +37,13 @@ int main (void) {
         //setting people
         People p;
         double s, i, r, d;
-        s=1+ (rand() % 6000);
-        i=1+ (rand() % 10);
-        r=1+ (rand() % 100);
-        d=1+ (rand() % 100);
+        s= rand() % 5501 + 500; //suscettibili tra 500 e 6000  
+        i= rand() % 101 + 1; //infetti tra 1 e 100
+        r=rand() % 501 +1 //resuscitati tra 1 e 500
+        d=rand() % 501 +1//deceduti tra 1 e 500
+        std:: cout << "Your random values are:" <<
+              <<  "Susceptible =" << s << std::endl << "Infected =" << i << std::endl << 
+              << "Recovered =" << r << std::endl << "Dead =" << d << std::endl; 
         p.setPeopleR(s, i, r, d);
         int Num=p.getTotal();
 
