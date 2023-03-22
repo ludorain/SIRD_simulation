@@ -39,6 +39,8 @@ int main () {
             //setting people
             People p;
             double s, i, r, d;
+            //Inizializzo il generatore di numeri random e rendo casuale il seme
+            srand(time(NULL));
             s= rand() % 5501 + 500; //suscettibili tra 500 e 6000  
             i= rand() % 101; //infetti tra 0 e 100
             r=rand() % 501;  //resuscitati tra 0 e 500
