@@ -32,7 +32,7 @@ int main (void) {
         }
     } else {
         //Random simulation elapse
-        int Time = 10+ (rand() % 100);
+        int Time = 10 + rand() % 91 ; //tempo tra 0 e 100 
         
         //setting people
         People p;
