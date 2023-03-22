@@ -38,9 +38,9 @@ int main (void) {
         People p;
         double s, i, r, d;
         s= rand() % 5501 + 500; //suscettibili tra 500 e 6000  
-        i= rand() % 101 + 1; //infetti tra 1 e 100
-        r=rand() % 501 +1;  //resuscitati tra 1 e 500
-        d=rand() % 201 +1; //deceduti tra 1 e 200
+        i= rand() % 101; //infetti tra 0 e 100
+        r=rand() % 501;  //resuscitati tra 0 e 500
+        d=rand() % 201; //deceduti tra 0 e 200
         std:: cout << "Your random values are:" << std:: endl <<
                "Susceptible = " << s << std::endl << "Infected = " << i << std::endl << 
                "Recovered = " << r << std::endl << "Dead = " << d << std::endl; 
