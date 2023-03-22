@@ -1,0 +1,17 @@
+QUESTO FILE CONTIENE LE COSE DA CHIEDERE AL GIACO. SI PREGA DI INSERIRE NEL GIUSTO SPAZIO LA DOMANDA:
+
+PROBLEMI DELL'HPP
+
+
+
+
+PROBLEMI DEL CPP
+
+
+
+
+
+PROBLEMI DEL MAIN
+1. Nello switch case iniziale al default non ci dovrebbe mai arrivare perchè il controllo è fatto PRIMA della funzione. Dobbiamo metterlo lo stesso? Senza compila uguale.
+
+
