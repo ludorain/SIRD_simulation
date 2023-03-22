@@ -6,22 +6,23 @@
 People::People()
 { }
 
+//setter della classe People
 void People::setSusceptible() 
 {
     double s;
     std::cout<<"The number of initial Susceptible" << std::endl;
     std::cin>>s;
-    while(s<0 || s>6000){
+    while(s<1 || s>6000){
     std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
     std::cin>>s;}
-    S=s;
+    People::S=s;
     }
 void People::setInfected()
 {
     double i;
     std::cout<<"The number of initial Infected [range 0-stocazzo]" << std::endl;
     std::cin>>i;
-    while(i<0 || i>6000){
+    while(i<1 || i>6000){
     std::cout<<"Infected parameter out of range. Enter a new value"<<std::endl;
     std::cin>>i;}
     I=i;
@@ -57,18 +58,18 @@ void People::setPeople(){
 void People::setPeople(double s, double i, double r, double d){
     if(s>0 && s<6000){
         S=s;
-    } else {std::cout<<"Parameter out of range"}
+    } else {std::cout<<"Parameter out of range";}
     if(s>0 && s<6000){
         R=r;
-    } else {std::cout<<"Parameter out of range"}
+    } else {std::cout<<"Parameter out of range";}
 
     if(s>0 && s<6000){
         I=i;
-    } else {std::cout<<"Parameter out of range"}
+    } else {std::cout<<"Parameter out of range";}
 
     if(s>0 && s<6000){
         D=d;
-    } else {std::cout<<"Parameter out of range"}
+    } else {std::cout<<"Parameter out of range";}
 }
 
 /*void People::setPeopleR(double s, double i, double r, double d){
@@ -78,35 +79,79 @@ void People::setPeople(double s, double i, double r, double d){
     D=d;
 }*/
 
+//getter della classe People
 int People::getTotal(){
     int Tot=S+I+R+D;
     return Tot;
 }
+double People::getSusceptible(){
+    return S;
+};
+double People::getInfected(){
+    return I;
+};
+double People::getRecovered(){
+    return R;
+};
+double People::getDeads(){
+    return D;
+};
 
 //costruttore default solo per prove
 Parameters::Parameters(double a, double b, double g, double m) {};
 
+//setter della classe Parameters
+
+//getter della classe Parameters
+double Parameters::getAlfa(){
+    return alfa;
+};
+double Parameters::getBeta(){
+    return beta;
+};
+double Parameters::getGamma(){
+    return gamma;
+};
+double Parameters::getMu(){
+    return mu;
+};
+
+
+
 //classe complessiva, si occupa della simulazione
-sird::sird(int T_, People &people_, Parameters &parameters_, int N_):
+sird::sird(int T_, People people_, Parameters parameters_, int N_):
     T(T_), people(people_), parameters(parameters_), N(N_)     
 {  //controllo del parametro tempo
 }
 
-sird::simulate(){
-    //(funzionerebbe implementando dei metodi get con referenza e inserendo quelli nell'algoritmo
-    //non so se è il modo più intelligente di farlo)
-}
-/*
+
 void sird::simulate(){
-    double const S0=People::S;
+    double const S0=people.getSusceptible();
+    
+    double s= people.getSusceptible();
+    double i= people.getInfected();
+    double r= people.getRecovered();
+    double d= people.getDeads();
 
-for(int i=0; i<T; i++){
-    People::S+=((-People::S*People::I*Parameters::beta)/N - Parameters::alfa*S0);
-    People::I+=((Parameters::beta*People::S*People::I/N)-Parameters::gamma*People::I-Parameters::mu*People::I);
-    People::R+=(Parameters::gamma*People::I+Parameters::alfa*S0);
-    People::D+=Parameters::mu*People::I;
+    double a= parameters.getAlfa();
+    double b= parameters.getBeta();
+    double g= parameters.getGamma();
+    double m= parameters.getMu();
 
-std::cout<< People::S << "||" << People::I << "||" << People::R << "||" << People::D << std::endl;
+    double t=T;
+    std::cout << N;
+
+for(int j=0; j<t; j++){
+    /*s+=((-s*i*b)/N - a*S0);
+    i+=((b*s*i/N)-g*i-m*i);
+    r+=(g*i+a*S0);
+    d+=m*i;*/
+
+    s+=5;
+
+std::cout<< s << "||" << i << "||" << r << "||" << d << std::endl;
 
 }
-}*/
+}
+
+
