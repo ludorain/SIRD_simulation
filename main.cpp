@@ -18,7 +18,7 @@ int main () {
 
         case 'S' :
             std::cout << "Siamo in S" << std::endl;
-            /*People p;
+            People p;
             p.setPeople();
             Parameters ps;
     
@@ -27,12 +27,12 @@ int main () {
             std::cout << "Insert time simulation"<<std::endl;
             std::cin>>Time;
             sird oggetto(Time, p, ps, Num);
-            oggetto.simulate(); */
+            oggetto.simulate(); 
             break;
 
         case 'R' :
             std::cout << "Siamo in R" << std::endl;
-            /*
+          
             //Random simulation elapse
             int Time = 10+ (rand() % 100);
             
@@ -52,7 +52,7 @@ int main () {
             Parameters ps;
 
             sird oggetto(Time, p, ps, Num);
-            oggetto.simulate(); */
+            oggetto.simulate(); 
             break;
 
         // default: std:: cout << "Invalid character.";  NON PENSO SERVA XKE NON DOVREBBE MAI ARRIVARE QUI
