@@ -30,14 +30,17 @@ void setPeople(double, double, double, double);
 
 //funzioni get
 int getTotal();
+double getSusceptible();
+double getInfected();
+double getRecovered();
+double getDeads();
 
-//Da scrivere
 private:
 
-    static double S;
-    static double I;
-    static double R;
-    static double D;
+    double S;
+    double I;
+    double R;
+    double D;
 };
 
 class Parameters{
@@ -46,11 +49,18 @@ friend class sird;
 public:
 Parameters(double=0.0001, double=0.7, double=0.3, double=0.1);
 
+//getter dei parametri
+
+double getAlfa();
+double getBeta();
+double getGamma();
+double getMu();
+
 private: 
-static double alfa;
-static double beta;
-static double gamma;
-static double mu;
+double alfa;
+double beta;
+double gamma;
+double mu;
 };
 
 class sird{
@@ -69,5 +79,5 @@ int T;
 People people;
 Parameters parameters;
 int N;
-}; 
+};
 #endif
