@@ -1,6 +1,7 @@
 #include "sird.hpp"
 #include <iostream>
 #include <cstring>  //PER ME NON CI SERVE PIù PERCHE HO CAVATO LA STRINGA CONTROL
+#include <ctime> // ci serve per la funzione time che sta dentro al random
 
 int main () {
     std:: cout << "Would you like to insert data from file, from standard input or run a random simulation? [F,S,R]" << std::endl; 
