@@ -28,11 +28,13 @@ int main (void) {
         int Num=p.getTotal();
         std::cout << "Insert time simulation"<<std::endl;
         std::cin>>Time;
-        sird(Time, p, ps, Num);
+        sird oggetto(Time, p, ps, Num);
+        oggetto.simulate();
+
         }
     } else {
         //Random simulation elapse
-        int Time = 10 + rand() % 91 ; //tempo tra 0 e 100 
+        int Time = 10+ (rand() % 100);
         
         //setting people
         People p;
@@ -44,9 +46,20 @@ int main (void) {
         std:: cout << "Your random values are:" << std:: endl <<
                "Susceptible = " << s << std::endl << "Infected = " << i << std::endl << 
                "Recovered = " << r << std::endl << "Dead = " << d << std::endl; 
-        p.setPeopleR(s, i, r, d);
+        p.setPeople(s, i, r, d);
         int Num=p.getTotal();
+       
+       Parameters ps;
+
+       sird oggetto(Time, p, ps, Num);
+       oggetto.simulate();
+        
+
 
         //analogo per i parametri, da implementare
 }
 }
+
+
+
+
