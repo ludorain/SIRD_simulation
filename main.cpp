@@ -42,8 +42,8 @@ int main (void) {
         r=rand() % 501 +1 //resuscitati tra 1 e 500
         d=rand() % 501 +1//deceduti tra 1 e 500
         std:: cout << "Your random values are:" <<
-              <<  "Susceptible =" << s << std::endl << "Infected =" << i << std::endl << 
-              << "Recovered =" << r << std::endl << "Dead =" << d << std::endl; 
+              <<  "Susceptible = " << s << std::endl << "Infected = " << i << std::endl << 
+              << "Recovered = " << r << std::endl << "Dead = " << d << std::endl; 
         p.setPeopleR(s, i, r, d);
         int Num=p.getTotal();
 
