@@ -69,5 +69,5 @@ int T;
 People people;
 Parameters parameters;
 int N;
-};
+}; 
 #endif
