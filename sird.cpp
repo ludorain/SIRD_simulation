@@ -59,15 +59,15 @@ void People::setPeople(double s, double i, double r, double d){
     if(s>0 && s<6000){
         S=s;
     } else {std::cout<<"Parameter out of range";}
-    if(s>0 && s<6000){
+    if(r>0 && r<6000){
         R=r;
     } else {std::cout<<"Parameter out of range";}
 
-    if(s>0 && s<6000){
+    if(i>0 && i<6000){
         I=i;
     } else {std::cout<<"Parameter out of range";}
 
-    if(s>0 && s<6000){
+    if(d>0 && d<6000){
         D=d;
     } else {std::cout<<"Parameter out of range";}
 }
