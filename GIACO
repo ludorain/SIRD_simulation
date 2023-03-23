@@ -6,7 +6,7 @@ PROBLEMI DELL'HPP
 
 
 PROBLEMI DEL CPP
-
+1. Preferisce una funzione unica oppure due distinte (overloading) per la questione dati da file oppure random. facendone una unica risparmiamo meemoria ma nel caso random si effettua due volte il controllo sui parametri
 
 
 
