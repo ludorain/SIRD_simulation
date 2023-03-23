@@ -12,12 +12,10 @@ int main () {
         std:: cin >> data;
     }
     
-    switch (data) {
-        case 'F' : 
+    if (data == 'F') {
             std::cout << "Qui ci andrà la simulazione da file, non l'ho ancora implementata XD"<< std::endl;
-            break;
 
-        case 'S' :
+    } else if (data == 'S') {
             std::cout << "Siamo in S" << std::endl;
             People p;
             p.setPeople();
@@ -29,9 +27,8 @@ int main () {
             std::cin>>Time;
             sird oggetto(Time, p, ps, Num);
             oggetto.simulate(); 
-            break;
 
-        case 'R' :
+     } else if (data == 'R') {
             std::cout << "Siamo in R" << std::endl;
           
             //Random simulation elapse
@@ -55,8 +52,7 @@ int main () {
             Parameters ps;
 
             sird oggetto(Time, p, ps, Num);
-            oggetto.simulate(); 
-            break;
+            oggetto.simulate();
 
         // default: std:: cout << "Invalid character.";  NON PENSO SERVA XKE NON DOVREBBE MAI ARRIVARE QUI
     }

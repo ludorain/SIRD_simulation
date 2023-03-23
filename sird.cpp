@@ -141,17 +141,19 @@ void sird::simulate(){
     double t=T;
     std::cout << N;
 
-for(int j=0; j<t; j++){
-    /*s+=((-s*i*b)/N - a*S0);
-    i+=((b*s*i/N)-g*i-m*i);
-    r+=(g*i+a*S0);
-    d+=m*i;*/
+    for(int j=0; j<t; j++){
+        std::cout << s*i*b << '\n';
+        std::cout << a << '\n';
 
-    s+=5;
+        s+=((-s*i*b)/((double)N) - a*S0);
+        i+=((b*s*i/((double)N))-g*i-m*i);
+        r+=(g*i+a*S0);
+        d+=m*i;
 
-std::cout<< s << "||" << i << "||" << r << "||" << d << std::endl;
 
-}
+        std::cout<< s << "||" << i << "||" << r << "||" << d << std::endl;
+
+    }
 }
 
 
