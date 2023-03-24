@@ -15,7 +15,7 @@ void People::setSusceptible()
     while(s<1 || s>6000){
     std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
     std::cin>>s;}
-    People::S=s;
+    S=s;
     }
 void People::setInfected()
 {
@@ -47,6 +47,7 @@ void People::setDeads()
     std::cin>>d;}
     D=d;
     }
+
 void People::setPeople(){
     setSusceptible();
     setInfected();
@@ -59,19 +60,19 @@ void People::setPeople(double s, double i, double r, double d){
     if(s>0 && s<6000){
         S=s;
     } else {std::cout<<"Parameter out of range";}
-    if(r>0 && r<6000){
+    if(s>0 && s<6000){
         R=r;
     } else {std::cout<<"Parameter out of range";}
 
-    if(i>0 && i<6000){
+    if(s>0 && s<6000){
         I=i;
     } else {std::cout<<"Parameter out of range";}
 
-    if(d>0 && d<6000){
+    if(s>0 && s<6000){
         D=d;
     } else {std::cout<<"Parameter out of range";}
 }
-
+//questa funzione serve nel caso non voglimo fare doppiio controllo sui parametripresi da random
 /*void People::setPeopleR(double s, double i, double r, double d){
     S=s;
     I=i;
@@ -97,10 +98,84 @@ double People::getDeads(){
     return D;
 };
 
-//costruttore default solo per prove
-Parameters::Parameters(double a, double b, double g, double m) {};
+//costruttore
+Parameters::Parameters()
+{ }
 
 //setter della classe Parameters
+void Parameters::setAlfa() 
+{
+    double a;
+    std::cout<<" percentuale vaccinati" << std::endl;
+    std::cin>>a;
+    while(a<0 || a>1){
+    std::cout<<"out of range. Enter a new value"<<std::endl;
+    std::cin>>a;}
+    alfa=a;
+    }
+
+void Parameters::setBeta()
+{
+    double b;
+    std::cout<<"probabilità infez" << std::endl;
+    std::cin>>b;
+    while(b<0 || b>1){
+    std::cout<<" out of range. Enter a new value"<<std::endl;
+    std::cin>>b;}
+    beta=b;
+    }
+void Parameters::setGamma()
+{
+    double g;
+    std::cout<<"prob guarire??? non sono sicura" << std::endl;
+    std::cin>>g;
+    while(g<0||g>1){
+    std::cout<<"out of range. Enter a new value"<<std::endl;
+    std::cin>>g;}
+    gamma=g;
+    }
+void Parameters::setMu()
+{
+    double u;
+    std::cout<<"The number of initial Deads" << std::endl;
+    std::cin>>u;
+    while(u>1 || u<0){
+    std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
+    std::cin>>u;}
+    mu=u;
+    }
+
+void Parameters::setParameters(){
+    setAlfa();
+    setBeta();
+    setGamma();
+    setMu();
+}
+//function overloading per la funzione set People, 
+//serve per la presa dati da file e per la generazione random (x la quale non servirebbe il controllo)
+void Parameters::setParameters(double a, double b, double g, double u){
+    if(a>0&&a<1){
+        alfa=a;
+    } else {std::cout<<"Parameter out of range";}
+    if(b>0&&b<1){
+        beta=b;
+    } else {std::cout<<"Parameter out of range";}
+
+    if(g>0&&g<1){
+        gamma=g;
+    } else {std::cout<<"Parameter out of range";}
+
+    if(u>0&&u<1){
+        mu=u;
+    } else {std::cout<<"Parameter out of range";}
+}
+//questa funzione serve nel caso non voglimo fare doppiio controllo sui parametripresi da random
+/*void Parammeters::setParameters(double s, double i, double r, double d){
+    alfa=a;
+    beta=b;
+    gamma=g;
+    mu=u;
+}*/
 
 //getter della classe Parameters
 double Parameters::getAlfa(){
@@ -139,21 +214,21 @@ void sird::simulate(){
     double m= parameters.getMu();
 
     double t=T;
-    std::cout << N;
+    std::cout << N << std::endl;
 
     for(int j=0; j<t; j++){
-        std::cout << s*i*b << '\n';
-        std::cout << a << '\n';
-
+        
         s+=((-s*i*b)/((double)N) - a*S0);
         i+=((b*s*i/((double)N))-g*i-m*i);
         r+=(g*i+a*S0);
         d+=m*i;
 
 
-        std::cout<< s << "||" << i << "||" << r << "||" << d << std::endl;
+        std::cout<< static_cast<int>(s) << "||" << static_cast<int>(i) << "||" << static_cast<int>(r) << "||" << static_cast<int>(d) << std::endl;
 
     }
 }
+
+
 
 
