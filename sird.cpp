@@ -214,16 +214,27 @@ void sird::simulate(){
     double m= parameters.getMu();
 
     double t=T;
-    std::cout << N << std::endl;
 
     for(int j=0; j<t; j++){
         
-        s+=((-s*i*b)/((double)N) - a*S0);
+        
         i+=((b*s*i/((double)N))-g*i-m*i);
-        r+=(g*i+a*S0);
+        s+=((-s*i*b)/((double)N) - a*S0);
         d+=m*i;
+        // s=-9, i=0, a*so+s 
+        if (s>0) {
+            r+=(g*i+a*S0);
+        } else {
+            s=0;
+            r+=g*i//-(s2-s1);
+        }
 
-
+        
+        if (i==0) {
+            std::cout << "fuck" << std::endl;
+            //break;
+        }
+        
         std::cout<< static_cast<int>(s) << "||" << static_cast<int>(i) << "||" << static_cast<int>(r) << "||" << static_cast<int>(d) << std::endl;
 
     }
