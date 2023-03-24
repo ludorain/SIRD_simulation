@@ -43,24 +43,33 @@ private:
     double D;
 };
 
-class Parameters{
-friend class sird;
-//costruttore non attuale, è solo per fare delle prove
+class Parameters{ 
+
 public:
-Parameters(double=0.0001, double=0.7, double=0.3, double=0.1);
+//costruttore default
+Parameters();
 
-//getter dei parametri
+//funzioni set
+void setAlfa();
+void setBeta();
+void setGamma();
+void setMu();
 
+void setParameters();
+void setParameters(double, double, double, double);
+
+//funzioni get
 double getAlfa();
 double getBeta();
 double getGamma();
 double getMu();
 
-private: 
-double alfa;
-double beta;
-double gamma;
-double mu;
+private:
+
+    double alfa;
+    double beta;
+    double gamma;
+    double mu;
 };
 
 class sird{
@@ -81,3 +90,4 @@ Parameters parameters;
 int N;
 };
 #endif
+
