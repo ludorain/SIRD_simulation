@@ -1,0 +1,23 @@
+1.Possiamo inserire all'interno del metodo setPeople un controllo del tipo (scritto male, sarebbe da mettere a posto)
+
+void People::setPeople(){
+
+if(S+I+R+D==0){
+throw std::range_error("Invalid numbers. Please create a simulation with at least one person");}
+else if(S==0 && R==0){
+char c;
+std:: cout << "Your simulation won't do anything. Do you want to continue? (y/n)" << std::endl;
+//qui ci andrebbe uno switch, non ho voglia di scriverlo
+(c=="n"){ std::cout << "End of program" << std::endl;
+            abort();
+
+else {
+//in caso tutto vada bene esegue i 4 setter
+
+    setSusceptible();
+    setInfected();
+    setRecovered();
+    setDeads();
+    
+    }}}
+INSERENDO QUESTO CONTROLLO possiamo gestire anche il caso in cui vuole provare a inserire valori =0
