@@ -2,6 +2,9 @@
 #include <iostream>
 #include <ctime> // ci serve per la funzione time che sta dentro al random
 
+//random generation prototype function
+double fRand(double, double);
+
 int main () {
 
 std:: cout << "Would you like to insert data from file, from standard input or run a random simulation? [F,S,R]" << std::endl; 
@@ -56,10 +59,10 @@ if (data == 'F') {
     double d=rand() % 101; //deceduti tra 0 e 100
 
     //Generate parameters for simulation
-    double a= 0.01; //tra 0.001 e 0.01 --> 1-10 
-    double b=(rand()%9+1)/10.; //tra 0.1 e 0.9
-    double g=0.2;  // non oltre 0.5
-    double u=0.2; //
+    double a= fRand(0.001, 0.01); //between 0.001 e 0.01
+    double b=fRand(0.100, 0.900); //between 0.1 e 0.9
+    double g=fRand(0.100, 0.500); //
+    double u=fRand(0.100, 0.500);
 
     // Assign random values to class object and print them
     p.setPeopleR(s, i, r, d);
@@ -81,6 +84,12 @@ if (data == 'F') {
     oggetto.simulate();
 
 }
+}
+
+double fRand(double fMin, double fMax)
+{
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
 }
 
 
