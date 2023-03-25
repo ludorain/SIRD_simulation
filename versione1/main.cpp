@@ -45,7 +45,7 @@ int main () {
             std:: cout << "Your random values are:" << std:: endl <<
                 "Susceptible = " << s << std::endl << "Infected = " << i << std::endl << 
                 "Recovered = " << r << std::endl << "Dead = " << d << std::endl; 
-            p.setPeople(s, i, r, d);
+            p.setPeopleR(s, i, r, d);
             int Num=p.getTotal();
             std:: cout << "People =" << Num << std::endl;
 
@@ -59,7 +59,7 @@ int main () {
                 "gamma = " << g << std::endl << "mu = " << u << std::endl; 
             
             Parameters ps;
-            ps.setParameters(a,b,g,u);
+            ps.setParametersR(a,b,g,u);
 
             std:: cout << "Simulation time= " << Time <<std::endl;
             sird oggetto(Time, p, ps, Num);
