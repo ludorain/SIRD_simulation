@@ -12,6 +12,8 @@ PROBLEMI DEL CPP
 
 
 PROBLEMI DEL MAIN
-1. Nello switch case iniziale, la compilazione al DEFAULT non ci dovrebbe mai arrivare perchè il controllo è fatto PRIMA della funzione. Dobbiamo metterlo lo stesso? Senza compila uguale.
+1. (risolto perchè abbiamo tolto lo switch)
 
 
+PROBLEMI DELL'OUTPUT
+1. La fluttuazione di 1 persona sul totale, dovuto alle approssimazioni di calcolo, è une errore accettabile?
