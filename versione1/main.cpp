@@ -25,7 +25,7 @@ if (data == 'F') {
     
     std::string line;
     std::ifstream ifs;
-    ifs.open("prova2.txt");
+    ifs.open("Data.txt");
     double s,i,r,d;
 
     getline (ifs,line,'.');
