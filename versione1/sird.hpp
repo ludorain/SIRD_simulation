@@ -27,6 +27,7 @@ void setRecovered();
 void setDeads();
 void setPeople();
 void setPeople(double, double, double, double);
+void setPeopleR(double,double,double,double);
 
 //funzioni get
 int getTotal();
@@ -57,6 +58,7 @@ void setMu();
 
 void setParameters();
 void setParameters(double, double, double, double);
+void setParametersR(double, double, double, double);
 
 //funzioni get
 double getAlfa();
