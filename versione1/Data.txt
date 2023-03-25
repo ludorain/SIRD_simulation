@@ -1,0 +1,5 @@
+Here you can insert your data.
+Susceptible=1000
+Infected=500
+Recovered=200
+Dead=100
