@@ -1,6 +1,9 @@
 #include "sird.hpp"
 #include <iostream>
 #include <ctime> // ci serve per la funzione time che sta dentro al random
+#include <cstring> //mi serve  per line
+#include <fstream> //serve per usare ifs
+
 
 //random generation prototype function
 double fRand(double, double);
@@ -18,7 +21,24 @@ std:: cin >> data;
     
 if (data == 'F') {
 
-    std::cout << "Qui ci andrà la simulazione da file, non l'ho ancora implementata XD"<< std::endl;
+    std::cout << "Tentativo 1° simulazione file:"<< std::endl;
+    
+    std::string line;
+    std::ifstream ifs;
+    ifs.open("prova2.txt");
+    double s,i,r,d;
+
+    getline (ifs,line,'.');
+    getline (ifs,line,'=');
+    ifs >> s;
+    getline (ifs,line,'=');
+    ifs >> i;
+    getline (ifs,line,'=');
+    ifs >> r,
+    getline (ifs,line,'=');
+    ifs >> d;
+
+    std:: cout << s << std:: endl << i << std:: endl << r << std:: endl << d << std:: endl;
 
 } else if (data == 'S') {
 
