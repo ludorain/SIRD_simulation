@@ -1,48 +1,52 @@
 #include "sird.hpp"
 #include <cmath>
 #include <iostream>
-
+#include <typeinfo>
 
 People::People()
 { }
 
-//setter della classe People
+//setter class People
 void People::setSusceptible() 
 {
-    double s;
+    double s, fractPart, intPart;
     std::cout<<"The number of initial Susceptible" << std::endl;
     std::cin>>s;
-    while(s<1 || s>6000){
+    fractPart = modf(s, &intPart);
+    while(s<1 || s>6000 || (typeid(s).name()!="i" && fractPart!=0.00)){
     std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
     std::cin>>s;}
     S=s;
     }
 void People::setInfected()
 {
-    double i;
+    double i, fractPart, intPart;
     std::cout<<"The number of initial Infected [range 0-stocazzo]" << std::endl;
     std::cin>>i;
-    while(i<1 || i>6000){
+    fractPart = modf(i, &intPart);
+    while(i<1 || i>6000 || (typeid(i).name()!="i" && fractPart!=0.00)){
     std::cout<<"Infected parameter out of range. Enter a new value"<<std::endl;
     std::cin>>i;}
     I=i;
     }
 void People::setRecovered()
 {
-    double r;
+    double r, fractPart, intPart;
     std::cout<<"The number of initial Recovered" << std::endl;
     std::cin>>r;
-    while(r<0 || r>6000){
+    fractPart = modf(r, &intPart);
+    while(r<0 || r>6000 || (typeid(r).name()!="i" && fractPart!=0.00)){
     std::cout<<"Recovered parameter out of range. Enter a new value"<<std::endl;
     std::cin>>r;}
     R=r;
     }
 void People::setDeads()
 {
-    double d;
+    double d, fractPart, intPart;
     std::cout<<"The number of initial Deads" << std::endl;
     std::cin>>d;
-    while(d<0 || d>6000){
+    fractPart = modf(d, &intPart);
+    while(d<0 || d>6000 || (typeid(d).name()!="i" && fractPart!=0.00)){
     std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
     std::cin>>d;}
     D=d;
@@ -54,33 +58,45 @@ void People::setPeople(){
     setRecovered();
     setDeads();
 }
-//function overloading per la funzione set People, 
-//serve per la generazione random e per la presa dati da file
+//setPeople() function overloading 
+
+//function for file input
 void People::setPeople(double s, double i, double r, double d){
-    if(s>0 && s<6000){
+double fractPart, intPart;
+//susceptible control
+    fractPart = modf(s, &intPart);
+    if(s>0 && s<6000 && (typeid(s).name()!="i" || fractPart!=0.00)){
         S=s;
-    } else {std::cout<<"Parameter out of range";}
-    if(s>0 && s<6000){
-        R=r;
-    } else {std::cout<<"Parameter out of range";}
-
-    if(s>0 && s<6000){
+    } else {std::cout<<"S Parameter out of range, initialized to default value";}
+    
+//infected control
+    fractPart = modf(i, &intPart);    
+    if(i>0 && i<6000 && (typeid(i).name()!="i" || fractPart!=0.00)){
         I=i;
-    } else {std::cout<<"Parameter out of range";}
+    } else {std::cout<<"I Parameter out of range, initialized to default value";}
 
-    if(s>0 && s<6000){
+//recovered control
+    fractPart = modf(r, &intPart);
+    if(r>0 && r<6000 && (typeid(r).name()!="i" || fractPart!=0.00)){
+        R=r;
+    } else {std::cout<<"R Parameter out of range, initialized to default value";}
+
+//deaths control    
+    fractPart = modf(d, &intPart);
+    if(d>0 && d<6000 && (typeid(d).name()!="i" || fractPart!=0.00)){
         D=d;
-    } else {std::cout<<"Parameter out of range";}
+    } else {std::cout<<"D Parameter out of range, initialized to default value";}
 }
-//questa funzione serve nel caso non voglimo fare doppiio controllo sui parametripresi da random
-/*void People::setPeopleR(double s, double i, double r, double d){
+
+//function for random input
+void People::setPeopleR(double s, double i, double r, double d){
     S=s;
     I=i;
     R=r;
     D=d;
-}*/
+}
 
-//getter della classe People
+//getter class People
 int People::getTotal(){
     int Tot=S+I+R+D;
     return Tot;
@@ -124,12 +140,13 @@ void Parameters::setBeta()
     std::cin>>b;}
     beta=b;
     }
+
 void Parameters::setGamma()
 {
     double g;
     std::cout<<"prob guarire??? non sono sicura" << std::endl;
     std::cin>>g;
-    while(g<0||g>1){
+    while(g<0 || g>1){
     std::cout<<"out of range. Enter a new value"<<std::endl;
     std::cin>>g;}
     gamma=g;
@@ -139,7 +156,7 @@ void Parameters::setMu()
     double u;
     std::cout<<"The number of initial Deads" << std::endl;
     std::cin>>u;
-    while(u>1 || u<0){
+    while(u<0 || u>1){
     std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
     std::cin>>u;}
     mu=u;
@@ -151,31 +168,31 @@ void Parameters::setParameters(){
     setGamma();
     setMu();
 }
-//function overloading per la funzione set People, 
-//serve per la presa dati da file e per la generazione random (x la quale non servirebbe il controllo)
+//setParameters() function overloading , 
+//function for file input
 void Parameters::setParameters(double a, double b, double g, double u){
     if(a>0&&a<1){
         alfa=a;
-    } else {std::cout<<"Parameter out of range";}
+    } else {std::cout<<"Parameter out of range, initialized to default value";}
     if(b>0&&b<1){
         beta=b;
-    } else {std::cout<<"Parameter out of range";}
+    } else {std::cout<<"Parameter out of range, initilized to default value";}
 
-    if(g>0&&g<1){
+    if(g>0&&g<0.5){
         gamma=g;
-    } else {std::cout<<"Parameter out of range";}
+    } else {std::cout<<"Parameter out of range, initialized to default value";}
 
-    if(u>0&&u<1){
+    if(u>0&&u<.05){
         mu=u;
-    } else {std::cout<<"Parameter out of range";}
+    } else {std::cout<<"Parameter out of range, initialized to default value";}
 }
-//questa funzione serve nel caso non voglimo fare doppiio controllo sui parametripresi da random
-/*void Parammeters::setParameters(double s, double i, double r, double d){
+//function for random input
+void Parameters::setParametersR(double a, double b, double g, double u){
     alfa=a;
     beta=b;
     gamma=g;
     mu=u;
-}*/
+}
 
 //getter della classe Parameters
 double Parameters::getAlfa(){
@@ -208,6 +225,12 @@ void sird::simulate(){
     double r= people.getRecovered();
     double d= people.getDeads();
 
+    double s_= people.getSusceptible();
+    double i_= people.getInfected();
+    double r_= people.getRecovered();
+    double d_= people.getDeads();
+
+
     double a= parameters.getAlfa();
     double b= parameters.getBeta();
     double g= parameters.getGamma();
@@ -217,28 +240,30 @@ void sird::simulate(){
 
     for(int j=0; j<t; j++){
         
-        
-        i+=((b*s*i/((double)N))-g*i-m*i);
-        s+=((-s*i*b)/((double)N) - a*S0);
-        d+=m*i;
+        s_+=((-s*i*b)/((double)N) - a*S0);
+        i_+=((b*s*i/((double)N))-g*i-m*i);        
+        d_+=m*i;
         // s=-9, i=0, a*so+s 
-        if (s>0) {
-            r+=(g*i+a*S0);
+        if (s_>0) {
+            r_+=(g*i+a*S0);
         } else {
-            s=0;
-            r+=g*i//-(s2-s1);
-        }
-
-        
-        if (i==0) {
-            std::cout << "fuck" << std::endl;
-            //break;
+            s_=0;
+            r_+=g*i +s; //-(s2-s1)
         }
         
-        std::cout<< static_cast<int>(s) << "||" << static_cast<int>(i) << "||" << static_cast<int>(r) << "||" << static_cast<int>(d) << std::endl;
+           
+        std::cout<< static_cast<int>(s_) << "||" << static_cast<int>(i_) << "||" << static_cast<int>(r_) << "||" << static_cast<int>(d_) << "||" << static_cast<int>(s_+i_+r_+d_)<< std::endl;
 
+        s=s_;
+        i=i_;
+        r=r_;
+        d=d_;
     }
 }
+
+
+
+
 
 
 
