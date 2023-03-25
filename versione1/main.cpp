@@ -3,70 +3,84 @@
 #include <ctime> // ci serve per la funzione time che sta dentro al random
 
 int main () {
-    std:: cout << "Would you like to insert data from file, from standard input or run a random simulation? [F,S,R]" << std::endl; 
-    char data;
-    std:: cin >> data;
-    while (data!='F' && data!='S' && data!='R') {
-        std:: cout << "Invalid character, try again." << std:: endl;
-        std:: cin >> data;
-    }
+
+std:: cout << "Would you like to insert data from file, from standard input or run a random simulation? [F,S,R]" << std::endl; 
+char data;
+std:: cin >> data;
+
+while (data!='F' && data!='S' && data!='R') {
+std:: cout << "Invalid character, try again." << std:: endl;
+std:: cin >> data; 
+}
     
-    if (data == 'F') {
-            std::cout << "Qui ci andrà la simulazione da file, non l'ho ancora implementata XD"<< std::endl;
+if (data == 'F') {
 
-    } else if (data == 'S') {
-            std::cout << "Siamo in S" << std::endl;
-            People p;
-            p.setPeople();
-            Parameters ps;
-            ps.setParameters();
-            int Time;
-            int Num=p.getTotal();
-            std::cout << "Insert time simulation"<<std::endl;
-            std::cin>>Time;
-            sird oggetto(Time, p, ps, Num);
-            oggetto.simulate(); 
+    std::cout << "Qui ci andrà la simulazione da file, non l'ho ancora implementata XD"<< std::endl;
 
-     } else if (data == 'R') {
-            std::cout << "Siamo in R" << std::endl;
-          
-            //Random simulation elapse
-            int Time = 10+ (rand() % 100);
-            
-            //setting people
-            People p;
-            double s, i, r, d, a, b, g, u;
-            //Inizializzo il generatore di numeri random e rendo casuale il seme
-            srand(time(NULL));
-            s=rand() % 500 + 5501; //suscettibili tra 500 e 6000   5000-10000
-            i=rand() % 101; //infetti tra 0 e 100
-            r=rand() % 501;  //resuscitati tra 0 e 500
-            d=rand() % 101; //deceduti tra 0 e 100
-            std:: cout << "Your random values are:" << std:: endl <<
-                "Susceptible = " << s << std::endl << "Infected = " << i << std::endl << 
-                "Recovered = " << r << std::endl << "Dead = " << d << std::endl; 
-            p.setPeopleR(s, i, r, d);
-            int Num=p.getTotal();
-            std:: cout << "People =" << Num << std::endl;
+} else if (data == 'S') {
 
-            a= 0.01; //tra 0.001 e 0.01 --> 1-10 
-            b=(rand()%9+1)/10.; //tra 0.1 e 0.9
-            g=0.2;  // non oltre 0.5
-            u=0.2; //
+    std::cout << "Great, you've choosen Standard Input, please insert " << std::endl;
+    
+    //Costructor calls
+    People p;
+    p.setPeople();
+    int Num=p.getTotal();
 
-            std:: cout << "Your random values are:" << std:: endl <<
-                "alfa = " << a << std::endl << "beta = " << b << std::endl << 
-                "gamma = " << g << std::endl << "mu = " << u << std::endl; 
-            
-            Parameters ps;
-            ps.setParametersR(a,b,g,u);
+    Parameters ps;
+    ps.setParameters();
 
-            std:: cout << "Simulation time= " << Time <<std::endl;
-            sird oggetto(Time, p, ps, Num);
-            oggetto.simulate();
+    int Time;    
+    std::cout << "Insert time simulation"<<std::endl;
+    std::cin>>Time;
 
-        // default: std:: cout << "Invalid character.";  NON PENSO SERVA XKE NON DOVREBBE MAI ARRIVARE QUI
-    }
+    sird oggetto(Time, p, ps, Num);
+    oggetto.simulate(); 
+
+} else if (data == 'R') {
+    std::cout << "Great, you've choosen Random generation, here's your datas" << std::endl;
+    
+    //Generate random seed for rand()
+    srand(time(NULL));
+
+    //Creating objects 
+    People p;
+    Parameters ps;
+
+    //Time elapse
+    int Time = 30+ (rand() % 100);
+
+    //Generate people for simulation
+    double s=rand() % 500 + 5501; //suscettibili tra 500 e 6000   5000-10000
+    double i=rand() % 101; //infetti tra 0 e 100
+    double r=rand() % 501;  //resuscitati tra 0 e 500
+    double d=rand() % 101; //deceduti tra 0 e 100
+
+    //Generate parameters for simulation
+    double a= 0.01; //tra 0.001 e 0.01 --> 1-10 
+    double b=(rand()%9+1)/10.; //tra 0.1 e 0.9
+    double g=0.2;  // non oltre 0.5
+    double u=0.2; //
+
+    // Assign random values to class object and print them
+    p.setPeopleR(s, i, r, d);
+    int Num=p.getTotal();
+    ps.setParametersR(a,b,g,u);
+
+    std::cout << "The initial persons are:" << std:: endl;
+    std::cout << "Susceptible = " << s << std::endl << "Infected = " << i << std::endl;
+    std::cout << "Recovered = " << r << std::endl << "Dead = " << d << std::endl;   
+    std::cout << "Total people =" << Num << std::endl;
+
+    std::cout << "The initial parameters are:" << std:: endl;
+    std::cout << "alfa = " << a << std::endl << "beta = " << b << std::endl;
+    std::cout << "gamma = " << g << std::endl << "mu = " << u << std::endl;
+    std::cout << "Simulation time= " << Time <<std::endl;
+
+    //Starting proper simulation
+    sird oggetto(Time, p, ps, Num);
+    oggetto.simulate();
+
+}
 }
 
 
