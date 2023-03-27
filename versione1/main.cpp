@@ -27,6 +27,7 @@ if (data == 'F') {
     std::ifstream ifs;
     ifs.open("Data.txt");
     double s,i,r,d;
+    double a,b,g,u;
 
     getline (ifs,line,'.');
     getline (ifs,line,'=');
@@ -37,6 +38,15 @@ if (data == 'F') {
     ifs >> r,
     getline (ifs,line,'=');
     ifs >> d;
+    getline (ifs,line,'.');
+    getline (ifs,line,'=');
+    ifs >> a;
+    getline (ifs,line,'=');
+    ifs >> b;
+    getline (ifs,line,'=');
+    ifs >> g,
+    getline (ifs,line,'=');
+    ifs >> u;
 
     std:: cout << s << std:: endl << i << std:: endl << r << std:: endl << d << std:: endl;
 
