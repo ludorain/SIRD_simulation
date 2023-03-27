@@ -21,7 +21,7 @@ std:: cin >> data;
     
 if (data == 'F') {
 
-    std::cout << "Tentativo 1° simulazione file:"<< std::endl;
+    std::cout << "Great, you've choosen ..."<< std::endl;
     
     std::string line;
     std::ifstream ifs;
