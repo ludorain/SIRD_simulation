@@ -36,20 +36,20 @@ if (data == 'F') {
     ifs >> s;
     getline (ifs,line,' ');
     ifs >> i;
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> r,
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> d;
     getline (ifs,line,':');
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> a;
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> b;
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> g,
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> u;
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> Time;
 
     std:: cout << s << std:: endl << i << std:: endl << r << std:: endl << d << std:: endl;
