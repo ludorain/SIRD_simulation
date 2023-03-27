@@ -1,6 +1,6 @@
 Here you can insert your data.
 Peolpe's data:
-Susceptible=1000
+Susceptible= 1000
 Infected=500
 Recovered=200
 Dead=100
