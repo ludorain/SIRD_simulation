@@ -32,9 +32,9 @@ if (data == 'F') {
 
     getline (ifs,line,'.');
     getline (ifs,line, ':');
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> s;
-    getline (ifs,line,'=');
+    getline (ifs,line,' ');
     ifs >> i;
     getline (ifs,line,'=');
     ifs >> r,
