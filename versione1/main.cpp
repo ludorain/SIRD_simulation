@@ -30,6 +30,7 @@ if (data == 'F') {
     double a,b,g,u;
 
     getline (ifs,line,'.');
+    getline (ifs,line, ':');
     getline (ifs,line,'=');
     ifs >> s;
     getline (ifs,line,'=');
@@ -38,7 +39,7 @@ if (data == 'F') {
     ifs >> r,
     getline (ifs,line,'=');
     ifs >> d;
-    getline (ifs,line,'.');
+    getline (ifs,line,':');
     getline (ifs,line,'=');
     ifs >> a;
     getline (ifs,line,'=');
