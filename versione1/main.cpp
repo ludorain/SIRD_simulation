@@ -28,6 +28,7 @@ if (data == 'F') {
     ifs.open("Data.txt");
     double s,i,r,d;
     double a,b,g,u;
+    int Time; 
 
     getline (ifs,line,'.');
     getline (ifs,line, ':');
@@ -48,8 +49,19 @@ if (data == 'F') {
     ifs >> g,
     getline (ifs,line,'=');
     ifs >> u;
+    getline (ifs,line,'=');
+    ifs >> Time;
 
     std:: cout << s << std:: endl << i << std:: endl << r << std:: endl << d << std:: endl;
+    
+    People p;
+    Parameters ps;
+    p.setPeople(s, i, r, d);
+    int Num=p.getTotal();
+    ps.setParameters(a,b,g,u); 
+
+    sird oggetto(Time, p, ps, Num);
+    oggetto.simulate(); //DATO CHE L'OGGETTO SIMULATE è UGUALE PER TUTTI NON POSSIAMO CHIAMARLO FUORI DALL'IF? SE HA SENSO PER ME POTREMMO CHIAMARE FUORI DALL'IF TUTTO CIò CHE SI CHIAMA NELLO STESSO MODO E CHE è INDIPENDENTE DALLA SCELTA INZIIALE SUI DATI
 
 } else if (data == 'S') {
 
