@@ -1,3 +1,7 @@
+
+#include "people.hpp"
+#include "sird.hpp"
+
 #include <cmath>
 #include <cstring>  //mi serve  per line
 #include <ctime>    // ci serve per la funzione time che sta dentro al random
@@ -5,7 +9,7 @@
 #include <iostream>
 #include <typeinfo>
 
-#include "sird.hpp"
+
 
 // random generation prototype function
 double fRand(double, double);
@@ -23,6 +27,8 @@ int main() {
     std::cin >> data;
   }
 
+
+
   if (data == 'F') {
     std::cout << "Great, you've choosen ..." << std::endl;
 
@@ -35,22 +41,24 @@ int main() {
 
     getline(ifs, line, '.');
     getline(ifs, line, ':');
-    getline(ifs, line, ' ');
+    getline(ifs, line, '=');
     ifs >> s;
-    getline(ifs, line, ' ');
+    getline(ifs, line, '=');
     ifs >> i;
-    getline(ifs, line, ' ');
-    ifs >> r, getline(ifs, line, ' ');
+    getline(ifs, line, '=');
+    ifs >> r;
+    getline(ifs, line, '=');
     ifs >> d;
     getline(ifs, line, ':');
-    getline(ifs, line, ' ');
+    getline(ifs, line, '=');
     ifs >> a;
-    getline(ifs, line, ' ');
+    getline(ifs, line, '=');
     ifs >> b;
-    getline(ifs, line, ' ');
-    ifs >> g, getline(ifs, line, ' ');
+    getline(ifs, line, '=');
+    ifs >> g;
+    getline(ifs, line, '=');
     ifs >> u;
-    getline(ifs, line, ' ');
+    getline(ifs, line, '=');
     ifs >> Time;
 
     std::cout << a << std::endl
@@ -64,7 +72,7 @@ int main() {
     int Num = p.getTotal();
     ps.setParameters(a, b, g, u);
 
-    sird oggetto(Time, p, ps, Num);
+    Sird oggetto(Time, p, ps, Num);
     oggetto.simulate();  // DATO CHE L'OGGETTO SIMULATE è UGUALE PER TUTTI NON
                          // POSSIAMO CHIAMARLO FUORI DALL'IF? SE HA SENSO PER ME
                          // POTREMMO CHIAMARE FUORI DALL'IF TUTTO CIò CHE SI
@@ -72,8 +80,7 @@ int main() {
                          // SCELTA INZIIALE SUI DATI
 
   } else if (data == 'S') {
-    std::cout << "Great, you've choosen Standard Input, please insert "
-              << std::endl;
+    std::cout << "Great, you've choosen Standard Input, please insert: \n";
 
     // Costructor calls
     People p;
@@ -85,12 +92,11 @@ int main() {
 
     int Time = controlTime();
 
-    sird oggetto(Time, p, ps, Num);
+    Sird oggetto(Time, p, ps, Num);
     oggetto.simulate();
 
   } else if (data == 'R') {
-    std::cout << "Great, you've choosen Random generation, here's your datas"
-              << std::endl;
+    std::cout << "Great, you've choosen Random generation, here's your datas: \n ";
 
     // Generate random seed for rand()
     srand(time(NULL));
@@ -147,7 +153,7 @@ int main() {
     std::cout << "Simulation time= " << Time << std::endl;
 
     // Starting proper simulation
-    sird oggetto(Time, p, ps, Num);
+    Sird oggetto(Time, p, ps, Num);
     oggetto.simulate();
   }
 }
