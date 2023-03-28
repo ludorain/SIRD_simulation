@@ -1,3 +1,5 @@
+#include "people.hpp"
+#include "parameters.hpp"
 #include "sird.hpp"
 #include <cmath>
 #include <iostream>

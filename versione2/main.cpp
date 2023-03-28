@@ -1,7 +1,7 @@
 
 #include "people.hpp"
+#include "parameters.hpp"
 #include "sird.hpp"
-
 #include <cmath>
 #include <cstring>  //mi serve  per line
 #include <ctime>    // ci serve per la funzione time che sta dentro al random
