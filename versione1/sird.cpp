@@ -253,6 +253,7 @@ void sird::simulate() {
   double m = parameters.getMu();
 
   double t = T;
+  std::cout << "      S " << "I " << "R " << "D " << "T " << std::endl;
 
   for (int j = 0; j < t; j++) {
     s_ += ((-s * i * b) / ((double)N) - a * S0);
@@ -266,7 +267,8 @@ void sird::simulate() {
       r_ += g * i + s;  //-(s2-s1)
     }
 
-    std::cout << static_cast<int>(s_) << "||" << static_cast<int>(i_) << "||"
+    std::cout << "Day " << j << ": "
+              << static_cast<int>(s_) << "||" << static_cast<int>(i_) << "||"
               << static_cast<int>(r_) << "||" << static_cast<int>(d_) << "||"
               << static_cast<int>(s_ + i_ + r_ + d_) << std::endl;
 
