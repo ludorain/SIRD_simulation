@@ -16,15 +16,15 @@ Sird::Sird(int T_, People people_, Parameters parameters_, int N_)
 void Sird::simulate() {
   double const S0 = people.getSusceptible();
 
-  double s, s_ = people.getSusceptible();
-  double i, i_ = people.getInfected();
-  double r, r_ = people.getRecovered();
-  double d, d_ = people.getDeads();
+  double s = people.getSusceptible();
+  double i = people.getInfected();
+  double r = people.getRecovered();
+  double d = people.getDeads();
 
-  // double s_= people.getSusceptible();
-  // double i_= people.getInfected();
-  // double r_= people.getRecovered();
-  // double d_= people.getDeads();
+  double s_= s;
+  double i_= i;
+  double r_= r;
+  double d_= d;
 
   double a = parameters.getAlfa();
   double b = parameters.getBeta();
