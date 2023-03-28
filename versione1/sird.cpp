@@ -114,26 +114,40 @@ double People::getDeads(){
     return D;
 };
 
+
 //costruttore
 Parameters::Parameters()
 { }
 
 //setter della classe Parameters
+
+//Setter per lo standard input
 void Parameters::setAlfa() 
 {
-    double a;
-    std::cout<<" percentuale vaccinati" << std::endl;
+    char f;
+    std::cout<<"Do you want vaccination? [y/n]";
+    std::cin>>f;
+    while(f!='y' && f!='n'){
+    std::cout<<"Invalid char, try again.";
+    std::cin>>f; }
+
+    if(f=='y')
+    { double a;
+    std::cout<<"Rate vaccination" << std::endl;
     std::cin>>a;
-    while(a<0 || a>1){
+    while(a<=0.001 || a>=0.01){
     std::cout<<"out of range. Enter a new value"<<std::endl;
     std::cin>>a;}
     alfa=a;
+    } else {alfa=0;}
+    
+    
     }
 
 void Parameters::setBeta()
 {
     double b;
-    std::cout<<"probabilità infez" << std::endl;
+    std::cout<<"probabilità infez [range]" << std::endl;
     std::cin>>b;
     while(b<0 || b>1){
     std::cout<<" out of range. Enter a new value"<<std::endl;
@@ -171,20 +185,20 @@ void Parameters::setParameters(){
 //setParameters() function overloading , 
 //function for file input
 void Parameters::setParameters(double a, double b, double g, double u){
-    if(a>0&&a<1){
+    if(a>=0 && a<=0.01){
         alfa=a;
-    } else {std::cout<<"Parameter out of range, initialized to default value";}
-    if(b>0&&b<1){
+    } else {std::cout<<"Parameter out of range, initialized to default value a";}
+    if(b>0 && b<1){
         beta=b;
-    } else {std::cout<<"Parameter out of range, initilized to default value";}
+    } else {std::cout<<"Parameter out of range, initilized to default value b";}
 
     if(g>0&&g<0.5){
         gamma=g;
-    } else {std::cout<<"Parameter out of range, initialized to default value";}
+    } else {std::cout<<"Parameter out of range, initialized to default value g";}
 
-    if(u>0&&u<.05){
+    if(u>0&&u<0.5){
         mu=u;
-    } else {std::cout<<"Parameter out of range, initialized to default value";}
+    } else {std::cout<<"Parameter out of range, initialized to default value u";}
 }
 //function for random input
 void Parameters::setParametersR(double a, double b, double g, double u){
@@ -207,8 +221,6 @@ double Parameters::getGamma(){
 double Parameters::getMu(){
     return mu;
 };
-
-
 
 //classe complessiva, si occupa della simulazione
 sird::sird(int T_, People people_, Parameters parameters_, int N_):

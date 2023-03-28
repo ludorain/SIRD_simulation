@@ -1,12 +1,15 @@
 #include "sird.hpp"
 #include <iostream>
 #include <ctime> // ci serve per la funzione time che sta dentro al random
+#include <cmath> 
 #include <cstring> //mi serve  per line
 #include <fstream> //serve per usare ifs
+#include <typeinfo>
 
 
 //random generation prototype function
 double fRand(double, double);
+double controlTime();
 
 int main () {
 
@@ -52,7 +55,7 @@ if (data == 'F') {
     getline (ifs,line,' ');
     ifs >> Time;
 
-    std:: cout << s << std:: endl << i << std:: endl << r << std:: endl << d << std:: endl;
+    std:: cout << a << std:: endl << b << std:: endl << g << std:: endl << u << std:: endl;
     
     People p;
     Parameters ps;
@@ -75,10 +78,8 @@ if (data == 'F') {
     Parameters ps;
     ps.setParameters();
 
-    int Time;    
-    std::cout << "Insert time simulation"<<std::endl;
-    std::cin>>Time;
-
+    int Time=controlTime();    
+    
     sird oggetto(Time, p, ps, Num);
     oggetto.simulate(); 
 
@@ -93,7 +94,7 @@ if (data == 'F') {
     Parameters ps;
 
     //Time elapse
-    int Time = 30+ (rand() % 100);
+    int Time = 30+ (rand() % 101);
 
     //Generate people for simulation
     double s=rand() % 500 + 5501; //suscettibili tra 500 e 6000   5000-10000
@@ -102,7 +103,19 @@ if (data == 'F') {
     double d=rand() % 101; //deceduti tra 0 e 100
 
     //Generate parameters for simulation
-    double a= fRand(0.001, 0.01); //between 0.001 e 0.01
+    char f;
+    std::cout<<"Do you want vaccination? [y/n]";
+    std::cin>>f;
+    while(f!='y' && f!='n'){
+    std::cout<<"Invalid char, try again.";
+    std::cin>>f; }
+    double a;
+
+    if(f=='y')
+    { a= fRand(0.001, 0.01); //between 0.001 e 0.01
+    
+    } else {a=0;}
+    
     double b=fRand(0.100, 0.900); //between 0.1 e 0.9
     double g=fRand(0.100, 0.500); //
     double u=fRand(0.100, 0.500);
@@ -135,5 +148,18 @@ double fRand(double fMin, double fMax)
     return fMin + f * (fMax - fMin);
 }
 
+double controlTime(){
 
-
+double t;
+double fractPart, intPart;
+    
+    std::cout << "Insert time simulation"<<std::endl;
+    std::cin>>t;
+   
+    fractPart = modf(t, &intPart);
+    while(t<1 || (typeid(t).name()!="i" && fractPart!=0.00)){
+    std::cout<<"Time parameter out of range. Enter a new value"<<std::endl;
+    std::cin>>t;}
+    
+    return t;
+}

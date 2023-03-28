@@ -1,22 +1,8 @@
-#ifndef SIRD_CPP
-#define SIRD_CPP
-
-/*IDEA PROGRAMMA
-struct People
-struct Parametri
-
-costruttore con dati default
-
-setter parametri con verifica range
-
-getter parametri
-
-funzione simulate (può essere messa nel main, che vantaggi?)
-*/
-
+#ifndef SIRD_HPP
+#define SIRD_HPP
 
 class People{
-friend class sird;    
+   
 public:
 //costruttore default
 People();
@@ -79,8 +65,6 @@ class sird{
 public:
 sird(int T_, People people_, Parameters parameters_, int N_);
 void simulate();
-
-//mancano  i metodi
 
 private:
 
