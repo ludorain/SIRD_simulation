@@ -8,37 +8,31 @@ People::People() {}
 
 // setter class People
 void People::setSusceptible() {
-  double s, fractPart, intPart;
+  int s;
   std::cout << "The number of initial Susceptible [range 0-60000]" << std::endl;
   std::cin >> s;
-  fractPart = modf(s, &intPart);
-  while (s < 1 || s > 60000 || (typeid(s).name() != "i" && fractPart != 0.00)) {
-    std::cout << "susceptible parameter out of range. Enter a new value"
-              << std::endl;
+  while (s < 1 || s > 60000 || typeid(s).name() != "i" ) {
+    std::cout << "susceptible parameter out of range. Enter a new value: \n";
     std::cin >> s;
   }
   S = s;
 }
 void People::setInfected() {
-  double i, fractPart, intPart;
-  std::cout << "The number of initial Infected [range 0-6000]" << std::endl;
+  int i;
+  std::cout << "The number of initial Infected [range 0-6000] \n";
   std::cin >> i;
-  fractPart = modf(i, &intPart);
-  while (i < 1 || i > 6000 || (typeid(i).name() != "i" && fractPart != 0.00)) {
-    std::cout << "Infected parameter out of range. Enter a new value"
-              << std::endl;
+  while (i < 1 || i > 6000 || typeid(i).name() != "i") {
+    std::cout << "Infected parameter out of range. Enter a new value \n";
     std::cin >> i;
   }
   I = i;
 }
 void People::setRecovered() {
-  double r, fractPart, intPart;
+  int r;
   std::cout << "The number of initial Recovered [range 0-6000]" << std::endl;
   std::cin >> r;
-  fractPart = modf(r, &intPart);
-  while (r < 0 || r > 6000 || (typeid(r).name() != "i" && fractPart != 0.00)) {
-    std::cout << "Recovered parameter out of range. Enter a new value"
-              << std::endl;
+  while (r < 0 || r > 6000 || typeid(r).name() != "i") {
+    std::cout << "Recovered parameter out of range. Enter a new value: \n";
     std::cin >> r;
   }
   R = r;

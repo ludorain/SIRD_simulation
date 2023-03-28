@@ -30,13 +30,13 @@ void Sird::simulate() {
   double m = parameters.getMu();
 
   double t = T;
-  std::cout << "                S " << "I " << "R " << "D " << "T " << std::endl;
+  std::cout << "                S " << "I " << "R " << "D " << "T \n";
 
   for (int j = 0; j < t; j++) {
-    s_ += ((-s * i * b) / ((double)N) - a * S0);
-    i_ += ((b * s * i / ((double)N)) - g * i - m * i);
+    s_ += ((-s * i * b) / N - a * S0);
+    i_ += ((b * s * i )/ N - g * i - m * i);
     d_ += m * i;
-    // s=-9, i=0, a*so+s
+ 
     if (s_ > 0) {
       r_ += (g * i + a * S0);
     } else {
@@ -47,7 +47,7 @@ void Sird::simulate() {
     std::cout << "Day " << j << ": "
               << static_cast<int>(s_) << "||" << static_cast<int>(i_) << "||"
               << static_cast<int>(r_) << "||" << static_cast<int>(d_) << "||"
-              << static_cast<int>(s_ + i_ + r_ + d_) << std::endl;
+              << static_cast<int>(s_ + i_ + r_ + d_) << '\n';
 
     s = s_;
     i = i_;

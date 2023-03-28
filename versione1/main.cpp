@@ -17,20 +17,19 @@ int controlTime();
 
 int main() {
   std::cout << "Would you like to insert data from file, from standard input "
-               "or run a random simulation? [F,S,R]"
-            << std::endl;
+               "or run a random simulation? [F,S,R] \n";
   char data;
   std::cin >> data;
 
   while (data != 'F' && data != 'S' && data != 'R') {
-    std::cout << "Invalid character, try again." << std::endl;
+    std::cout << "Invalid character, try again. \n";
     std::cin >> data;
   }
 
 
 
   if (data == 'F') {
-    std::cout << "Great, you've choosen ..." << std::endl;
+    std::cout << "You've choosen data from file. \n";
 
     std::string line;
     std::ifstream ifs;
@@ -61,10 +60,10 @@ int main() {
     getline(ifs, line, '=');
     ifs >> Time;
 
-    std::cout << a << std::endl
-              << b << std::endl
-              << g << std::endl
-              << u << std::endl;
+    std::cout << a << '\n'
+              << b << '\n'
+              << g << '\n'
+              << u << '\n';
 
     People p;
     Parameters ps;
@@ -140,17 +139,17 @@ int main() {
     int Num = p.getTotal();
     ps.setParametersR(a, b, g, u);
 
-    std::cout << "The initial persons are:" << std::endl;
-    std::cout << "Susceptible = " << s << std::endl
-              << "Infected = " << i << std::endl;
-    std::cout << "Recovered = " << r << std::endl
-              << "Dead = " << d << std::endl;
-    std::cout << "Total people =" << Num << std::endl;
+    std::cout << "The initial persons are: \n";
+    std::cout << "Susceptible = " << s << '\n'
+              << "Infected = " << i << '\n';
+    std::cout << "Recovered = " << r << '\n'
+              << "Dead = " << d << '\n';
+    std::cout << "Total people =" << Num << '\n';
 
-    std::cout << "The initial parameters are:" << std::endl;
-    std::cout << "alfa = " << a << std::endl << "beta = " << b << std::endl;
-    std::cout << "gamma = " << g << std::endl << "mu = " << u << std::endl;
-    std::cout << "Simulation time= " << Time << std::endl;
+    std::cout << "The initial parameters are:";
+    std::cout << "alfa = " << a << '\n' << "beta = " << b << '\n';
+    std::cout << "gamma = " << g << '\n' << "mu = " << u << '\n';
+    std::cout << "Simulation time= " << Time << '\n';
 
     // Starting proper simulation
     Sird oggetto(Time, p, ps, Num);
@@ -167,12 +166,12 @@ int controlTime() {
   int t;
   double fractPart, intPart;
 
-  std::cout << "Insert time simulation" << std::endl;
+  std::cout << "Insert time simulation \n";
   std::cin >> t;
 
   fractPart = modf(t, &intPart);
   while (t < 1 || (typeid(t).name() != "i" && std::abs(fractPart) > 1e-9)) {
-    std::cout << "Time parameter out of range. Enter a new value" << std::endl;
+    std::cout << "Time parameter out of range. Enter a new value \n";
     std::cin >> t;
   }
 
