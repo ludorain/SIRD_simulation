@@ -10,10 +10,10 @@ People::People()
 void People::setSusceptible() 
 {
     double s, fractPart, intPart;
-    std::cout<<"The number of initial Susceptible" << std::endl;
+    std::cout<<"The number of initial Susceptible [range 0-60000]" << std::endl;
     std::cin>>s;
     fractPart = modf(s, &intPart);
-    while(s<1 || s>6000 || (typeid(s).name()!="i" && fractPart!=0.00)){
+    while(s<1 || s>60000 || (typeid(s).name()!="i" && fractPart!=0.00)){
     std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
     std::cin>>s;}
     S=s;
@@ -21,7 +21,7 @@ void People::setSusceptible()
 void People::setInfected()
 {
     double i, fractPart, intPart;
-    std::cout<<"The number of initial Infected [range 0-stocazzo]" << std::endl;
+    std::cout<<"The number of initial Infected [range 0-6000]" << std::endl;
     std::cin>>i;
     fractPart = modf(i, &intPart);
     while(i<1 || i>6000 || (typeid(i).name()!="i" && fractPart!=0.00)){
@@ -32,7 +32,7 @@ void People::setInfected()
 void People::setRecovered()
 {
     double r, fractPart, intPart;
-    std::cout<<"The number of initial Recovered" << std::endl;
+    std::cout<<"The number of initial Recovered [range 0-6000]" << std::endl;
     std::cin>>r;
     fractPart = modf(r, &intPart);
     while(r<0 || r>6000 || (typeid(r).name()!="i" && fractPart!=0.00)){
@@ -43,7 +43,7 @@ void People::setRecovered()
 void People::setDeads()
 {
     double d, fractPart, intPart;
-    std::cout<<"The number of initial Deads" << std::endl;
+    std::cout<<"The number of initial Deads [range 0-6000]" << std::endl;
     std::cin>>d;
     fractPart = modf(d, &intPart);
     while(d<0 || d>6000 || (typeid(d).name()!="i" && fractPart!=0.00)){
@@ -133,7 +133,7 @@ void Parameters::setAlfa()
 
     if(f=='y')
     { double a;
-    std::cout<<"Rate vaccination" << std::endl;
+    std::cout<<"Rate vaccination [range 0.001-0.01]" << std::endl;
     std::cin>>a;
     while(a<=0.001 || a>=0.01){
     std::cout<<"out of range. Enter a new value"<<std::endl;
@@ -147,7 +147,7 @@ void Parameters::setAlfa()
 void Parameters::setBeta()
 {
     double b;
-    std::cout<<"probabilità infez [range]" << std::endl;
+    std::cout<<"Infection probability [range 0-1]" << std::endl;
     std::cin>>b;
     while(b<0 || b>1){
     std::cout<<" out of range. Enter a new value"<<std::endl;
@@ -158,9 +158,9 @@ void Parameters::setBeta()
 void Parameters::setGamma()
 {
     double g;
-    std::cout<<"prob guarire??? non sono sicura" << std::endl;
+    std::cout<<"Recovery probability [range 0-0.5]" << std::endl;
     std::cin>>g;
-    while(g<0 || g>1){
+    while(g<0 || g>0.5){
     std::cout<<"out of range. Enter a new value"<<std::endl;
     std::cin>>g;}
     gamma=g;
@@ -168,9 +168,9 @@ void Parameters::setGamma()
 void Parameters::setMu()
 {
     double u;
-    std::cout<<"The number of initial Deads" << std::endl;
+    std::cout<<"Death probability [range 0-0.5]" << std::endl;
     std::cin>>u;
-    while(u<0 || u>1){
+    while(u<0 || u>0.5){
     std::cout<<"susceptible parameter out of range. Enter a new value"<<std::endl;
     std::cin>>u;}
     mu=u;
