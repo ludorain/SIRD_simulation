@@ -3,6 +3,24 @@
 #include "people.hpp"
 #include "parameters.hpp"
 
+class Pandemic{
+
+public:
+
+Pandemic(People, Parameters, int);
+void controlTime(int);
+void simulate();
+
+private:
+People people_;
+Parameters parameters_;
+int time_;
+
+}
+
+
+/*
+VECCHIA CLASSE
 class Sird{
 
 public:
@@ -17,6 +35,6 @@ int T;
 People people;
 Parameters parameters;
 int N;
-};
+};*/
 #endif
 

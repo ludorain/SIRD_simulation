@@ -25,10 +25,10 @@ double getMu();
 
 private:
 
-    double alfa;
-    double beta;
-    double gamma;
-    double mu;
+    double alfa_;
+    double beta_;
+    double gamma_;
+    double mu_;
 };
 
 #endif

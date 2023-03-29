@@ -1,10 +1,30 @@
 #include "people.hpp"
 #include "parameters.hpp"
-#include "sird.hpp"
+#include "pandemic.hpp"
 #include <cmath>
 #include <iostream>
 #include <typeinfo>
 
+Pandemic::Pandemic(People people, Parameters parameters, int time)
+  : people_(people), 
+    parameters_(parameters),
+    time_(30)
+    {controlTime(); }
+
+  
+
+
+
+
+
+
+
+
+
+
+
+/*
+VECCHIO PROTOTIPO DELLA CLASSE
 // classe complessiva, si occupa della simulazione
 Sird::Sird(int T_, People people_, Parameters parameters_, int N_)
     : T(T_),
@@ -56,4 +76,4 @@ void Sird::simulate() {
     r = r_;
     d = d_;
   }
-}
+}*/

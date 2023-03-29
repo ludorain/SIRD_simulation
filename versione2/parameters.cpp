@@ -24,9 +24,9 @@ void Parameters::setAlfa() {
       std::cout << "out of range. Enter a new value" << std::endl;
       std::cin >> a;
     }
-    alfa = a;
+    alfa_ = a;
   } else {
-    alfa = 0;
+    alfa_ = 0;
   }
 }
 
@@ -38,7 +38,7 @@ void Parameters::setBeta() {
     std::cout << " out of range. Enter a new value" << std::endl;
     std::cin >> b;
   }
-  beta = b;
+  beta_ = b;
 }
 
 void Parameters::setGamma() {
@@ -49,7 +49,7 @@ void Parameters::setGamma() {
     std::cout << "out of range. Enter a new value" << std::endl;
     std::cin >> g;
   }
-  gamma = g;
+  gamma_ = g;
 }
 void Parameters::setMu() {
   double u;
@@ -60,7 +60,7 @@ void Parameters::setMu() {
               << std::endl;
     std::cin >> u;
   }
-  mu = u;
+  mu_ = u;
 }
 
 void Parameters::setParameters() {
@@ -73,38 +73,38 @@ void Parameters::setParameters() {
 // function for file input
 void Parameters::setParameters(double a, double b, double g, double u) {
   if (a >= 0 && a <= 0.01) {
-    alfa = a;
+    alfa_ = a;
   } else {
     std::cout << "Parameter out of range, initialized to default value a";
   }
   if (b > 0 && b < 1) {
-    beta = b;
+    beta_ = b;
   } else {
     std::cout << "Parameter out of range, initilized to default value b";
   }
 
   if (g > 0 && g < 0.5) {
-    gamma = g;
+    gamma_ = g;
   } else {
     std::cout << "Parameter out of range, initialized to default value g";
   }
 
   if (u > 0 && u < 0.5) {
-    mu = u;
+    mu_ = u;
   } else {
     std::cout << "Parameter out of range, initialized to default value u";
   }
 }
 // function for random input
 void Parameters::setParametersR(double a, double b, double g, double u) {
-  alfa = a;
-  beta = b;
-  gamma = g;
-  mu = u;
+  alfa_ = a;
+  beta_ = b;
+  gamma_ = g;
+  mu_ = u;
 }
 
 // getter della classe Parameters
-double Parameters::getAlfa() { return alfa; };
-double Parameters::getBeta() { return beta; };
-double Parameters::getGamma() { return gamma; };
-double Parameters::getMu() { return mu; };
+double Parameters::getAlfa() { return alfa_; };
+double Parameters::getBeta() { return beta_; };
+double Parameters::getGamma() { return gamma_; };
+double Parameters::getMu() { return mu_; };

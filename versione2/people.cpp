@@ -15,7 +15,7 @@ void People::setSusceptible() {
     std::cout << "susceptible parameter out of range. Enter a new value: \n";
     std::cin >> s;
   }
-  S = s;
+  S_ = s;
 }
 void People::setInfected() {
   int i;
@@ -25,7 +25,7 @@ void People::setInfected() {
     std::cout << "Infected parameter out of range. Enter a new value \n";
     std::cin >> i;
   }
-  I = i;
+  I_ = i;
 }
 void People::setRecovered() {
   int r;
@@ -35,19 +35,18 @@ void People::setRecovered() {
     std::cout << "Recovered parameter out of range. Enter a new value: \n";
     std::cin >> r;
   }
-  R = r;
+  R_ = r;
 }
 void People::setDeads() {
-  double d, fractPart, intPart;
+  int d;
   std::cout << "The number of initial Deads [range 0-6000]" << std::endl;
   std::cin >> d;
-  fractPart = modf(d, &intPart);
-  while (d < 0 || d > 6000 || (typeid(d).name() != "i" && fractPart != 0.00)) {
+  while (d < 0 || d > 6000 || typeid(d).name() != "i") {
     std::cout << "susceptible parameter out of range. Enter a new value"
               << std::endl;
     std::cin >> d;
   }
-  D = d;
+  D_ = d;
 }
 
 void People::setPeople() {
@@ -59,55 +58,52 @@ void People::setPeople() {
 // setPeople() function overloading
 
 // function for file input
-void People::setPeople(double s, double i, double r, double d) {
-  double fractPart, intPart;
+void People::setPeople(int s, int i, int r, int d) {
   // susceptible control
-  fractPart = modf(s, &intPart);
-  if (s > 0 && s < 6000 && (typeid(s).name() != "i" || fractPart != 0.00)) {
-    S = s;
+  if (s > 0 && s < 6000 && typeid(s).name() != "i" ) {
+    S_ = s;
   } else {
-    std::cout << "S Parameter out of range, initialized to default value";
+    std::cout << "S Parameter out of range, initialized to default value. '\n'";
   }
 
   // infected control
-  fractPart = modf(i, &intPart);
-  if (i > 0 && i < 6000 && (typeid(i).name() != "i" || fractPart != 0.00)) {
-    I = i;
+  if (i > 0 && i < 6000 && typeid(i).name() != "i") {
+    I_ = i;
   } else {
-    std::cout << "I Parameter out of range, initialized to default value";
+    std::cout << "I Parameter out of range, initialized to default value. '\n'";
   }
 
   // recovered control
-  fractPart = modf(r, &intPart);
-  if (r > 0 && r < 6000 && (typeid(r).name() != "i" || fractPart != 0.00)) {
-    R = r;
+ 
+  if (r > 0 && r < 6000 && typeid(r).name() != "i") {
+    R_ = r;
   } else {
-    std::cout << "R Parameter out of range, initialized to default value";
+    std::cout << "R Parameter out of range, initialized to default value. '\n'";
   }
 
   // deaths control
-  fractPart = modf(d, &intPart);
-  if (d > 0 && d < 6000 && (typeid(d).name() != "i" || fractPart != 0.00)) {
-    D = d;
+
+  if (d > 0 && d < 6000 && typeid(d).name() != "i") {
+    D_ = d;
   } else {
-    std::cout << "D Parameter out of range, initialized to default value";
+    std::cout << "D Parameter out of range, initialized to default value. '\n' ";
   }
 }
 
 // function for random input
-void People::setPeopleR(double s, double i, double r, double d) {
-  S = s;
-  I = i;
-  R = r;
-  D = d;
+void People::setPeopleR(int s, int i, int r, int d) {
+  S_ = s;
+  I_ = i;
+  R_ = r;
+  D_ = d;
 }
 
 // getter class People
 int People::getTotal() {
-  int Tot = S + I + R + D;
+  int Tot = S_ + I_ + R_ + D_;
   return Tot;
 }
-double People::getSusceptible() { return S; };
-double People::getInfected() { return I; };
-double People::getRecovered() { return R; };
-double People::getDeads() { return D; };
+int People::getSusceptible() { return S_; };
+int People::getInfected() { return I_; };
+int People::getRecovered() { return R_; };
+int People::getDeads() { return D_; };

@@ -1,7 +1,7 @@
 
 #include "people.hpp"
 #include "parameters.hpp"
-#include "sird.hpp"
+#include "pandemic.hpp"
 #include <cmath>
 #include <cstring>  //mi serve  per line
 #include <ctime>    // ci serve per la funzione time che sta dentro al random
@@ -80,6 +80,21 @@ int main() {
 
   } else if (data == 'S') {
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
+
+    std::cout << "The number of initial Susceptible [range 0-60000]" << std::endl;
+    std::cin >> s;
+
+    bool control;
+    control=p.controlS(s);
+
+    while(control==false){
+    std::cout << "susceptible parameter out of range. Enter a new value: \n";
+    std::cin >> s;
+    control=p.controlS(s);
+    }
+
+
+
 
     // Costructor calls
     People p;

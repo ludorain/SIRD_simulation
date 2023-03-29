@@ -11,22 +11,22 @@ void setInfected();
 void setRecovered();
 void setDeads();
 void setPeople();
-void setPeople(double, double, double, double);
-void setPeopleR(double,double,double,double);
+void setPeople(int, int, int, int);
+void setPeopleR(int,int,int,int);
 
 //funzioni get
 int getTotal();
-double getSusceptible();
-double getInfected();
-double getRecovered();
-double getDeads();
+int getSusceptible();
+int getInfected();
+int getRecovered();
+int getDeads();
 
 private:
 
-    double S;
-    double I;
-    double R;
-    double D;
+    int S_;
+    int I_;
+    int R_;
+    int D_;
 };
 
 #endif
