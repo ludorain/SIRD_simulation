@@ -1,3 +1,13 @@
+COSE DA FARE
+
+SIMULAZIONE EQUATION BASED
+TEST CASE
+Disegno del grafico con SFML
+Passare sempre il codice per il clang format ($clang-format -i nome_file.cpp)
+Far in modo che si possa eseguire l'intera simulazione senza scrivere tutti i file.cpp (dovrebbe farsi con CMake, da controllare)
+Ingresso dati da file
+
+Idee
 1.Possiamo inserire all'interno del metodo setPeople un controllo del tipo (scritto male, sarebbe da mettere a posto)
 
 void People::setPeople(){
@@ -21,3 +31,6 @@ else {
     
     }}}
 INSERENDO QUESTO CONTROLLO possiamo gestire anche il caso in cui vuole provare a inserire valori =0
+SIMULAZIONE AGENT BASED (la roba di Lune)
+
+
