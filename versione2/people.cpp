@@ -6,58 +6,9 @@
 
 People::People() {}
 
-// setter class People
-void People::setSusceptible() {
-  int s;
-  std::cout << "The number of initial Susceptible [range 0-60000]" << std::endl;
-  std::cin >> s;
-  while (s < 1 || s > 60000 || typeid(s).name() != "i" ) {
-    std::cout << "susceptible parameter out of range. Enter a new value: \n";
-    std::cin >> s;
-  }
-  S_ = s;
-}
-void People::setInfected() {
-  int i;
-  std::cout << "The number of initial Infected [range 0-6000] \n";
-  std::cin >> i;
-  while (i < 1 || i > 6000 || typeid(i).name() != "i") {
-    std::cout << "Infected parameter out of range. Enter a new value \n";
-    std::cin >> i;
-  }
-  I_ = i;
-}
-void People::setRecovered() {
-  int r;
-  std::cout << "The number of initial Recovered [range 0-6000]" << std::endl;
-  std::cin >> r;
-  while (r < 0 || r > 6000 || typeid(r).name() != "i") {
-    std::cout << "Recovered parameter out of range. Enter a new value: \n";
-    std::cin >> r;
-  }
-  R_ = r;
-}
-void People::setDeads() {
-  int d;
-  std::cout << "The number of initial Deads [range 0-6000]" << std::endl;
-  std::cin >> d;
-  while (d < 0 || d > 6000 || typeid(d).name() != "i") {
-    std::cout << "susceptible parameter out of range. Enter a new value"
-              << std::endl;
-    std::cin >> d;
-  }
-  D_ = d;
-}
 
-void People::setPeople() {
-  setSusceptible();
-  setInfected();
-  setRecovered();
-  setDeads();
-}
-// setPeople() function overloading
+// Setter class People
 
-// function for file input
 void People::setPeople(int s, int i, int r, int d) {
   // susceptible control
   if (s > 0 && s < 6000 && typeid(s).name() != "i" ) {

@@ -13,9 +13,11 @@
 
 // random generation prototype function
 double fRand(double, double);
-int controlTime();
+
 
 int main() {
+
+  
   std::cout << "Would you like to insert data from file, from standard input "
                "or run a random simulation? [F,S,R] \n";
   char data;
@@ -30,53 +32,9 @@ int main() {
 
   if (data == 'F') {
     std::cout << "You've choosen data from file. \n";
-
-    std::string line;
-    std::ifstream ifs;
-    ifs.open("Data.txt");
-    double s, i, r, d;
-    double a, b, g, u;
-    int Time;
-
-    getline(ifs, line, '.');
-    getline(ifs, line, ':');
-    getline(ifs, line, '=');
-    ifs >> s;
-    getline(ifs, line, '=');
-    ifs >> i;
-    getline(ifs, line, '=');
-    ifs >> r;
-    getline(ifs, line, '=');
-    ifs >> d;
-    getline(ifs, line, ':');
-    getline(ifs, line, '=');
-    ifs >> a;
-    getline(ifs, line, '=');
-    ifs >> b;
-    getline(ifs, line, '=');
-    ifs >> g;
-    getline(ifs, line, '=');
-    ifs >> u;
-    getline(ifs, line, '=');
-    ifs >> Time;
-
-    std::cout << a << '\n'
-              << b << '\n'
-              << g << '\n'
-              << u << '\n';
-
-    People p;
-    Parameters ps;
-    p.setPeople(s, i, r, d);
-    int Num = p.getTotal();
-    ps.setParameters(a, b, g, u);
-
-    Sird oggetto(Time, p, ps, Num);
-    oggetto.simulate();  // DATO CHE L'OGGETTO SIMULATE è UGUALE PER TUTTI NON
-                         // POSSIAMO CHIAMARLO FUORI DALL'IF? SE HA SENSO PER ME
-                         // POTREMMO CHIAMARE FUORI DALL'IF TUTTO CIò CHE SI
-                         // CHIAMA NELLO STESSO MODO E CHE è INDIPENDENTE DALLA
-                         // SCELTA INZIIALE SUI DATI
+    //Qui ci va il codice della Sofi
+    //Quello vecchio è stato incollato e commentato al fondo
+    
 
   } else if (data == 'S') {
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
@@ -177,18 +135,50 @@ double fRand(double fMin, double fMax) {
   return fMin + f * (fMax - fMin);
 }
 
-int controlTime() {
-  int t;
-  double fractPart, intPart;
+/*
+std::string line;
+    std::ifstream ifs;
+    ifs.open("Data.txt");
+    double s, i, r, d;
+    double a, b, g, u;
+    int Time;
 
-  std::cout << "Insert time simulation \n";
-  std::cin >> t;
+    getline(ifs, line, '.');
+    getline(ifs, line, ':');
+    getline(ifs, line, '=');
+    ifs >> s;
+    getline(ifs, line, '=');
+    ifs >> i;
+    getline(ifs, line, '=');
+    ifs >> r;
+    getline(ifs, line, '=');
+    ifs >> d;
+    getline(ifs, line, ':');
+    getline(ifs, line, '=');
+    ifs >> a;
+    getline(ifs, line, '=');
+    ifs >> b;
+    getline(ifs, line, '=');
+    ifs >> g;
+    getline(ifs, line, '=');
+    ifs >> u;
+    getline(ifs, line, '=');
+    ifs >> Time;
 
-  fractPart = modf(t, &intPart);
-  while (t < 1 || (typeid(t).name() != "i" && std::abs(fractPart) > 1e-9)) {
-    std::cout << "Time parameter out of range. Enter a new value \n";
-    std::cin >> t;
-  }
+    std::cout << a << '\n'
+              << b << '\n'
+              << g << '\n'
+              << u << '\n';
 
-  return t;
-}
+    People p;
+    Parameters ps;
+    p.setPeople(s, i, r, d);
+    int Num = p.getTotal();
+    ps.setParameters(a, b, g, u);
+
+    Sird oggetto(Time, p, ps, Num);
+    oggetto.simulate();  */// DATO CHE L'OGGETTO SIMULATE è UGUALE PER TUTTI NON
+                         // POSSIAMO CHIAMARLO FUORI DALL'IF? SE HA SENSO PER ME
+                         // POTREMMO CHIAMARE FUORI DALL'IF TUTTO CIò CHE SI
+                         // CHIAMA NELLO STESSO MODO E CHE è INDIPENDENTE DALLA
+                         // SCELTA INZIIALE SUI DATI 
