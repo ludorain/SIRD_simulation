@@ -10,6 +10,7 @@ Costruttore di default per l'ingresso da file
 People(int x, int y, int z, int w) : s_{default}, i_{default}, r{default}, d{default} {
 condizioni su x, y, z, w}
 Rendere inline la dichiarazione dei metodi di una classe
+Verificare la dimensione delle variabili supportata dal programma (per vedere fino a quante persone possiamo accettare)
 
 
 
