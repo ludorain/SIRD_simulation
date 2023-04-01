@@ -6,12 +6,13 @@ Disegno del grafico con SFML
 Passare sempre il codice per il clang format ($clang-format -i nome_file.cpp)
 Far in modo che si possa eseguire l'intera simulazione senza scrivere tutti i file.cpp (dovrebbe farsi con CMake, da controllare)
 Ingresso dati da file
-Costruttore di default per l'ingresso da file
+Costruttore di default per l'ingresso
 People(int x, int y, int z, int w) : s_{default}, i_{default}, r{default}, d{default} {
 condizioni su x, y, z, w}
 Rendere inline la dichiarazione dei metodi di una classe
 Verificare la dimensione delle variabili supportata dal programma (per vedere fino a quante persone possiamo accettare)
-
+Eventualmente implementare per accettare numeri double con decimale =0
+Controllare per il control_SI che mettere entrambe le variabili uguali a zero sia effettivamente un runtime error (e non qualche altro tipo di errore)
 
 
 Idee

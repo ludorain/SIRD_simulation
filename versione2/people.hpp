@@ -6,10 +6,13 @@ public:
 //costruttore default
 People();
 //funzioni set
-void setSusceptible();
-void setInfected();
-void setRecovered();
-void setDeads();
+bool set_S(int);
+bool set_I(int);
+void control_SI();
+bool set_R(int);
+bool set_D(int);
+
+
 void setPeople();
 void setPeople(int, int, int, int);
 void setPeopleR(int,int,int,int);
@@ -27,6 +30,6 @@ private:
     int I_;
     int R_;
     int D_;
-};
+    };
 
 #endif

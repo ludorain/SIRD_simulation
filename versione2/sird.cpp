@@ -40,6 +40,9 @@ void Sird::simulate() {
       next.R+= g * now.I + now.S;  //-(s2-s1)
     }
 
+    std::cout<< next.S << "||" << next.R << "||" << next.I << "||" << next.D << "||" 
+    << next.S + next.I + next.R + next.D <<'\n';
+    
     population_.push_back(next);
     now=next;
 

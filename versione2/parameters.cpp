@@ -7,94 +7,51 @@ Parameters::Parameters() {}
 // setter della classe Parameters
 
 // Setter per lo standard input
-void Parameters::setAlfa() {
-  char f;
-  std::cout << "Do you want vaccination? [y/n]";
-  std::cin >> f;
-  while (f != 'y' && f != 'n') {
-    std::cout << "Invalid char, try again.";
-    std::cin >> f;
-  }
-
-  if (f == 'y') {
-    double a;
-    std::cout << "Rate vaccination [range 0.001-0.01]" << std::endl;
-    std::cin >> a;
-    while (a <= 0.001 || a >= 0.01) {
-      std::cout << "out of range. Enter a new value" << std::endl;
-      std::cin >> a;
-    }
-    alfa_ = a;
-  } else {
-    alfa_ = 0;
-  }
+bool Parameters::set_Alfa(double a) {
+    
+   if (a => 0.001 && a <= 0.01) {
+      Alfa_ = a;
+      return true;
+    } else {return false;}   
 }
 
-void Parameters::setBeta() {
-  double b;
-  std::cout << "Infection probability [range 0-1]" << std::endl;
-  std::cin >> b;
-  while (b < 0 || b > 1) {
-    std::cout << " out of range. Enter a new value" << std::endl;
-    std::cin >> b;
-  }
-  beta_ = b;
+void Paramters::set_Zero(){
+  Alfa_=0
 }
 
-void Parameters::setGamma() {
-  double g;
-  std::cout << "Recovery probability [range 0-0.5]" << std::endl;
-  std::cin >> g;
-  while (g < 0 || g > 0.5) {
-    std::cout << "out of range. Enter a new value" << std::endl;
-    std::cin >> g;
-  }
-  gamma_ = g;
-}
-void Parameters::setMu() {
-  double u;
-  std::cout << "Death probability [range 0-0.5]" << std::endl;
-  std::cin >> u;
-  while (u < 0 || u > 0.5) {
-    std::cout << "susceptible parameter out of range. Enter a new value"
-              << std::endl;
-    std::cin >> u;
-  }
-  mu_ = u;
-}
-
-void Parameters::setParameters() {
-  setAlfa();
-  setBeta();
-  setGamma();
-  setMu();
-}
-// setParameters() function overloading ,
-// function for file input
-void Parameters::setParameters(double a, double b, double g, double u) {
-  if (a >= 0 && a <= 0.01) {
-    alfa_ = a;
-  } else {
-    std::cout << "Parameter out of range, initialized to default value a";
-  }
-  if (b > 0 && b < 1) {
-    beta_ = b;
-  } else {
-    std::cout << "Parameter out of range, initilized to default value b";
+bool Parameters::set_Beta(double b) {
+  if(b>0&&b<1){
+    Beta_ = b;
+    return true;
+  } else {return false;}
   }
 
+bool Parameters::set_Gamma(double g) {
+  
   if (g > 0 && g < 0.5) {
-    gamma_ = g;
-  } else {
-    std::cout << "Parameter out of range, initialized to default value g";
-  }
-
-  if (u > 0 && u < 0.5) {
-    mu_ = u;
-  } else {
-    std::cout << "Parameter out of range, initialized to default value u";
-  }
+    Gamma_=g;
+    return true;
+  } else {return false;}
 }
+
+bool Parameters::set_Mu(double m) {
+  (m > 0 && m < 0.5) {
+    Mu_=m;
+    return true;
+  } else {return false;}
+}  
+ 
+ void Parameters::control_R0(){
+  //migliorare l'
+  if(Gamma_==0.5 && Mu_==0.5){
+    throw std::runtime_error("Unrealistic situation, program terminated. \n");
+  } 
+
+  if (Gamma_+Mu_>Beta_){
+    throw std::runtime_error("The epidemy won't start, program terminated. \n")
+  }
+ }
+
 // function for random input
 void Parameters::setParametersR(double a, double b, double g, double u) {
   alfa_ = a;

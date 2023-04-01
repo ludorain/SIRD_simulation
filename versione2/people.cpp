@@ -9,35 +9,43 @@ People::People() {}
 
 // Setter class People
 
-void People::setPeople(int s, int i, int r, int d) {
-  // susceptible control
-  if (s > 0 && s < 6000 && typeid(s).name() != "i" ) {
+
+bool People::set_S(int s){
+if (s >= 0 && s < 60000 && typeid(s).name() != "i" ) {
     S_ = s;
+    return true;
   } else {
-    std::cout << "S Parameter out of range, initialized to default value. '\n'";
+    return false;
   }
+}
 
-  // infected control
-  if (i > 0 && i < 6000 && typeid(i).name() != "i") {
+bool People::set_I(int r){
+  if (i >= 0 && i < 6000 && typeid(i).name() != "i") {
     I_ = i;
+    return true;
   } else {
-    std::cout << "I Parameter out of range, initialized to default value. '\n'";
+    return false;
   }
-
-  // recovered control
- 
+}
+void People::control_SI(){
+  if(S_==0 && I_==0){
+    throw std::runtime_error{"The simulation won't do anything. Programm interrupted '\n'"};
+  }
+}
+bool People::set_R(int r){
   if (r > 0 && r < 6000 && typeid(r).name() != "i") {
     R_ = r;
+    return true;
   } else {
-    std::cout << "R Parameter out of range, initialized to default value. '\n'";
+    return false;
   }
-
-  // deaths control
-
+}
+bool People::control_D(int d){
   if (d > 0 && d < 6000 && typeid(d).name() != "i") {
     D_ = d;
+    return true;
   } else {
-    std::cout << "D Parameter out of range, initialized to default value. '\n' ";
+    return false;
   }
 }
 

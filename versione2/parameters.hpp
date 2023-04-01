@@ -8,12 +8,14 @@ public:
 Parameters();
 
 //funzioni set
-void setAlfa();
-void setBeta();
-void setGamma();
-void setMu();
+bool set_Alfa(double);
+bool set_Beta(double);
+bool set_Gamma(double);
+bool set_Mu(double);
+void control_R0();
+void set_Zero();
 
-void setParameters();
+
 void setParameters(double, double, double, double);
 void setParametersR(double, double, double, double);
 
@@ -25,10 +27,10 @@ double getMu();
 
 private:
 
-    double alfa_;
-    double beta_;
-    double gamma_;
-    double mu_;
+    double Alfa_;
+    double Beta_;
+    double Gamma_;
+    double Mu_;
 };
 
 #endif
