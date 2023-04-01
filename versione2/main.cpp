@@ -10,6 +10,7 @@
 #include "parameters.hpp"
 #include "people.hpp"
 #include "sird.hpp"
+#include "ini.h"
 
 // random generation prototype function
 double fRand(double, double);
@@ -36,7 +37,33 @@ int main() {
   if (data == 'F') {
     std::cout << "You've choosen data from file. \n";
     // Qui ci va il codice della Sofi
-    // Quello vecchio è stato incollato e commentato al fondo
+    
+    // Create a file instance & create a structure that will hold data
+    mINI::INIFile file("data.ini");
+    mINI::INIStructure ini;
+
+    // Read the file
+    file.read(ini);
+    
+    // read values ini.get("section").get("key")
+    // il metodo stoi() = string to int
+    s = stoi (ini.get("PEOPLE").get("Susceptibles"));
+    i = stoi (ini.get("PEOPLE").get("Infected"));
+    r = stoi (ini.get("PEOPLE").get("Recovered"));
+    d = stoi (ini.get("PEOPLE").get("Dead"));
+    a = std::stod(ini.get("PARAMETERS").get("alfa"));
+    b = std::stod(ini.get("PARAMETERS").get("beta"));
+    g = std::stod(ini.get("PARAMETERS").get("gamma"));       
+    m = std::stod(ini.get("PARAMETERS").get("mu"));
+        
+    //COMMENTI: stod funziona sia con std:: sia senza, non so se mettercelo o no
+    // PROVE DI STAMPA A VIDEO PER VEDERE SE FUNZIONA
+    std:: cout << s << '\n' << i << '\n' << r << '\n' << d << '\n'
+    << a << '\n' << b << '\n'<< g << '\n' << m << '\n';
+    
+    std::cout << s+i+r+d << '\n';
+    std::cout << a+b+g+m <<'\n';
+    
 
   } else if (data == 'S') {
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
