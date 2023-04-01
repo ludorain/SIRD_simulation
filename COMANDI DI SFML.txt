@@ -1,0 +1,36 @@
+COMANDI DI SFML:N.B., useful for project
+Classi :
+=> THREAD ->  DONNA CHE SA FARE IL MULTITASKING (sf::Thread ): un “vettore di funzioni ” che avvengono contemporaneamente
+1. sf::Thread::Thread(F function) non runna, ha bisogno del metodo launch 
+2. sf::Thread::Thread	(   F  function, A argument)
+3. sf::Thread::Thread	(  void(C::*)() 	function, C  object )	
+N.B. Negli argomenti dei costruttori metti il koala che si aggrappa all’albero(referenza )
+      - Member function:
+class MyClass
+{
+public:
+    void func() { }
+};
+MyClass object; //creo oggetto della classe 
+sf::Thread thread(&MyClass::func, &object);// faccio partire il thread
+
+4. void sf::Thread::launch()-> avvia il multitasking 
+
+5. void sf::Trhead::terminate()-> blocca il multitasking, non importa se ha finito l’operazione 
+
+6. void sf::Thread::wait()-> è la pazienza -> aspetta finchè non finisce 
+
+=> WINDOW-> FINESTRA (sf::Window) 
+https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1Window.php
+1. Costruttore 
+2. Creare (in aiuto al costruttore)
+3. Chiudere(overloading)
+4. E’ aperto(overloading)
+5. Impostazioni dell’open graphic library
+6. Dimensioni della rendering finestra -> solo quadro no cornice 
+7. PollEvent-> interrogatorio agli eventi; 
+8. Geometria varia(posizioni, dimensioni tramite vettori bidimensionali); nei vettori 2d le componenti sono attributi pubblici
+=> EVENT 
+* Keyboard sf::Keyboard
+* Mouse   sf::Mouse
+* Inserimento del testo
