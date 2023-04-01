@@ -22,7 +22,7 @@ int main() {
   Parameters ps;
   char data;
   char f;
-  bool control;
+  bool control; 
 
   std::cout << "Would you like to insert data from file, from standard input "
                "or run a random simulation? [F,S,R] \n";
