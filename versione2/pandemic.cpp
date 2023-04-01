@@ -5,13 +5,60 @@
 #include <iostream>
 #include <typeinfo>
 
-Pandemic::Pandemic(People people, Parameters parameters, int time)
-  : people_(people), 
-    parameters_(parameters),
-    time_(30)
-    {controlTime(); }
+Pandemic::Pandemic(Parameters ps, People p, int t)
+  : Par_(ps),     
+    T_(30),
+    {Pop_.push_back(p);
+    time_control(t); }
 
-  
+
+//prima prova simulate
+void Pandemic::simulate(){
+  People now = Pop_[0];
+  People next = Pop_[0];
+  int const S0= now.S;
+  double a = Par_.getAlfa();
+  double b = Par_.getBeta();
+  double g = Par_.getGamma();
+  double m = Par_.getMu();
+
+  double t = T_;
+  int const N = (now.S_+now.I_+now.R_+now.D_);
+
+   for (int j = 0; j < t; j++) {
+    next.S += ((-now.S * now.I * b) / N - a * S0);
+    next.I += ((b * now.S * now.I )/ N - g * now.I - m * now.I);
+    next.D+= m * now.I;
+ 
+    if (next.S > 0) {
+     next.R += (g * now.I + a * S0);
+    } else {
+      next.S= 0;
+      next.R+= g * now.I + now.S;  //-(s2-s1)
+    }
+
+    std::cout<< next.S << "||" << next.R << "||" << next.I << "||" << next.D << "||" 
+    << next.S + next.I + next.R + next.D <<'\n';
+    
+    population_.push_back(next);
+    now=next;
+
+  } 
+
+  void Pandemic::print(){
+    auto it=Pop_.begin();
+    for (int j=0; j<Pop_.size(); j++){
+      
+      /*std::cout << "Day " << j << ": "
+              << static_cast<int>((*it).S )<< "||" << static_cast<int>((*it).I) << "||"
+              << static_cast<int>((*it).R) << "||" << static_cast<int>((*it).D) << "||"
+              << static_cast<int>((*it).S + (*it).I + (*it).R + (*it).D) << '\n';*/
+
+      std::cout<< (*it).S << "||" << (*it).R << "||" << (*it).I << "||" << (*it).D << "||" << (*it).S + (*it).I + (*it).R + (*it).D <<'\n';
+      it++;
+    }
+  }
+}  
 
 
 

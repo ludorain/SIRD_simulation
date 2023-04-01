@@ -1,7 +1,7 @@
 #ifndef PEOPLE_HPP
 #define PEOPLE_HPP
 class People{
-   
+friend class Pandemic;
 public:
 //costruttore default
 People();
@@ -24,7 +24,7 @@ int getInfected();
 int getRecovered();
 int getDeads();
 
-private:
+protected:
 
     int S_;
     int I_;

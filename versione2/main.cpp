@@ -36,8 +36,7 @@ int main() {
 
   if (data == 'F') {
     std::cout << "You've choosen data from file. \n";
-    // Qui ci va il codice della Sofi
-    
+        
     // Create a file instance & create a structure that will hold data
     mINI::INIFile file("data.ini");
     mINI::INIStructure ini;
@@ -64,6 +63,8 @@ int main() {
     std::cout << s+i+r+d << '\n';
     std::cout << a+b+g+m <<'\n';
     
+
+    //aggiungere assegnazione e simulazione
 
   } else if (data == 'S') {
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
@@ -143,7 +144,7 @@ int main() {
 
 int Time = controlTime();
 
-Sird oggetto(ps, p, t);
+Pandemic oggetto(ps, p, t);
 oggetto.simulate();
 
   } else if (data == 'R') {
@@ -184,7 +185,7 @@ oggetto.simulate();
     std::cout << "Simulation time= " << t << '\n';
 
     // Starting proper simulation
-    Sird oggetto(ps, p, t);
+    Pandemic oggetto(ps, p, t);
     oggetto.simulate();
   }
 }

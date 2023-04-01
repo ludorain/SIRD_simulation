@@ -12,9 +12,10 @@ void controlTime(int);
 void simulate();
 
 private:
-People people_;
-Parameters parameters_;
-int time_;
+
+Parameters Par_;
+std::vector<People> Pop_;  //vector containing pandemic evolution
+int T_;
 
 }
 
