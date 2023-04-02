@@ -19,11 +19,9 @@ int main() {
   int s, i, r, d;
   int t;
   double a, b, g, m;
-  People p;
-  Parameters ps;
   char data;
   char f;
-  bool control; 
+  bool control, control1; 
 
   std::cout << "Would you like to insert data from file, from standard input "
                "or run a random simulation? [F,S,R] \n";
@@ -66,23 +64,32 @@ int main() {
 
     //aggiungere assegnazione e simulazione
 
+//INGRESSO DA STANDARD INPUT
+
   } else if (data == 'S') {
+  int s, i, r, d;  
+  double a, b, g, m;
+  People p;
+  Parameters ps;
+
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
 
     std::cout << "The number of initial  \n";
 
     std::cout << "Susceptible [range 0-60000]: ";
     std::cin >> s;
+
+    
     control = p.set_S(s);
     if (control == false) {
-      std::cout << "Susceptible value out of range, initialized to default. \n"
+      std::cout << "Susceptible value out of range, initialized to default. \n";
     }
 
     std::cout << "Infected [range 0-6000]: ";
     std::cin >> i;
     control = p.set_I(i);
     if (control == false) {
-      std::cout << "Infected value out of range, initialized to default. \n"
+      std::cout << "Infected value out of range, initialized to default. \n";
     }
 
     p.control_SI();
@@ -91,17 +98,17 @@ int main() {
     std::cin >> r;
     control = p.set_R(r);
     if (control == false) {
-      std::cout << "Recovered value out of range, initialized to default. \n"
+      std::cout << "Recovered value out of range, initialized to default. \n";
     }
 
     std::cout << "Deaths [range 0-6000]: ";
     std::cin >> d;
     control = p.set_D(d);
     if (control == false) {
-      std::cout << "Infected value out of range, initialized to default. \n"
+      std::cout << "Infected value out of range, initialized to default. \n";
     }
 
-    int Num = p.getTotal();
+    //int Num = p.getTotal();
 
 
     std::cout << "Do you want vaccination? [y/n] \n";
@@ -116,7 +123,7 @@ int main() {
     control = ps.set_Alfa(a);
     if (control == false){
       std::cout << "Parameter out of range, initialized to default. \n";
-    } else { ps.set_Zero()}
+    } else { ps.set_Zero();}
 
    std::cout << "Infection probability [range 0-1]: ";
    std::cin >> b;
@@ -140,14 +147,19 @@ int main() {
   }
 
   ps.control_R0();
-  
 
-int Time = controlTime();
+  std::cout << "Simulation time \n";
+  std::cin >> t;
 
 Pandemic oggetto(ps, p, t);
 oggetto.simulate();
+oggetto.print();
 
   } else if (data == 'R') {
+    int s, i, r, d;  
+    double a, b, g, m;
+    People p;
+    Parameters ps;
     std::cout
         << "Great, you've choosen Random generation, here's your datas: \n ";
 
@@ -155,7 +167,7 @@ oggetto.simulate();
     srand(time(NULL));
 
     // Time elapse
-    t = 30 + (rand() % 101);
+    int t = 30 + (rand() % 101);
 
     // Generate people for simulation
     s = rand() % 500 + 5501;  // suscettibili tra 500 e 6000   5000-10000
@@ -166,12 +178,12 @@ oggetto.simulate();
     // Generate parameters for simulation    
     a = fRand(0.001, 0.01);  // between 0.001 e 0.01
     b = fRand(0.100, 0.900);  // between 0.1 e 0.9
-    g = fRand(0.100, 0.500);  //
-    u = fRand(0.100, 0.500);
+    g = fRand(0.001, 0.400);  //
+    m = fRand(0.001, 0.400);
 
     // Assign random values to class object and print them
     p.setPeopleR(s, i, r, d);    
-    ps.setParametersR(a, b, g, u);
+    ps.setParametersR(a, b, g, m);
     int Num = p.getTotal();
 
     std::cout << "The initial persons are: \n";
@@ -181,12 +193,13 @@ oggetto.simulate();
 
     std::cout << "The initial parameters are:";
     std::cout << "alfa = " << a << '\n' << "beta = " << b << '\n';
-    std::cout << "gamma = " << g << '\n' << "mu = " << u << '\n';
+    std::cout << "gamma = " << g << '\n' << "mu = " << m << '\n';
     std::cout << "Simulation time= " << t << '\n';
 
     // Starting proper simulation
     Pandemic oggetto(ps, p, t);
     oggetto.simulate();
+    oggetto.print();
   }
 }
 }

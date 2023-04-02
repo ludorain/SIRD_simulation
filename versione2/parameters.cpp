@@ -9,14 +9,14 @@ Parameters::Parameters() {}
 // Setter per lo standard input
 bool Parameters::set_Alfa(double a) {
     
-   if (a => 0.001 && a <= 0.01) {
+   if (a >= 0.001 && a <= 0.01) {
       Alfa_ = a;
       return true;
     } else {return false;}   
 }
 
-void Paramters::set_Zero(){
-  Alfa_=0
+void Parameters::set_Zero(){
+  Alfa_=0;
 }
 
 bool Parameters::set_Beta(double b) {
@@ -35,7 +35,7 @@ bool Parameters::set_Gamma(double g) {
 }
 
 bool Parameters::set_Mu(double m) {
-  (m > 0 && m < 0.5) {
+  if (m > 0 && m < 0.5) {
     Mu_=m;
     return true;
   } else {return false;}
@@ -48,20 +48,20 @@ bool Parameters::set_Mu(double m) {
   } 
 
   if (Gamma_+Mu_>Beta_){
-    throw std::runtime_error("The epidemy won't start, program terminated. \n")
+    throw std::runtime_error("The epidemy won't start, program terminated. \n");
   }
  }
 
 // function for random input
 void Parameters::setParametersR(double a, double b, double g, double u) {
-  alfa_ = a;
-  beta_ = b;
-  gamma_ = g;
-  mu_ = u;
+  Alfa_ = a;
+  Beta_ = b;
+  Gamma_ = g;
+  Mu_ = u;
 }
 
 // getter della classe Parameters
-double Parameters::getAlfa() { return alfa_; };
-double Parameters::getBeta() { return beta_; };
-double Parameters::getGamma() { return gamma_; };
-double Parameters::getMu() { return mu_; };
+double Parameters::getAlfa() { return Alfa_; };
+double Parameters::getBeta() { return Beta_; };
+double Parameters::getGamma() { return Gamma_; };
+double Parameters::getMu() { return Mu_; };

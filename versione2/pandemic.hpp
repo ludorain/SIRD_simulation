@@ -2,14 +2,16 @@
 #define SIRD_HPP
 #include "people.hpp"
 #include "parameters.hpp"
+#include <vector>
 
 class Pandemic{
 
 public:
 
-Pandemic(People, Parameters, int);
+Pandemic(Parameters, People, int);
 void controlTime(int);
 void simulate();
+void print();
 
 private:
 
@@ -17,7 +19,7 @@ Parameters Par_;
 std::vector<People> Pop_;  //vector containing pandemic evolution
 int T_;
 
-}
+};
 
 
 /*

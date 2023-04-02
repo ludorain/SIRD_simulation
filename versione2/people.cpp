@@ -11,7 +11,7 @@ People::People() {}
 
 
 bool People::set_S(int s){
-if (s >= 0 && s < 60000 && typeid(s).name() != "i" ) {
+if (s >= 0 && s < 60000) {
     S_ = s;
     return true;
   } else {
@@ -19,29 +19,32 @@ if (s >= 0 && s < 60000 && typeid(s).name() != "i" ) {
   }
 }
 
-bool People::set_I(int r){
-  if (i >= 0 && i < 6000 && typeid(i).name() != "i") {
+bool People::set_I(int i){
+  if (i >= 0 && i < 6000) {
     I_ = i;
     return true;
   } else {
     return false;
   }
 }
+
 void People::control_SI(){
   if(S_==0 && I_==0){
     throw std::runtime_error{"The simulation won't do anything. Programm interrupted '\n'"};
   }
 }
+
 bool People::set_R(int r){
-  if (r > 0 && r < 6000 && typeid(r).name() != "i") {
+  if (r >= 0 && r < 6000) {
     R_ = r;
     return true;
   } else {
     return false;
   }
 }
-bool People::control_D(int d){
-  if (d > 0 && d < 6000 && typeid(d).name() != "i") {
+
+bool People::set_D(int d){
+  if (d >= 0 && d < 6000) {
     D_ = d;
     return true;
   } else {

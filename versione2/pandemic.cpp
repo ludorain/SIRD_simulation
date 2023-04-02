@@ -7,16 +7,15 @@
 
 Pandemic::Pandemic(Parameters ps, People p, int t)
   : Par_(ps),     
-    T_(30),
-    {Pop_.push_back(p);
-    time_control(t); }
+    T_(t)
+    {Pop_.push_back(p);}
 
 
 //prima prova simulate
 void Pandemic::simulate(){
   People now = Pop_[0];
   People next = Pop_[0];
-  int const S0= now.S;
+  int const S0= now.S_;
   double a = Par_.getAlfa();
   double b = Par_.getBeta();
   double g = Par_.getGamma();
@@ -26,39 +25,40 @@ void Pandemic::simulate(){
   int const N = (now.S_+now.I_+now.R_+now.D_);
 
    for (int j = 0; j < t; j++) {
-    next.S += ((-now.S * now.I * b) / N - a * S0);
-    next.I += ((b * now.S * now.I )/ N - g * now.I - m * now.I);
-    next.D+= m * now.I;
+    next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
+    next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
+    next.D_ += m * now.I_;
  
-    if (next.S > 0) {
-     next.R += (g * now.I + a * S0);
+    if (next.S_ > 0) {
+     next.R_ += (g * now.I_ + a * S0);
     } else {
-      next.S= 0;
-      next.R+= g * now.I + now.S;  //-(s2-s1)
+      next.S_= 0;
+      next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
     }
 
-    std::cout<< next.S << "||" << next.R << "||" << next.I << "||" << next.D << "||" 
-    << next.S + next.I + next.R + next.D <<'\n';
+   /* std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
+    << next.S_ + next.I_ + next.R_ + next.D_ <<'\n'; */
     
-    population_.push_back(next);
+    Pop_.push_back(next);
     now=next;
 
-  } 
+  } }
 
   void Pandemic::print(){
     auto it=Pop_.begin();
-    for (int j=0; j<Pop_.size(); j++){
+    int Size=Pop_.size();
+    for (long int j=0; j<Size; j++){
       
       /*std::cout << "Day " << j << ": "
               << static_cast<int>((*it).S )<< "||" << static_cast<int>((*it).I) << "||"
               << static_cast<int>((*it).R) << "||" << static_cast<int>((*it).D) << "||"
               << static_cast<int>((*it).S + (*it).I + (*it).R + (*it).D) << '\n';*/
 
-      std::cout<< (*it).S << "||" << (*it).R << "||" << (*it).I << "||" << (*it).D << "||" << (*it).S + (*it).I + (*it).R + (*it).D <<'\n';
+      std::cout<< (*it).S_ << "||" << (*it).I_ << "||" << (*it).R_ << "||" << (*it).D_ << "||" << (*it).S_ + (*it).I_ + (*it).R_ + (*it).D_ <<'\n';
       it++;
     }
   }
-}  
+  
 
 
 
