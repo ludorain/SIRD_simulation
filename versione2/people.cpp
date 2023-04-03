@@ -8,7 +8,7 @@ People::People() {
   this->S_ = 60000;
   this->I_ = 40;
   this->R_ = 0;
-  this->D_ =0;
+  this->D_ = 0;
 }
 
 

@@ -11,92 +11,6 @@ Pandemic::Pandemic(Parameters ps, People p, int t) {
   Population_.push_back(p);
 }
 
-
-//seconda prova simulate
-void Pandemic::simulate(){
-  
-  Population_.push_back(Population_[0]);
-  double const S0= Population_[0].getSusceptible();
-  double a = Par_.getAlfa();
-  double b = Par_.getBeta();
-  double g = Par_.getGamma();
-  double m = Par_.getMu();
-
-  double t = Time_;
-  int const N = (Population_[0].getSusceptible()+Population_[0].getInfected()+
-                  Population_[0].getRecovered()+Population_[0].getDeads());
-
-  double s= Population_[0].getSusceptible();
-  double i = Population_[0].getInfected();
-  double r = Population_[0].getRecovered();
-  double d = Population_[0].getDeads();
-  
-  for (int j = 0; j < t; j++) {
-
-    s+= ((Population_[j].S_*Population_[j].I_)/N-a*S0);
-    
-    Population_[j+1].S_= std::round(s);
-
-    i += ((b * Population_[j].S_ * Population_[j].I_ )/ N - g * Population_[j].I_ - m * Population_[j].I_);
-    Population_[j+1].I_ = std::round(i);
-
-    d += m * Population_[j].I_;
-    Population_[j+1].D_ = std::round(d);
-    
-    /*next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
-    next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
-    next.D_ += m * now.I_;*/
- 
-    if (Population_[j+1].S_ >= 0) {
-      r += (g * Population_[j].I_ + a * S0);
-      Population_[j+1].R_ = std::round(r);
-
-      //next.R_ += (g * now.I_ + a * S0);
-    } else {
-
-    Population_[j+1].S_= 0;
-      r += g * Population_[j].I_ + Population_[j].S_;  //-(s2-s1)
-      Population_[j+1].R_ = std::round(r);
-
-      // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
-    }
-
-    if(Population_[j].S_ == 0 && Population_[j].I_ == 0){ std::cout<< "Vediamo cosa mettere qui \n";
-    }
-    /* std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
-    << next.S_ + next.I_ + next.R_ + next.D_ <<'\n'; */
-    
-    Population_.push_back( Population_[j+1]);
-
-  }
-}
-
-void Pandemic::print(){
-    auto it=Population_.begin();
-    int Size=Population_.size();
-    for (int j=0; j<Size; j++){
-      
-      /*std::cout << "Day " << j << ": "
-              << static_cast<int>((*it).S )<< "||" << static_cast<int>((*it).I) << "||"
-              << static_cast<int>((*it).R) << "||" << static_cast<int>((*it).D) << "||"
-              << static_cast<int>((*it).S + (*it).I + (*it).R + (*it).D) << '\n';*/
-
-      std::cout<< (*it).S_ << "||" << (*it).I_ << "||" << (*it).R_ << "||" << (*it).D_ << "||" << (*it).S_ + (*it).I_ + (*it).R_ + (*it).D_ <<'\n';
-      it++;
-    }
-  }
-  
-
-
-
-
-
-/*
-int const S0 = population_[0].getSusceptible();
-  int const N = population_[0].getSusceptible()+population_[0].getInfected()+population_[0].getRecovered()+population_[0].getDeads();
-*/
-
-/*
 //prima prova simulate
 void Pandemic::simulate(){
   People now = Population_[0];
@@ -110,7 +24,7 @@ void Pandemic::simulate(){
   double t = Time_;
   int const N = (now.S_+now.I_+now.R_+now.D_);
 
-  double s= now.S_;
+  double s = now.S_;
   double i = now.I_;
   double r = now.R_;
   double d = now.D_;
@@ -118,7 +32,6 @@ void Pandemic::simulate(){
   for (int j = 0; j < t; j++) {
     
     s += ((-now.S_ * now.I_ * b) / N - a * S0);
-
     next.S_ = s;
 
     i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
@@ -127,9 +40,9 @@ void Pandemic::simulate(){
     d += m * now.I_;
     next.D_ = d;
     
-    next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
-    next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
-    next.D_ += m * now.I_;
+    //next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
+    //next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
+    //next.D_ += m * now.I_;
  
     if (next.S_ > 0) {
       r += (g * now.I_ + a * S0);
@@ -145,16 +58,43 @@ void Pandemic::simulate(){
       // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
     }
 
-     std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
-    << next.S_ + next.I_ + next.R_ + next.D_ <<'\n'; 
-    
     Population_.push_back(next);
     now=next;
 
+    if(next.S_ == 0 && next.I_ == 0){ 
+      std::cout<< "Vediamo cosa mettere qui \n";
+      std::cout << "Forse ci va un try catch, ma non so fare \n";
+      break;
+      
+    }    
+
   }
-} */
+} 
+
+void Pandemic::print(){
+    auto it=Population_.begin();
+    int Size=Population_.size();
+    for (int j=0; j<Size; j++){
+      
+      /*std::cout << "Day " << j << ": "
+              << static_cast<int>((*it).S )<< "||" << static_cast<int>((*it).I) << "||"
+              << static_cast<int>((*it).R) << "||" << static_cast<int>((*it).D) << "||"
+              << static_cast<int>((*it).S + (*it).I + (*it).R + (*it).D) << '\n';*/
+
+      std::cout<< "Day " << j << ": " << (*it).S_ << "||" << (*it).I_ << "||" << (*it).R_ << "||" << (*it).D_ << "||" << (*it).S_ + (*it).I_ + (*it).R_ + (*it).D_ <<'\n';
+      it++;
+    }
+  }
+  
 
 
+
+
+
+/*
+int const S0 = population_[0].getSusceptible();
+  int const N = population_[0].getSusceptible()+population_[0].getInfected()+population_[0].getRecovered()+population_[0].getDeads();
+*/
 
 
 
@@ -214,3 +154,74 @@ void Sird::simulate() {
     d = d_;
   }
 }*/
+
+
+
+/*
+//seconda prova simulate
+void Pandemic::simulate(){
+  
+  //Population_.push_back(Population_[0]);
+  double const S0= Population_[0].getSusceptible();
+  double a = Par_.getAlfa();
+  double b = Par_.getBeta();
+  double g = Par_.getGamma();
+  double m = Par_.getMu();
+
+  double t = Time_;
+  int const N = (Population_[0].getSusceptible()+Population_[0].getInfected()+
+                  Population_[0].getRecovered()+Population_[0].getDeads());
+
+  double s = Population_[0].getSusceptible();
+  double i = Population_[0].getInfected();
+  double r = Population_[0].getRecovered();
+  double d = Population_[0].getDeads();
+  
+  for (int j = 0; j < t; j++) {
+    
+     s = Population_[j].getSusceptible() + ((Population_[j].getSusceptible()*Population_[j].getInfected())/N-a*S0);
+    i = Population_[j].getInfected() + ((b * Population_[j].getSusceptible() * Population_[j].getInfected() )/ N - g * Population_[j].getInfected() - m * Population_[j].getInfected());
+    d = Population_[j].getDeads() + m * Population_[j].getInfected();
+    
+
+    //s += ((Population_[j].S_*Population_[j].I_)/N-a*S0);
+    //i += ((b * Population_[j].S_ * Population_[j].I_ )/ N - g * Population_[j].I_ - m * Population_[j].I_);
+    //d += m * Population_[j].I_;
+    Population_[j+1].S_= std::round(s);
+    Population_[j+1].I_ = std::round(i);
+    Population_[j+1].D_ = std::round(d);
+    
+    /*next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
+    next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
+    next.D_ += m * now.I_;*/
+    /*
+    if (Population_[j+1].getSusceptible() >= 0) {
+
+      r= Population_[j].getRecovered() + (g * Population_[j].getInfected() + a * S0);
+      Population_[j+1].R_ = std::round(r);
+      //r += (g * Population_[j].I_ + a * S0);
+      //Population_[j+1].R_ = std::round(r);
+
+      //next.R_ += (g * now.I_ + a * S0);
+    } else {
+
+      Population_[j+1].S_= 0;
+      r = Population_[j].getRecovered() + g * Population_[j].getInfected() + Population_[j].getSusceptible();
+      //r += g * Population_[j].I_ + Population_[j].S_;  //-(s2-s1)
+      Population_[j+1].R_ = std::round(r);
+
+      // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
+    }
+
+    if(Population_[j].S_ == 0 && Population_[j].I_ == 0){ std::cout<< "Vediamo cosa mettere qui \n";
+
+    }
+    /* std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
+    << next.S_ + next.I_ + next.R_ + next.D_ <<'\n'; */
+    /*
+    Population_.push_back( Population_[j+1]);
+
+  } 
+}
+
+*/
