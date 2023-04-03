@@ -4,7 +4,8 @@
 
 life::Pandemic::Pandemic(int& N)
     : pan_side{N},
-      pan_grid(N * N, life::Person::Susceptible) { }  // inizializza all'inizio
+      pan_grid(N * N, life::Person::Susceptible);
+       {}  // inizializza all'inizio
 
 friend bool life::Pandemic::operator==(
     life::Pandemic const& left,
@@ -29,12 +30,12 @@ int index = (r_* pan_side) + c_;//passaggio da 2 indici ad un indice per la
 griglia assert(index >= 0 && index < pan_grid.size()); return pan_grid[index];
 
 } */
-friend life::Person& life::Pandemic::Person_cell(
+ Person& life::Pandemic::Person_cell(
     int r, int c)  //è necessario prima accedere alla riga r-esima e poi
                    //accedere all'elemento c-esimo
 {
   int r_ =
-      (r + pan_side) %
+   (r + pan_side) %
       pan_side;  // qua creo la struttura toroidale-> arrotolo il tovagliolo
   int c_ = (c + pan_side) % pan_side;  //-> cucio le estremità
   assert(r_ >= 0 && r_ < pan_side && c_ >= 0 && c_ < pan_side);
@@ -45,7 +46,7 @@ friend life::Person& life::Pandemic::Person_cell(
 }  // da controllare con assert nei TEST CASE
 
 int const life::Pandemic::side() { return pan_side; }
-void life::Pandemic::start(life::Pandemic& change,
+void life::Pandemic::start(Pandemic& change,
                            int& inf)  // iniettare gli infettati iniziali
 {
   int l = change.side();
@@ -53,7 +54,7 @@ void life::Pandemic::start(life::Pandemic& change,
     srand(time(NULL));
     int k = rand() % l;  // qua mi serve un random double
     int h = rand() % l;
-    change.Pandemic::Person_cell(k, h) = life::Person::Infected;
+    change.Person_cell(k, h) = life::Person::Infected;
     while (change.Person_cell(k, h) == life::Person::Infected) {
       change.Person_cell(k + 1, h + 1) = life::Person::Infected;
       k++;
@@ -71,7 +72,7 @@ int life::Pandemic::infected_neighbours(Pandemic const& pandemic, int r,
     return contacts;  // n numero dei contatti infetti
   }
 }
-life::Pandemic life::Pandemic::evolve(
+life::Pandemic::evolve(
     Pandemic const& current, float& beta, float& gamma, float& alfa1,
     float& alfa2, float& omega, float& s, float& i, float& r, float& d,
     int& const T, double& const t_m)  // ho messo le probabilità come reference
