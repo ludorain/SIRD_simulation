@@ -12,55 +12,61 @@ Pandemic::Pandemic(Parameters ps, People p, int t) {
 }
 
 
-//prima prova simulate
+//seconda prova simulate
 void Pandemic::simulate(){
-  People now = Population_[0]; //double
-  People next = Population_[0]; //double
-  double const S0= now.S_;
+  
+  Population_.push_back(Population_[0]);
+  double const S0= Population_[0].getSusceptible();
   double a = Par_.getAlfa();
   double b = Par_.getBeta();
   double g = Par_.getGamma();
   double m = Par_.getMu();
 
   double t = Time_;
-  int const N = (now.S_+now.I_+now.R_+now.D_);
+  int const N = (Population_[0].getSusceptible()+Population_[0].getInfected()+
+                  Population_[0].getRecovered()+Population_[0].getDeads());
 
-  double s,i,r,d;
+  double s= Population_[0].getSusceptible();
+  double i = Population_[0].getInfected();
+  double r = Population_[0].getRecovered();
+  double d = Population_[0].getDeads();
   
   for (int j = 0; j < t; j++) {
+
+    s+= ((Population_[j].S_*Population_[j].I_)/N-a*S0);
     
-    s = ((-now.S_ * now.I_ * b) / N - a * S0);
-    next.S_ = s;
+    Population_[j+1].S_= std::round(s);
 
-    i = ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
-    next.I_ = i;
+    i += ((b * Population_[j].S_ * Population_[j].I_ )/ N - g * Population_[j].I_ - m * Population_[j].I_);
+    Population_[j+1].I_ = std::round(i);
 
-    d = m * now.I_;
-    next.D_ = d;
+    d += m * Population_[j].I_;
+    Population_[j+1].D_ = std::round(d);
     
     /*next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
     next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
     next.D_ += m * now.I_;*/
  
-    if (next.S_ > 0) {
-      r = (g * now.I_ + a * S0);
-      next.R_ = r;
+    if (Population_[j+1].S_ >= 0) {
+      r += (g * Population_[j].I_ + a * S0);
+      Population_[j+1].R_ = std::round(r);
 
       //next.R_ += (g * now.I_ + a * S0);
     } else {
 
-      next.S_= 0;
-      r = g * now.I_ + now.S_;  //-(s2-s1)
-      next.R_ = r;
+    Population_[j+1].S_= 0;
+      r += g * Population_[j].I_ + Population_[j].S_;  //-(s2-s1)
+      Population_[j+1].R_ = std::round(r);
 
       // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
     }
 
+    if(Population_[j].S_ == 0 && Population_[j].I_ == 0){ std::cout<< "Vediamo cosa mettere qui \n";
+    }
     /* std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
     << next.S_ + next.I_ + next.R_ + next.D_ <<'\n'; */
     
-    Population_.push_back(next);
-    now=next;
+    Population_.push_back( Population_[j+1]);
 
   }
 }
@@ -68,7 +74,7 @@ void Pandemic::simulate(){
 void Pandemic::print(){
     auto it=Population_.begin();
     int Size=Population_.size();
-    for (long int j=0; j<Size; j++){
+    for (int j=0; j<Size; j++){
       
       /*std::cout << "Day " << j << ": "
               << static_cast<int>((*it).S )<< "||" << static_cast<int>((*it).I) << "||"
@@ -90,8 +96,63 @@ int const S0 = population_[0].getSusceptible();
   int const N = population_[0].getSusceptible()+population_[0].getInfected()+population_[0].getRecovered()+population_[0].getDeads();
 */
 
+/*
+//prima prova simulate
+void Pandemic::simulate(){
+  People now = Population_[0];
+  People next = now; //double
+  double const S0= now.S_;
+  double a = Par_.getAlfa();
+  double b = Par_.getBeta();
+  double g = Par_.getGamma();
+  double m = Par_.getMu();
 
+  double t = Time_;
+  int const N = (now.S_+now.I_+now.R_+now.D_);
 
+  double s= now.S_;
+  double i = now.I_;
+  double r = now.R_;
+  double d = now.D_;
+  
+  for (int j = 0; j < t; j++) {
+    
+    s += ((-now.S_ * now.I_ * b) / N - a * S0);
+
+    next.S_ = s;
+
+    i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
+    next.I_ = i;
+
+    d += m * now.I_;
+    next.D_ = d;
+    
+    next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
+    next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
+    next.D_ += m * now.I_;
+ 
+    if (next.S_ > 0) {
+      r += (g * now.I_ + a * S0);
+      next.R_ = r;
+
+      //next.R_ += (g * now.I_ + a * S0);
+    } else {
+
+      next.S_= 0;
+      r += g * now.I_ + now.S_;  //-(s2-s1)
+      next.R_ = r;
+
+      // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
+    }
+
+     std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
+    << next.S_ + next.I_ + next.R_ + next.D_ <<'\n'; 
+    
+    Population_.push_back(next);
+    now=next;
+
+  }
+} */
 
 
 

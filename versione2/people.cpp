@@ -5,13 +5,16 @@
 #include <typeinfo>
 
 People::People() {
-  this->S_ = 100;
+  this->S_ = 60000;
+  this->I_ = 40;
+  this->R_ = 0;
+  this->D_ =0;
 }
 
 
 // Setter class People
 
-
+//Setter with control
 bool People::set_S(int s){
   if (s >= 0 && s < 60000) {
     S_ = s;
@@ -55,16 +58,13 @@ bool People::set_D(int d){
 }
 
 
-// function for random input
+//Setter without control
 void People::set_People(int s, int i, int r, int d) {
   S_ = s;
   I_ = i;
   R_ = r;
   D_ = d;
 }
-
-
-
 
 
 // getter class People

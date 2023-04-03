@@ -62,13 +62,13 @@ int main() {
     control = p.set_S(s);
 
     if (control == false) {
-      std::cout << "Susceptible value out of range, initialized to default. \n";
+      std::cout << "Susceptible value out of range, initialized to default (60000). \n";
     }
 
     control = p.set_I(i);
 
     if (control == false) {
-      std::cout << "Infected value out of range, initialized to default. \n";
+      std::cout << "Infected value out of range, initialized to default (40). \n";
     }
 
     p.control_SI();
@@ -76,13 +76,13 @@ int main() {
     control = p.set_R(r);
 
     if (control == false) {
-      std::cout << "Recovered value out of range, initialized to default. \n";
+      std::cout << "Recovered value out of range, initialized to default (0). \n";
     }
 
     control = p.set_D(d);
 
     if (control == false) {
-      std::cout << "Infected value out of range, initialized to default. \n";
+      std::cout << "Infected value out of range, initialized to default (0). \n";
     }
 
     int Num = p.getTotal();
@@ -93,7 +93,7 @@ int main() {
     control = ps.set_Alfa(a);
 
       if (control == false){
-        std::cout << "Parameter out of range, initialized to default. \n";
+        std::cout << "Vaccination parameter out of range, initialized to default (0.001). \n";
       } 
     }
     
@@ -101,20 +101,20 @@ int main() {
     control = ps.set_Beta(b);
 
     if (control == false){
-      std::cout << "Parameter out of range, initialized to default. \n";
+      std::cout << "Infectivity parameter out of range, initialized to default (0.85). \n";
     }
 
     control = ps.set_Gamma(g);
 
     if (control == false){
-      std::cout << "Parameter out of range, initialized to default. \n";
+      std::cout << "Recovery parameter out of range, initialized to default (0.2). \n";
     }
 
 
     control = ps.set_Mu(m);
     
     if (control == false){
-      std::cout << "Parameter out of range, initialized to default. \n";
+      std::cout << "Death parameter out of range, initialized to default (0.2). \n";
     }
 
     ps.control_R0();
@@ -139,7 +139,7 @@ int main() {
     control = p.set_S(s);
 
     if (control == false) {
-      std::cout << "Susceptible value out of range, initialized to default. \n";
+      std::cout << "Susceptible value out of range, initialized to default (60000). \n";
     }
 
     std::cout << "Infected [range 0-6000]: ";
@@ -147,7 +147,7 @@ int main() {
     control = p.set_I(i);
 
     if (control == false) {
-      std::cout << "Infected value out of range, initialized to default. \n";
+      std::cout << "Infected value out of range, initialized to default (40). \n";
     }
 
     p.control_SI();
@@ -157,14 +157,14 @@ int main() {
     control = p.set_R(r);
 
     if (control == false) {
-      std::cout << "Recovered value out of range, initialized to default. \n";
+      std::cout << "Recovered value out of range, initialized to default (0). \n";
     }
 
     std::cout << "Deaths [range 0-6000]: ";
     std::cin >> d;
     control = p.set_D(d);
     if (control == false) {
-      std::cout << "Infected value out of range, initialized to default. \n";
+      std::cout << "Infected value out of range, initialized to default (0). \n";
     }
 
     int Num = p.getTotal();
@@ -182,7 +182,7 @@ int main() {
       
       control = ps.set_Alfa(a);
       if (control == false){
-        std::cout << "Parameter out of range, initialized to default. \n";
+        std::cout << "Vaccination parameter out of range, initialized to default (0.001). \n";
       } 
     } else { ps.set_Zero();}
 
@@ -190,21 +190,21 @@ int main() {
     std::cin >> b;
     control = ps.set_Beta(b);
     if (control == false){
-      std::cout << "Parameter out of range, initialized to default. \n";
+      std::cout << "Infection parameter out of range, initialized to default (0.85). \n";
     }
 
     std::cout << "Recovery probability [range 0-0.5]: ";
     std::cin >> g;
     control = ps.set_Gamma(g);
     if (control == false){
-      std::cout << "Parameter out of range, initialized to default. \n";
+      std::cout << "Recovery parameter out of range, initialized to default (0.2). \n";
     }
 
     std::cout << "Death probability [range 0-0.5]: ";
     std::cin >> m;
     control = ps.set_Mu(m);
     if (control == false){
-      std::cout << "Parameter out of range, initialized to default. \n";
+      std::cout << "Death parameter out of range, initialized to default (0.2). \n";
     }
 
     ps.control_R0();
@@ -238,9 +238,9 @@ int main() {
 
     // Generate parameters for simulation    
     a = fRand(0.001, 0.01);  // between 0.001 e 0.01
-    b = fRand(0.100, 0.900);  // between 0.1 e 0.9
-    g = fRand(0.001, 0.400);  //
-    m = fRand(0.001, 0.400);
+    b = fRand(0.400, 0.900);  // between 0.1 e 0.9
+    g = fRand(0.001, 0.200);  //
+    m = fRand(0.001, 0.100);
 
     // Assign random values to class object and print them
     p.set_People(s, i, r, d);    
@@ -252,7 +252,7 @@ int main() {
     std::cout << "Recovered = " << r << '\n' << "Dead = " << d << '\n';
     std::cout << "Total people =" << Num << '\n';
 
-    std::cout << "The initial parameters are:";
+    std::cout << "The initial parameters are: \n";
     std::cout << "alfa = " << a << '\n' << "beta = " << b << '\n';
     std::cout << "gamma = " << g << '\n' << "mu = " << m << '\n';
     std::cout << "Simulation time= " << t << '\n';

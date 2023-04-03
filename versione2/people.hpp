@@ -5,21 +5,20 @@
 class People{
 friend class Pandemic;
 public:
-//costruttore default
+//Default constructor 
+
 People();
-//funzioni set
+//Setter functions
+//Setter with control
 bool set_S(int);
 bool set_I(int);
 void control_SI();
 bool set_R(int);
 bool set_D(int);
-
-
-//void setPeople();
-//void setPeople(int, int, int, int);
+//Setter without control
 void set_People(int,int,int,int);
 
-//funzioni get
+//Getter functions
 int getTotal();
 int getSusceptible();
 int getInfected();

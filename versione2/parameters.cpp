@@ -1,12 +1,16 @@
 #include "parameters.hpp"
 #include <iostream>
-#
-// costruttore
-Parameters::Parameters() {}
 
-// setter della classe Parameters
+// Default constructor
+Parameters::Parameters() {
+  this->Alfa_ = 0.001;
+  this->Beta_ = 0.85;
+  this->Gamma_= 0.2;
+  this->Mu_ = 0.2;
+}
 
-// Setter per lo standard input
+// Parameters class Setters
+//Setter with control
 bool Parameters::set_Alfa(double a) {
     
    if (a >= 0.001 && a <= 0.01) {
@@ -28,21 +32,21 @@ bool Parameters::set_Beta(double b) {
 
 bool Parameters::set_Gamma(double g) {
   
-  if (g > 0 && g < 0.5) {
+  if (g > 0 && g <= 0.5) {
     Gamma_=g;
     return true;
   } else {return false;}
 }
 
 bool Parameters::set_Mu(double m) {
-  if (m > 0 && m < 0.5) {
+  if (m > 0 && m <= 0.5) {
     Mu_=m;
     return true;
   } else {return false;}
 }  
  
  void Parameters::control_R0(){
-  //migliorare l'
+
   if(Gamma_==0.5 && Mu_==0.5){
     throw std::runtime_error("Unrealistic situation, program terminated. \n");
   } 
@@ -52,7 +56,7 @@ bool Parameters::set_Mu(double m) {
   }
  }
 
-// function for random input
+//Setter without control
 void Parameters::set_Parameters(double a, double b, double g, double u) {
   Alfa_ = a;
   Beta_ = b;
@@ -60,7 +64,7 @@ void Parameters::set_Parameters(double a, double b, double g, double u) {
   Mu_ = u;
 }
 
-// getter della classe Parameters
+// class Parameters getters
 double Parameters::getAlfa() { return Alfa_; };
 double Parameters::getBeta() { return Beta_; };
 double Parameters::getGamma() { return Gamma_; };
