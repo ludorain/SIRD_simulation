@@ -6,7 +6,7 @@
 #include <iostream>
 #include <typeinfo>
 
-#include "pandemic.hpp"
+//#include "pandemic.hpp"
 #include "parameters.hpp"
 #include "people.hpp"
 #include "sird.hpp"
@@ -17,8 +17,10 @@ double fRand(double, double);
 
 int main() {
   int s, i, r, d;
-  int t;
+  int Num;
   double a, b, g, m;
+  int t;
+
   char data;
   char f;
   bool control, control1; 
@@ -34,7 +36,7 @@ int main() {
 
   if (data == 'F') {
     std::cout << "You've choosen data from file. \n";
-        
+    
     // Create a file instance & create a structure that will hold data
     mINI::INIFile file("data.ini");
     mINI::INIStructure ini;
@@ -60,27 +62,22 @@ int main() {
     
     std::cout << s+i+r+d << '\n';
     std::cout << a+b+g+m <<'\n';
-    
 
     //aggiungere assegnazione e simulazione
 
-//INGRESSO DA STANDARD INPUT
-
-  } else if (data == 'S') {
-  int s, i, r, d;  
-  double a, b, g, m;
-  People p;
-  Parameters ps;
+  //INGRESSO DA STANDARD INPUT
+  } else if (data == 'S') { 
+  
+    People p;
+    Parameters ps;
 
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
-
     std::cout << "The number of initial  \n";
 
     std::cout << "Susceptible [range 0-60000]: ";
     std::cin >> s;
-
-    
     control = p.set_S(s);
+
     if (control == false) {
       std::cout << "Susceptible value out of range, initialized to default. \n";
     }
@@ -88,6 +85,7 @@ int main() {
     std::cout << "Infected [range 0-6000]: ";
     std::cin >> i;
     control = p.set_I(i);
+
     if (control == false) {
       std::cout << "Infected value out of range, initialized to default. \n";
     }
@@ -97,6 +95,7 @@ int main() {
     std::cout << "Recovered [range 0-6000]: ";
     std::cin >> r;
     control = p.set_R(r);
+
     if (control == false) {
       std::cout << "Recovered value out of range, initialized to default. \n";
     }
@@ -108,56 +107,60 @@ int main() {
       std::cout << "Infected value out of range, initialized to default. \n";
     }
 
-    //int Num = p.getTotal();
-
+    int Num = p.getTotal();
 
     std::cout << "Do you want vaccination? [y/n] \n";
     std::cin >> f;
+
     while (f != 'y' && f != 'n') {
     std::cout << "Invalid char, try again. \n";
     std::cin >> f;  }
 
     if (f == 'y') {
-    std::cout << "Rate vaccination [range 0.001-0.01]: ";
-    std::cin >> a;
-    control = ps.set_Alfa(a);
+      std::cout << "Rate vaccination [range 0.001-0.01]: ";
+      std::cin >> a;
+      
+      control = ps.set_Alfa(a);
+      if (control == false){
+        std::cout << "Parameter out of range, initialized to default. \n";
+      } else { ps.set_Zero();}
+    }
+
+    std::cout << "Infection probability [range 0-1]: ";
+    std::cin >> b;
+    control = ps.set_Beta(b);
     if (control == false){
       std::cout << "Parameter out of range, initialized to default. \n";
-    } else { ps.set_Zero();}
+    }
 
-   std::cout << "Infection probability [range 0-1]: ";
-   std::cin >> b;
-   control = ps.set_Beta(b);
-   if (control == false){
-    std::cout << "Parameter out of range, initialized to default. \n";
-   }
+    std::cout << "Recovery probability [range 0-0.5]: ";
+    std::cin >> g;
+    control = ps.set_Gamma(g);
+    if (control == false){
+      std::cout << "Parameter out of range, initialized to default. \n";
+    }
 
-  std::cout << "Recovery probability [range 0-0.5]: ";
-  std::cin >> g;
-  control = ps.set_Gamma(g);
-  if (control == false){
-  std::cout << "Parameter out of range, initialized to default. \n";
-  }
+    std::cout << "Death probability [range 0-0.5]: ";
+    std::cin >> m;
+    control = ps.set_Mu(m);
+    if (control == false){
+      std::cout << "Parameter out of range, initialized to default. \n";
+    }
 
-  std::cout << "Death probability [range 0-0.5]: ";
-  std::cin >> m;
-  control = ps.set_Mu(m);
-  if (control == false){
-  std::cout << "Parameter out of range, initialized to default. \n";
-  }
+    ps.control_R0();
 
-  ps.control_R0();
+    std::cout << "Simulation time \n";
+    std::cin >> t;
 
-  std::cout << "Simulation time \n";
-  std::cin >> t;
+    //Pandemic oggetto(ps, p, t);
+    Sird oggetto(ps, p, t);
+    oggetto.simulate();
+    oggetto.print();
 
-Pandemic oggetto(ps, p, t);
-oggetto.simulate();
-oggetto.print();
 
   } else if (data == 'R') {
-    int s, i, r, d;  
-    double a, b, g, m;
+    //int s, i, r, d;   GIA DICHIARATI FUORI
+    //double a, b, g, m; UGUALE A SOPRA
     People p;
     Parameters ps;
     std::cout
@@ -167,7 +170,7 @@ oggetto.print();
     srand(time(NULL));
 
     // Time elapse
-    int t = 30 + (rand() % 101);
+    t = 30 + (rand() % 101);
 
     // Generate people for simulation
     s = rand() % 500 + 5501;  // suscettibili tra 500 e 6000   5000-10000
@@ -182,9 +185,9 @@ oggetto.print();
     m = fRand(0.001, 0.400);
 
     // Assign random values to class object and print them
-    p.setPeopleR(s, i, r, d);    
+    p.set_People(s, i, r, d);    
     ps.setParametersR(a, b, g, m);
-    int Num = p.getTotal();
+    Num = p.getTotal();
 
     std::cout << "The initial persons are: \n";
     std::cout << "Susceptible = " << s << '\n' << "Infected = " << i << '\n';
@@ -197,16 +200,42 @@ oggetto.print();
     std::cout << "Simulation time= " << t << '\n';
 
     // Starting proper simulation
-    Pandemic oggetto(ps, p, t);
+    Sird oggetto(ps, p, t);
     oggetto.simulate();
-    oggetto.print();
+    //oggetto.print();
   }
 }
-}
-double fRand(double fMin, double fMax) {
+
+
+double fRand(double fMin, double fMax) 
+{
   double f = (double)rand() / RAND_MAX;
   return fMin + f * (fMax - fMin);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 std::string line;

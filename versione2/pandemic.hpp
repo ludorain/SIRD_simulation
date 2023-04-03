@@ -1,23 +1,23 @@
-#ifndef SIRD_HPP
-#define SIRD_HPP
+#ifndef PANDEMIC_HPP
+#define PANDEMIC_HPP
 #include "people.hpp"
 #include "parameters.hpp"
 #include <vector>
 
-class Pandemic{
+class Pandemic {
 
-public:
+    public:
 
-Pandemic(Parameters, People, int);
-void controlTime(int);
-void simulate();
-void print();
+        Pandemic(Parameters, People, int);
+        void controlTime(int);
+        void simulate();
+        void print();
 
-private:
+    private:
 
-Parameters Par_;
-std::vector<People> Pop_;  //vector containing pandemic evolution
-int T_;
+        Parameters Par_;
+        std::vector<People> Population_;  //vector containing pandemic evolution
+        int Time_;
 
 };
 

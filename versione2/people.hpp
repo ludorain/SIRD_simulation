@@ -1,5 +1,7 @@
 #ifndef PEOPLE_HPP
 #define PEOPLE_HPP
+
+
 class People{
 friend class Pandemic;
 public:
@@ -13,9 +15,9 @@ bool set_R(int);
 bool set_D(int);
 
 
-void setPeople();
-void setPeople(int, int, int, int);
-void setPeopleR(int,int,int,int);
+//void setPeople();
+//void setPeople(int, int, int, int);
+void set_People(int,int,int,int);
 
 //funzioni get
 int getTotal();

@@ -5,26 +5,27 @@
 #include <iostream>
 #include <typeinfo>
 
-Pandemic::Pandemic(Parameters ps, People p, int t)
-  : Par_(ps),     
-    T_(t)
-    {Pop_.push_back(p);}
+Pandemic::Pandemic(Parameters ps, People p, int t) {
+  this->Par_ = ps;
+  this->Time_ = t;
+  Population_.push_back(p);
+}
 
 
 //prima prova simulate
 void Pandemic::simulate(){
-  People now = Pop_[0];
-  People next = Pop_[0];
+  People now = Population_[0];
+  People next = Population_[0];
   int const S0= now.S_;
   double a = Par_.getAlfa();
   double b = Par_.getBeta();
   double g = Par_.getGamma();
   double m = Par_.getMu();
 
-  double t = T_;
+  double t = Time_;
   int const N = (now.S_+now.I_+now.R_+now.D_);
 
-   for (int j = 0; j < t; j++) {
+  for (int j = 0; j < t; j++) {
     next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
     next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
     next.D_ += m * now.I_;
@@ -36,17 +37,18 @@ void Pandemic::simulate(){
       next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
     }
 
-   /* std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
+    /* std::cout<< next.S_ << "||" << next.R_ << "||" << next.I_ << "||" << next.D_ << "||" 
     << next.S_ + next.I_ + next.R_ + next.D_ <<'\n'; */
     
-    Pop_.push_back(next);
+    Population_.push_back(next);
     now=next;
 
-  } }
+  }
+}
 
-  void Pandemic::print(){
-    auto it=Pop_.begin();
-    int Size=Pop_.size();
+void Pandemic::print(){
+    auto it=Population_.begin();
+    int Size=Population_.size();
     for (long int j=0; j<Size; j++){
       
       /*std::cout << "Day " << j << ": "
@@ -60,6 +62,14 @@ void Pandemic::simulate(){
   }
   
 
+
+
+
+
+/*
+int const S0 = population_[0].getSusceptible();
+  int const N = population_[0].getSusceptible()+population_[0].getInfected()+population_[0].getRecovered()+population_[0].getDeads();
+*/
 
 
 

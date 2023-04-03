@@ -4,14 +4,16 @@
 #include <iostream>
 #include <typeinfo>
 
-People::People() {}
+People::People() {
+  this->S_ = 100;
+}
 
 
 // Setter class People
 
 
 bool People::set_S(int s){
-if (s >= 0 && s < 60000) {
+  if (s >= 0 && s < 60000) {
     S_ = s;
     return true;
   } else {
@@ -30,7 +32,7 @@ bool People::set_I(int i){
 
 void People::control_SI(){
   if(S_==0 && I_==0){
-    throw std::runtime_error{"The simulation won't do anything. Programm interrupted '\n'"};
+    throw std::runtime_error{"The simulation won't do anything. Program interrupted. '\n'"};
   }
 }
 
@@ -52,19 +54,25 @@ bool People::set_D(int d){
   }
 }
 
+
 // function for random input
-void People::setPeopleR(int s, int i, int r, int d) {
+void People::set_People(int s, int i, int r, int d) {
   S_ = s;
   I_ = i;
   R_ = r;
   D_ = d;
 }
 
+
+
+
+
 // getter class People
 int People::getTotal() {
   int Tot = S_ + I_ + R_ + D_;
   return Tot;
 }
+
 int People::getSusceptible() { return S_; };
 int People::getInfected() { return I_; };
 int People::getRecovered() { return R_; };

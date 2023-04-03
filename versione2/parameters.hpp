@@ -16,7 +16,7 @@ void control_R0();
 void set_Zero();
 
 
-void setParameters(double, double, double, double);
+//void setParameters(double, double, double, double);
 void setParametersR(double, double, double, double);
 
 //funzioni get
