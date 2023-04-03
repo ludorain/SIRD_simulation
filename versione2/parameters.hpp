@@ -17,7 +17,7 @@ void set_Zero();
 
 
 //void setParameters(double, double, double, double);
-void setParametersR(double, double, double, double);
+void set_Parameters(double, double, double, double);
 
 //funzioni get
 double getAlfa();

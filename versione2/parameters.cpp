@@ -53,7 +53,7 @@ bool Parameters::set_Mu(double m) {
  }
 
 // function for random input
-void Parameters::setParametersR(double a, double b, double g, double u) {
+void Parameters::set_Parameters(double a, double b, double g, double u) {
   Alfa_ = a;
   Beta_ = b;
   Gamma_ = g;

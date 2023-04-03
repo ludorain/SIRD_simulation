@@ -6,10 +6,9 @@
 #include <iostream>
 #include <typeinfo>
 
-//#include "pandemic.hpp"
 #include "parameters.hpp"
 #include "people.hpp"
-#include "sird.hpp"
+#include "pandemic.hpp"
 #include "ini.h"
 
 // random generation prototype function
@@ -54,16 +53,77 @@ int main() {
     b = std::stod(ini.get("PARAMETERS").get("beta"));
     g = std::stod(ini.get("PARAMETERS").get("gamma"));       
     m = std::stod(ini.get("PARAMETERS").get("mu"));
-        
+    t = stoi (ini.get("PARAMETERS").get("time"));  
     //COMMENTI: stod funziona sia con std:: sia senza, non so se mettercelo o no
-    // PROVE DI STAMPA A VIDEO PER VEDERE SE FUNZIONA
-    std:: cout << s << '\n' << i << '\n' << r << '\n' << d << '\n'
-    << a << '\n' << b << '\n'<< g << '\n' << m << '\n';
     
-    std::cout << s+i+r+d << '\n';
-    std::cout << a+b+g+m <<'\n';
+    People p;
+    Parameters ps;
 
-    //aggiungere assegnazione e simulazione
+    control = p.set_S(s);
+
+    if (control == false) {
+      std::cout << "Susceptible value out of range, initialized to default. \n";
+    }
+
+    control = p.set_I(i);
+
+    if (control == false) {
+      std::cout << "Infected value out of range, initialized to default. \n";
+    }
+
+    p.control_SI();
+
+    control = p.set_R(r);
+
+    if (control == false) {
+      std::cout << "Recovered value out of range, initialized to default. \n";
+    }
+
+    control = p.set_D(d);
+
+    if (control == false) {
+      std::cout << "Infected value out of range, initialized to default. \n";
+    }
+
+    int Num = p.getTotal();
+
+    if(a==0){
+      ps.set_Zero();
+    } else {
+    control = ps.set_Alfa(a);
+
+      if (control == false){
+        std::cout << "Parameter out of range, initialized to default. \n";
+      } 
+    }
+    
+
+    control = ps.set_Beta(b);
+
+    if (control == false){
+      std::cout << "Parameter out of range, initialized to default. \n";
+    }
+
+    control = ps.set_Gamma(g);
+
+    if (control == false){
+      std::cout << "Parameter out of range, initialized to default. \n";
+    }
+
+
+    control = ps.set_Mu(m);
+    
+    if (control == false){
+      std::cout << "Parameter out of range, initialized to default. \n";
+    }
+
+    ps.control_R0();
+
+    //Pandemic oggetto(ps, p, t);
+    Pandemic oggetto(ps, p, t);
+    oggetto.simulate();
+    oggetto.print();
+
 
   //INGRESSO DA STANDARD INPUT
   } else if (data == 'S') { 
@@ -123,8 +183,8 @@ int main() {
       control = ps.set_Alfa(a);
       if (control == false){
         std::cout << "Parameter out of range, initialized to default. \n";
-      } else { ps.set_Zero();}
-    }
+      } 
+    } else { ps.set_Zero();}
 
     std::cout << "Infection probability [range 0-1]: ";
     std::cin >> b;
@@ -152,15 +212,13 @@ int main() {
     std::cout << "Simulation time \n";
     std::cin >> t;
 
-    //Pandemic oggetto(ps, p, t);
-    Sird oggetto(ps, p, t);
+    Pandemic oggetto(ps, p, t);
     oggetto.simulate();
     oggetto.print();
 
 
   } else if (data == 'R') {
-    //int s, i, r, d;   GIA DICHIARATI FUORI
-    //double a, b, g, m; UGUALE A SOPRA
+    
     People p;
     Parameters ps;
     std::cout
@@ -186,7 +244,7 @@ int main() {
 
     // Assign random values to class object and print them
     p.set_People(s, i, r, d);    
-    ps.setParametersR(a, b, g, m);
+    ps.set_Parameters(a, b, g, m);
     Num = p.getTotal();
 
     std::cout << "The initial persons are: \n";
@@ -200,9 +258,9 @@ int main() {
     std::cout << "Simulation time= " << t << '\n';
 
     // Starting proper simulation
-    Sird oggetto(ps, p, t);
+    Pandemic oggetto(ps, p, t);
     oggetto.simulate();
-    //oggetto.print();
+    oggetto.print();
   }
 }
 
