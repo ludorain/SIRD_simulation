@@ -120,7 +120,7 @@ int main() {
     ps.control_R0();
 
     //Pandemic oggetto(p, ps, t);
-    Pandemic oggetto();
+    Pandemic oggetto;
     control = oggetto.set_Pandemic(p, ps, t);
 
     if (control == false){
@@ -218,7 +218,12 @@ int main() {
     std::cout << "Simulation time \n";
     std::cin >> t;
 
-    Pandemic oggetto(ps, p, t);
+    Pandemic oggetto;
+    control = oggetto.set_Pandemic(p, ps, t);
+
+    if (control == false){
+      std::cout << "Time out of range, initialized to default (50 days). \n";
+    }
     oggetto.simulate();
     oggetto.print();
 
@@ -264,7 +269,11 @@ int main() {
     std::cout << "Simulation time= " << t << '\n';
 
     // Starting proper simulation
-    Pandemic oggetto(ps, p, t);
+    
+    Pandemic oggetto;
+    control = oggetto.set_Pandemic(p, ps, t);
+
+     
     oggetto.simulate();
     oggetto.print();
   }

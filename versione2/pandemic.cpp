@@ -17,6 +17,7 @@ Pandemic::Pandemic() {
 }
 
 bool Pandemic::set_Pandemic(People p, Parameters ps, int t){
+  
   Population_.push_back(p);
   this->Par_ = ps;
   if(t<0){

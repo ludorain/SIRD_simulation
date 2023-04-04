@@ -7,9 +7,9 @@
 class Pandemic {
 
     public:
-
-        Pandemic(People, Parameters, int);
-        void controlTime(int);
+    
+        Pandemic();
+        bool set_Pandemic(People, Parameters, int);
         void simulate();
         void print();
 
