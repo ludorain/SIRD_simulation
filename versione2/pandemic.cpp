@@ -95,7 +95,8 @@ void Pandemic::simulate(){
 
     for (int i = 0; i<ghost; i++) {
         dado = static_cast<double>(std::rand()) / RAND_MAX;
-        if (0<=dado<fract_s/sum ) {
+        if (dado>=0 && dado<fract_s/sum)
+        {
             next.S_+=1 ; 
         } else if (dado<(fract_s+ fract_i)/sum) {
             next.I_+=1 ; 

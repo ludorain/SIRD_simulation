@@ -21,8 +21,8 @@ int main() {
   int t;
 
   char data;
-  char f;
-  bool control, control1; 
+  char vax;
+  bool control; 
 
   std::cout << "Would you like to insert data from file, from standard input "
                "or run a random simulation? [F,S,R] \n";
@@ -85,7 +85,6 @@ int main() {
       std::cout << "Infected value out of range, initialized to default (0). \n";
     }
 
-    int Num = p.getTotal();
 
     if(a==0){
       ps.set_Zero();
@@ -173,16 +172,14 @@ int main() {
       std::cout << "Infected value out of range, initialized to default (0). \n";
     }
 
-    int Num = p.getTotal();
-
     std::cout << "Do you want vaccination? [y/n] \n";
-    std::cin >> f;
+    std::cin >> vax;
 
-    while (f != 'y' && f != 'n') {
+    while (vax != 'y' && vax != 'n') {
     std::cout << "Invalid char, try again. \n";
-    std::cin >> f;  }
+    std::cin >> vax;  }
 
-    if (f == 'y') {
+    if (vax == 'y') {
       std::cout << "Rate vaccination [range 0.001-0.01]: ";
       std::cin >> a;
       
@@ -248,7 +245,7 @@ int main() {
     d = std::rand() % 101;         // deceduti tra 0 e 100
 
     // Generate parameters for simulation    
-    a = fRand(0.001, 0.01);  // between 0.001 e 0.01
+    a = fRand(0.000, 0.01);  // between 0.00 e 0.01
     b = fRand(0.400, 0.900);  // between 0.1 e 0.9
     g = fRand(0.001, 0.200);  //
     m = fRand(0.001, 0.100);
