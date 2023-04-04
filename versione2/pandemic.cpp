@@ -67,12 +67,13 @@ void Pandemic::simulate(){
       //next.R_ += (g * now.I_ + a * S0);
     } else { 
 
-      i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_); //+ next.S_ ;
+      i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_) + next.S_ ;
       next.I_ = i; //ne  aggiungiamo 38
 
       r += g * now.I_ + now.S_ ;  //-(s2-s1)
       next.R_ = r;
       next.S_= 0; 
+      s=0;
       S0 = 0;
       // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
     }
@@ -86,8 +87,8 @@ void Pandemic::simulate(){
     fract_r = std::modf(r, &int_r);
     double fract_d, int_d;
     fract_d = std::modf(d, &int_d);
-
     double sum = fract_s + fract_i + fract_r + fract_d;
+
 
     int ghost = N-next.getTotal();
         std::srand(time(NULL));
@@ -102,7 +103,7 @@ void Pandemic::simulate(){
             next.R_+=1 ;
         } else { 
           next.D_+=1 ; 
-         }
+        }
     }
 
     Population_.push_back(next);
@@ -121,8 +122,11 @@ void Pandemic::simulate(){
 void Pandemic::print(){
     auto it=Population_.begin();
     int Size=Population_.size();
+    
+    std::cout << "Time    " << "S       " << "I     " << "R     " << "D   " << "Total \n" ;
     for (int j=0; j<Size; j++){
-      std::cout<< "Day " << j << ": " << (*it).S_ << "||" << (*it).I_ << "||" << (*it).R_ << "||" << (*it).D_ << "||" << (*it).S_ + (*it).I_ + (*it).R_ + (*it).D_ <<'\n';
+
+      std::cout<< "Day " << j << ": " << (*it).S_ << " || " << (*it).I_ << " || " << (*it).R_ << " || " << (*it).D_ << " || " << (*it).S_ + (*it).I_ + (*it).R_ + (*it).D_ <<'\n';
       it++;
     }
   }
@@ -266,3 +270,5 @@ void Pandemic::simulate(){
 }
 
 */
+
+//    std::cout << fract_s << "||" << fract_i << "||" << fract_r << "||" << fract_d << "||"  << sum << '\n' ;
