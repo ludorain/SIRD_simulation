@@ -37,11 +37,6 @@ void Pandemic::simulate(){
     d += m * now.I_;
     next.D_ = d;
     
-    //next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
-    //next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
-    //next.D_ += m * now.I_;
-
-    
   // now 28
     if (next.S_ >  0) {
       r += (g * now.I_ + a * S0);
