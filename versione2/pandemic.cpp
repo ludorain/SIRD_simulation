@@ -38,7 +38,7 @@ Parameters Pandemic::getPar()
 
 std::vector<People> Pandemic::getPopulation()
 {
-return Population_;
+  return Population_;
 }
 
 int Pandemic::getTime()
@@ -73,7 +73,7 @@ void Pandemic::simulate(){
     d += m * now.I_;
     next.D_ = d;
     
-  // now 28
+    // now 28
     if (next.S_ >  0) {
       r += (g * now.I_ + a * S0);
       next.R_ = r;

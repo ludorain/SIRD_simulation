@@ -14,6 +14,16 @@
 // random generation prototype function
 double fRand(double, double);
 
+bool readInt(int &x) {
+  std::cin >> x;
+  if (!std::cin.good()) {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      return false;
+  }
+  return true;
+}
+
 int main() {
   int s, i, r, d;
   int Num;
@@ -45,15 +55,15 @@ int main() {
     
     // read values ini.get("section").get("key")
     // il metodo stoi() = string to int
-    s = stoi (ini.get("PEOPLE").get("Susceptibles"));
-    i = stoi (ini.get("PEOPLE").get("Infected"));
-    r = stoi (ini.get("PEOPLE").get("Recovered"));
-    d = stoi (ini.get("PEOPLE").get("Dead"));
+    s = std::stoi(ini.get("PEOPLE").get("Susceptibles"));
+    i = std::stoi(ini.get("PEOPLE").get("Infected"));
+    r = std::stoi(ini.get("PEOPLE").get("Recovered"));
+    d = std::stoi(ini.get("PEOPLE").get("Dead"));
     a = std::stod(ini.get("PARAMETERS").get("alfa"));
     b = std::stod(ini.get("PARAMETERS").get("beta"));
     g = std::stod(ini.get("PARAMETERS").get("gamma"));       
     m = std::stod(ini.get("PARAMETERS").get("mu"));
-    t = stoi (ini.get("PARAMETERS").get("time"));  
+    t = std::stoi(ini.get("PARAMETERS").get("time"));  
     //COMMENTI: stod funziona sia con std:: sia senza, non so se mettercelo o no
     
     People p;
@@ -140,11 +150,16 @@ int main() {
     std::cout << "The number of initial  \n";
 
     std::cout << "Susceptible [range 0-60000]: ";
-    std::cin >> s;
-    control = p.set_S(s);
+    //std::cin >> s;
+    //readInt(s, 60000);
+    if (readInt(s)) {
+      control = p.set_S(s);
 
-    if (control == false) {
-      std::cout << "Susceptible value out of range, initialized to default (60000). \n";
+      if (control == false) {
+        std::cout << "Susceptible value out of range, initialized to default (60000). \n";
+      } 
+    } else {
+      std::cout << "You entered a non-integer value, susceptible value initialized to default (60000). \n";
     }
 
     std::cout << "Infected [range 0-6000]: ";
