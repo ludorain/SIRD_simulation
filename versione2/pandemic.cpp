@@ -18,7 +18,7 @@ Pandemic::Pandemic() {
 
 bool Pandemic::set_Pandemic(People p, Parameters ps, int t){
   
-  Population_.push_back(p);
+  Population_[0] = p;
   this->Par_ = ps;
   if(t<0){
     return false;
@@ -31,6 +31,7 @@ bool Pandemic::set_Pandemic(People p, Parameters ps, int t){
 
 //prima prova simulate
 void Pandemic::simulate(){
+
   People now = Population_[0];
   People next = now; //double
   double S0= now.S_;
@@ -40,7 +41,7 @@ void Pandemic::simulate(){
   double m = Par_.getMu();
 
   double t = Time_;
-  int const N = (now.S_+now.I_+now.R_+now.D_);
+  int const N = now.getTotal();
 
   double s = now.S_;
   double i = now.I_;
@@ -66,7 +67,7 @@ void Pandemic::simulate(){
       //next.R_ += (g * now.I_ + a * S0);
     } else { 
 
-      i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_) + next.S_ ;
+      i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_); //+ next.S_ ;
       next.I_ = i; //ne  aggiungiamo 38
 
       r += g * now.I_ + now.S_ ;  //-(s2-s1)
@@ -74,6 +75,34 @@ void Pandemic::simulate(){
       next.S_= 0; 
       S0 = 0;
       // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
+    }
+
+    double dado;
+    double fract_s, int_s;
+    fract_s = std::modf(s, &int_s);
+    double fract_i, int_i;
+    fract_i = std::modf(i, &int_i);
+    double fract_r, int_r;
+    fract_r = std::modf(r, &int_r);
+    double fract_d, int_d;
+    fract_d = std::modf(d, &int_d);
+
+    double sum = fract_s + fract_i + fract_r + fract_d;
+
+    int ghost = N-next.getTotal();
+        std::srand(time(NULL));
+
+    for (int i = 0; i<ghost; i++) {
+        dado = static_cast<double>(std::rand()) / RAND_MAX;
+        if (0<=dado<fract_s/sum ) {
+            next.S_+=1 ; 
+        } else if (dado<(fract_s+ fract_i)/sum) {
+            next.I_+=1 ; 
+        } else if (dado<(fract_s+ fract_i+fract_r)/sum) { 
+            next.R_+=1 ;
+        } else { 
+          next.D_+=1 ; 
+         }
     }
 
     Population_.push_back(next);
@@ -93,12 +122,6 @@ void Pandemic::print(){
     auto it=Population_.begin();
     int Size=Population_.size();
     for (int j=0; j<Size; j++){
-      
-      /*std::cout << "Day " << j << ": "
-              << static_cast<int>((*it).S )<< "||" << static_cast<int>((*it).I) << "||"
-              << static_cast<int>((*it).R) << "||" << static_cast<int>((*it).D) << "||"
-              << static_cast<int>((*it).S + (*it).I + (*it).R + (*it).D) << '\n';*/
-
       std::cout<< "Day " << j << ": " << (*it).S_ << "||" << (*it).I_ << "||" << (*it).R_ << "||" << (*it).D_ << "||" << (*it).S_ + (*it).I_ + (*it).R_ + (*it).D_ <<'\n';
       it++;
     }
