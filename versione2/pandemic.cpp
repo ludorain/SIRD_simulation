@@ -5,11 +5,28 @@
 #include <iostream>
 #include <typeinfo>
 
-Pandemic::Pandemic(Parameters ps, People p, int t) {
-  this->Par_ = ps;
-  this->Time_ = t;
+Pandemic::Pandemic() {
+
+  People p;
+  Parameters ps;
+
   Population_.push_back(p);
+  this->Par_ = ps;
+  this->Time_ = 50;
+  
 }
+
+bool Pandemic::set_Pandemic(People p, Parameters ps, int t){
+  Population_.push_back(p);
+  this->Par_ = ps;
+  if(t<0){
+    return false;
+  } else { 
+    Time_ = t;
+    return true;
+  }
+}
+
 
 //prima prova simulate
 void Pandemic::simulate(){
