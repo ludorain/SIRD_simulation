@@ -15,7 +15,7 @@ Pandemic::Pandemic(Parameters ps, People p, int t) {
 void Pandemic::simulate(){
   People now = Population_[0];
   People next = now; //double
-  double const S0= now.S_;
+  double S0= now.S_;
   double a = Par_.getAlfa();
   double b = Par_.getBeta();
   double g = Par_.getGamma();
@@ -32,10 +32,7 @@ void Pandemic::simulate(){
   for (int j = 0; j < t; j++) {
     
     s += ((-now.S_ * now.I_ * b) / N - a * S0);
-    next.S_ = s;
-
-    i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
-    next.I_ = i;
+    next.S_ = s; //ne abbiamo tolti 28 (38 abbiamo settiamo a 0)
 
     d += m * now.I_;
     next.D_ = d;
@@ -43,18 +40,26 @@ void Pandemic::simulate(){
     //next.S_ += ((-now.S_ * now.I_ * b) / N - a * S0);
     //next.I_ += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
     //next.D_ += m * now.I_;
- 
-    if (next.S_ > 0) {
+
+    
+  // now 28
+    if (next.S_ >  0) {
       r += (g * now.I_ + a * S0);
       next.R_ = r;
+      i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
+      next.I_ = i; //ne  aggiungiamo 38
+
 
       //next.R_ += (g * now.I_ + a * S0);
-    } else {
+    } else { 
 
-      next.S_= 0;
-      r += g * now.I_ + now.S_;  //-(s2-s1)
+      i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_) + next.S_ ;
+      next.I_ = i; //ne  aggiungiamo 38
+
+      r += g * now.I_ + now.S_ ;  //-(s2-s1)
       next.R_ = r;
-
+      next.S_= 0; 
+      S0 = 0;
       // next.R_ += g * now.I_ + now.S_;  //-(s2-s1)
     }
 

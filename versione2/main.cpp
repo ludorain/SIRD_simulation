@@ -225,16 +225,16 @@ int main() {
         << "Great, you've choosen Random generation, here's your datas: \n ";
 
     // Generate random seed for rand()
-    srand(time(NULL));
+    std::srand(time(NULL));
 
     // Time elapse
-    t = 30 + (rand() % 101);
+    t = 30 + (std::rand() % 101);
 
     // Generate people for simulation
-    s = rand() % 500 + 5501;  // suscettibili tra 500 e 6000   5000-10000
-    i = rand() % 101;         // infetti tra 0 e 100
-    r = rand() % 501;         // resuscitati tra 0 e 500
-    d = rand() % 101;         // deceduti tra 0 e 100
+    s = std::rand() % 500 + 5501;  // suscettibili tra 500 e 6000   5000-10000
+    i = std::rand() % 101;         // infetti tra 0 e 100
+    r = std::rand() % 501;         // resuscitati tra 0 e 500
+    d = std::rand() % 101;         // deceduti tra 0 e 100
 
     // Generate parameters for simulation    
     a = fRand(0.001, 0.01);  // between 0.001 e 0.01
@@ -267,7 +267,8 @@ int main() {
 
 double fRand(double fMin, double fMax) 
 {
-  double f = (double)rand() / RAND_MAX;
+  
+  double f = static_cast<double>(std::rand()) / RAND_MAX;
   return fMin + f * (fMax - fMin);
 }
 

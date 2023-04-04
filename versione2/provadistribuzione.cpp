@@ -1,27 +1,30 @@
 
 #include <ctime> 
 #include <iostream>
+#include <cmath>
 
 int main () {
 
-    double dado ;
+    double dado;
+    double s,i,r,d;
 
-    double s_resto =0.7; //fract part
-    double i_resto = 0.2;
-    double r_resto = 0.3;
-    double d_resto = 0.1;
+    double fract_s, int_s;
+    fract_s = std::modf(s, &int_s);
+    double fract_i, int_i;
+    fract_i = std::modf(i, &int_i);
+    double fract_r, int_r;
+    fract_r = std::modf(r, &int_r);
+    double fract_d, int_d;
+    fract_d = std::modf(d, &int_d);
+
     
-    double sommafractpart = s_resto +i_resto+r_resto+d_resto;
-
-    //proporzione s_resto:0.13 = x:100
+    double sumfract = fract_s + fract_i + fract_r + fract_d;
 
     int ghost = 5; // = Ntotnext - Ntot0;
-
+        std::srand(time(NULL));
     for (int i = 0; i<ghost; i++) {
-        srand (time(NULL));
-        dado= rand()%101; //dado è un numero tra 0 e 100 ma io lo voglio double da sistemare 
-        double f = (double)rand() / RAND_MAX;
-        std::cout <<f;
+        dado = static_cast<double>(std::rand()) / RAND_MAX;
+        std::cout <<dado;
     //qui non va bene 
         if (0<=dado<s_resto ) {
                 //incrementa s di 1
@@ -32,7 +35,6 @@ int main () {
         }else {
                 //incementra d di 1
         }
-
 
     }
 }
