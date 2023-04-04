@@ -29,10 +29,11 @@ int main() {
   int Num;
   double a, b, g, m;
   int t;
-
+  People p;
+  Parameters ps;
   char data;
   char vax;
-  bool control; 
+  bool control, control1; 
 
   std::cout << "Would you like to insert data from file, from standard input "
                "or run a random simulation? [F,S,R] \n";
@@ -66,8 +67,7 @@ int main() {
     t = std::stoi(ini.get("PARAMETERS").get("time"));  
     //COMMENTI: stod funziona sia con std:: sia senza, non so se mettercelo o no
     
-    People p;
-    Parameters ps;
+    
 
     control = p.set_S(s);
 
@@ -143,16 +143,14 @@ int main() {
   //INGRESSO DA STANDARD INPUT
   } else if (data == 'S') { 
   
-    People p;
-    Parameters ps;
-
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
     std::cout << "The number of initial  \n";
-
     std::cout << "Susceptible [range 0-60000]: ";
     //std::cin >> s;
     //readInt(s, 60000);
-    if (readInt(s)) {
+
+    control1=readInt(s);
+    if (control1) {
       control = p.set_S(s);
 
       if (control == false) {
