@@ -7,11 +7,23 @@
 class Pandemic {
 
     public:
-    
+
+        //default constructor
         Pandemic();
+
+        //Class setter
         bool set_Pandemic(People, Parameters, int);
+
+        //Function for simulation
         void simulate();
+
+        //Standard output function
         void print();
+
+        //Getter
+        Parameters getPar();
+        std::vector<People> getPopulation();
+        int getTime();
 
     private:
 

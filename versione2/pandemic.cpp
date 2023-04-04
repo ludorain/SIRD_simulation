@@ -5,6 +5,7 @@
 #include <iostream>
 #include <typeinfo>
 
+//Default constructor
 Pandemic::Pandemic() {
 
   People p;
@@ -16,6 +17,7 @@ Pandemic::Pandemic() {
   
 }
 
+//Class setter
 bool Pandemic::set_Pandemic(People p, Parameters ps, int t){
   
   Population_[0] = p;
@@ -28,6 +30,21 @@ bool Pandemic::set_Pandemic(People p, Parameters ps, int t){
   }
 }
 
+//Class getter
+Parameters Pandemic::getPar()
+{
+  return Par_;
+}
+
+std::vector<People> Pandemic::getPopulation()
+{
+return Population_;
+}
+
+int Pandemic::getTime()
+{
+  return Time_;
+}
 
 //prima prova simulate
 void Pandemic::simulate(){
