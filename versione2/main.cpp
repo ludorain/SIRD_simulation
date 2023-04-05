@@ -67,9 +67,7 @@ int main() {
     b = std::stod(ini.get("PARAMETERS").get("beta"));
     g = std::stod(ini.get("PARAMETERS").get("gamma"));       
     m = std::stod(ini.get("PARAMETERS").get("mu"));
-    t = std::stoi(ini.get("PARAMETERS").get("time"));  
-    //COMMENTI: stod funziona sia con std:: sia senza, non so se mettercelo o no
-    
+    t = std::stoi(ini.get("PARAMETERS").get("time"));      
     
 
     control = p.set_S(s);
