@@ -81,28 +81,31 @@ int main (){
     //creazione dei bottoni 
 //creazione della griglia, con cambiamento delle celle coi 4 colori associati (nero=morti, blu=susciettibili, rosso=infettati, verde=guariti): display.hpp
  //class Pandemic ;
- /*int l;
+ int l;
  std::cin >> l;
- Pandemic population(l);
+ life::Pandemic population(l);
 //inserimento dei dati input 
  //struct Probability;
- Probability prob_;
+ life::Probability prob_;
  std::cin >> prob_.beta ;
  std::cin >> prob_.alfa;
  std::cin >> prob_.gamma;
  prob_.omega = 100-prob_.omega;
  //struct Count;
- Count count_;
+ life::Count count_;
  std::cin >> count_.s;
  std::cin >> count_.i;
- std::cin >> count_.r;
+ std::cin >> count_.r; 
  std::cin >> count_.d;
  int T;
  std::cin >> T;
 //avviamento dell'esecuzione 
     for (int i = 0;i<= T ; i++){
    std::cout<< population << std::endl;
-   //chiamata evolve()
+   population = population.start(population, count_.i);
    population = population.evolve(population, prob_, count_);
-    }*/
+    }
+    return 0;
 }
+
+
