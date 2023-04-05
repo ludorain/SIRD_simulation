@@ -3,17 +3,7 @@
 #include <iostream>
 using namespace life;
 Pandemic::Pandemic(int& N) : pan_side {N},pan_grid(N * N, Person::Susceptible)
-{
-} // inizializza all'inizio 
-
- /*bool operator==(Pandemic const& left, Pandemic const& right)//utile per i testcase; cosa utile per orale=> qua si sfrutta l'operatore == dei vector, per evitare di scorrere cella per cella e verificare che il contenuto sia uguale 
-{
-   return left.Pandemic::grid() == right.Pandemic::grid(); 
-}
- bool operator!=(Pandemic const& left, Pandemic const& right)
-{
-  return left.pan_grid != right.pan_grid;
-}*/
+{} // inizializza all'inizio 
 Person const& Pandemic::Reading_cell(int r, int c)  //accesso tramite gli indici r e c; correggi per forma toroidale 
 { 
   int r_ = (r + pan_side) % pan_side;//qua creo la struttura toroidale 
@@ -38,29 +28,30 @@ Person const& Pandemic::Reading_cell(int r, int c)  //accesso tramite gli indici
   int const Pandemic::side (){
     return  pan_side;
 }
-  /*Grid Pandemic::grid(){
+  Grid Pandemic::grid(){
     return pan_grid;
-  }*/
-void Pandemic::start(Pandemic& change ,int& inf )//iniettare gli infettati iniziali
+  }
+Pandemic Pandemic::start(Pandemic& clear,int& inf )//iniettare gli infettati iniziali
 {
-  int l = change.side();
+  int l = clear.pan_side;
+  Pandemic set(l);
   for (int j=0;j <= inf; j++)
   {
     srand(time(NULL));
-    int k = rand() % l;//qua mi serve un random double
+    int k = rand() % l;
     int h = rand() % l;
-     while (change.Writing_cell(k,h) == Person::Infected)
+     while (set.Reading_cell(k,h) == Person::Infected)
     {
-      change.Writing_cell(k+1,h+1) = Person::Infected ;
+      set.Writing_cell(k+1,h+1) = Person::Infected ;
       k++;
       h++;
     }
-    change.Writing_cell(k,h) = Person::Infected;
+    set.Writing_cell(k,h) = Person::Infected;
    
-    
   }
+  return set;
 }
-  int Pandemic::infected_neighbours(Pandemic& pandemic, int r, int c)
+int Pandemic::infected_neighbours(Pandemic& pandemic, int r, int c)
   {
     int contacts = 0;
     for (int i : {-1, 0, 1}) //vado su e giù nelle righe 
@@ -72,13 +63,14 @@ void Pandemic::start(Pandemic& change ,int& inf )//iniettare gli infettati inizi
     }
     return contacts;//n numero dei contatti infetti}
   }
-  Pandemic  Pandemic::evolve(Pandemic& current, Probability& prob, Count& count) //ho messo le probabilità come reference per alleggerire l'allocazione in memoria
+
+Pandemic  Pandemic::evolve(Pandemic& current, Probability& prob, Count& count) //ho messo le probabilità come reference per alleggerire l'allocazione in memoria
 {
 
   int l = current.pan_side; //lato della griglia dell'oggetto current
   Pandemic next (l); // uso il costruttore di pandemic che riechiede come parametro solo il lato della griglia ovvero l  
   assert ((l*l) == (count.s + count.i + count.r + count.d)); //l'area della griglia deve essere uguale alla popolazione  
-  assert ((prob.alfa + prob.beta) < 100 && (prob.gamma + prob.omega)); //verifica della normalizzazione delle probabilità
+  assert ((prob.alfa + prob.beta) < 100); //verifica della normalizzazione delle probabilità
   
   for (int r = 0 ; r <= l ; r++  )    // loop sulle righe
   {
@@ -87,7 +79,7 @@ void Pandemic::start(Pandemic& change ,int& inf )//iniettare gli infettati inizi
      if (current.Reading_cell(r,c) == Person::Susceptible )  //suscettibili
      {
         srand(time(NULL));
-        double p1 = (float)rand ();
+        float p1 = (float)rand ();//da verificare per estrazione tra 0 e 1
         double b = (prob.beta/100)*infected_neighbours(current, r, c);// calcola la probabilità specitica per la cella 
            if (prob.alfa != 0 && 0< p1 <= (prob.alfa/100)){
               next.Writing_cell(r,c) = Person::Recovered;//riassegnazione dello stato nella stessa posizione ma nella griglia successiva 
@@ -123,12 +115,14 @@ void Pandemic::start(Pandemic& change ,int& inf )//iniettare gli infettati inizi
   }
   return next;//restituisce una nuova griglia con i nuovi stati
 }
-void Pandemic::check_number(Count& c_start)
+/*void Pandemic::check_number(Count& c_start, int& n)
 { 
   int A = pan_side * pan_side;
+  c_start.d = n ;
+  c_start.r = 
   
 
-}
+}*/
  
 
  /*void Pandemic::print(Pandemic& p,Probability& prob, Count& count, int& T) 
