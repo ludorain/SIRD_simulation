@@ -5,6 +5,7 @@
 #include <fstream>  //serve per usare ifs
 #include <iostream>
 #include <typeinfo>
+#include <limits>
 
 #include "parameters.hpp"
 #include "people.hpp"
@@ -16,7 +17,9 @@ double fRand(double, double);
 
 bool readInt(int &x) {
   std::cin >> x;
-  if (!std::cin.good()) {
+  if(std::cin.fail() || std::cin.bad())
+  //if (!std::cin.good()) 
+  {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       return false;
@@ -149,8 +152,11 @@ int main() {
     //std::cin >> s;
     //readInt(s, 60000);
 
-    control1=readInt(s);
+    /*control1=readInt(s);
     if (control1) {
+      control = p.set_S(s); */
+      
+    if (readInt(s)) {
       control = p.set_S(s);
 
       if (control == false) {
