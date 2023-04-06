@@ -12,13 +12,17 @@
 #include "pandemic.hpp"
 #include "ini.h"
 
-// random generation prototype function
-double fRand(double, double);
+// Function for double random generation 
+double fRand(double fMin, double fMax) 
+{
+  double f = static_cast<double>(std::rand()) / RAND_MAX;
+  return fMin + f * (fMax - fMin);
+}
 
+//Function for reading integers
 bool readInt(int &x) {
   std::cin >> x;
-  if(std::cin.fail() || std::cin.bad())
-  //if (!std::cin.good()) 
+  if(std::cin.fail()||std::cin.peek()!='\n')
   {
       std::cin.clear();
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -28,15 +32,22 @@ bool readInt(int &x) {
 }
 
 int main() {
-  int s, i, r, d;
+  //Assignment variables
+  int s, i, r, d;   
   int Num;
   double a, b, g, m;
   int t;
-  People p;
-  Parameters ps;
+
+  //Support variables
   char data;
   char vax;
-  bool control, control1; 
+  bool control; 
+
+  //Creating objects
+  People p;
+  Parameters ps;
+  Pandemic simulation;
+  
 
   std::cout << "Would you like to insert data from file, from standard input "
                "or run a random simulation? [F,S,R] \n";
@@ -58,7 +69,8 @@ int main() {
     file.read(ini);
     
     // read values ini.get("section").get("key")
-    // il metodo stoi() = string to int
+    // stoi() = string to int
+    // stod() = string to double
     s = std::stoi(ini.get("PEOPLE").get("Susceptibles"));
     i = std::stoi(ini.get("PEOPLE").get("Infected"));
     r = std::stoi(ini.get("PEOPLE").get("Recovered"));
@@ -69,7 +81,7 @@ int main() {
     m = std::stod(ini.get("PARAMETERS").get("mu"));
     t = std::stoi(ini.get("PARAMETERS").get("time"));      
     
-
+    //Checking and assigning variables values to the People object
     control = p.set_S(s);
 
     if (control == false) {
@@ -96,7 +108,7 @@ int main() {
       std::cout << "Infected value out of range, initialized to default (0). \n";
     }
 
-
+    //Checking and assigning variables values to the Parameters object
     if(a==0){
       ps.set_Zero();
     } else {
@@ -105,8 +117,7 @@ int main() {
       if (control == false){
         std::cout << "Vaccination parameter out of range, initialized to default (0.001). \n";
       } 
-    }
-    
+    }    
 
     control = ps.set_Beta(b);
 
@@ -120,7 +131,6 @@ int main() {
       std::cout << "Recovery parameter out of range, initialized to default (0.2). \n";
     }
 
-
     control = ps.set_Mu(m);
     
     if (control == false){
@@ -129,16 +139,15 @@ int main() {
 
     ps.control_R0();
 
-    //Pandemic oggetto(p, ps, t);
-    Pandemic oggetto;
-    control = oggetto.set_Pandemic(p, ps, t);
+    //Pandemic simulation   
+    control = simulation.set_Pandemic(p, ps, t);
 
     if (control == false){
       std::cout << "Time out of range, initialized to default (50 days). \n";
     }
 
-    oggetto.simulate();
-    oggetto.print();
+    simulation.simulate();
+    simulation.print();
 
 
   //INGRESSO DA STANDARD INPUT
@@ -146,14 +155,9 @@ int main() {
   
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
     std::cout << "The number of initial  \n";
+    
     std::cout << "Susceptible [range 0-60000]: ";
-    //std::cin >> s;
-    //readInt(s, 60000);
-
-    /*control1=readInt(s);
-    if (control1) {
-      control = p.set_S(s); */
-      
+          
     if (readInt(s)) {
       control = p.set_S(s);
 
@@ -165,7 +169,11 @@ int main() {
     }
 
     std::cout << "Infected [range 0-6000]: ";
-    std::cin >> i;
+    
+
+
+
+
     control = p.set_I(i);
 
     if (control == false) {
@@ -232,14 +240,14 @@ int main() {
     std::cout << "Simulation time \n";
     std::cin >> t;
 
-    Pandemic oggetto;
-    control = oggetto.set_Pandemic(p, ps, t);
+   
+    control = simulation.set_Pandemic(p, ps, t);
 
     if (control == false){
       std::cout << "Time out of range, initialized to default (50 days). \n";
     }
-    oggetto.simulate();
-    oggetto.print();
+    simulation.simulate();
+    simulation.print();
 
 
   } else if (data == 'R') {
@@ -284,18 +292,12 @@ int main() {
 
     // Starting proper simulation
     
-    Pandemic oggetto;
-    control = oggetto.set_Pandemic(p, ps, t);
+    control = simulation.set_Pandemic(p, ps, t);
 
-    oggetto.simulate();
-    oggetto.print();
+    simulation.simulate();
+    simulation.print();
   }
 }
 
 
-double fRand(double fMin, double fMax) 
-{
-  
-  double f = static_cast<double>(std::rand()) / RAND_MAX;
-  return fMin + f * (fMax - fMin);
-}
+
