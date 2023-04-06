@@ -80,17 +80,17 @@ int main (){
     }
     //creazione dei bottoni 
 //creazione della griglia, con cambiamento delle celle coi 4 colori associati (nero=morti, blu=susciettibili, rosso=infettati, verde=guariti): display.hpp
- //class Pandemic ;
+class Pandemic ;
  int l;
  std::cin >> l;
  life::Pandemic population(l);
 //inserimento dei dati input 
  //struct Probability;
- life::Probability prob_;
- std::cin >> prob_.beta ;
+ life::Probability prob_={40,5,20,25 };
+ /*std::cin >> prob_.beta ;
  std::cin >> prob_.alfa;
  std::cin >> prob_.gamma;
- prob_.omega = 100-prob_.omega;
+ prob_.omega = 100-prob_.omega;*/
  //struct Count;
  life::Count count_;
  std::cin >> count_.s;
@@ -99,13 +99,26 @@ int main (){
  std::cin >> count_.d;
  int T;
  std::cin >> T;
-//avviamento dell'esecuzione 
-    for (int i = 0;i<= T ; i++){
+//avviamento dell'esecuzione
+//population = life::Pandemic::start(population, count_.i); 
+//std::cout<< population << std::endl;
+   population.Writing_cell(4,3) = life::Person::Infected;
+   population.Writing_cell(3,3) = life::Person::Infected;
+   population.Writing_cell(5,3) = life::Person::Infected;
+   population.Writing_cell(5,2) = life::Person::Infected;
+   population.Writing_cell(3,2) = life::Person::Infected;
+   population.Writing_cell(5,5) = life::Person::Infected;
+   for (int j = 0;j != T ; j++){
    std::cout<< population << std::endl;
-   population = population.start(population, count_.i);
-   population = population.evolve(population, prob_, count_);
+   population = life::Pandemic::evolve(population, prob_, count_);
+   
     }
     return 0;
+  
+ 
+}
+
+
 }
 
 
