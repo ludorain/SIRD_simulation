@@ -287,7 +287,6 @@ int main() {
     Pandemic oggetto;
     control = oggetto.set_Pandemic(p, ps, t);
 
-     
     oggetto.simulate();
     oggetto.print();
   }
@@ -300,75 +299,3 @@ double fRand(double fMin, double fMax)
   double f = static_cast<double>(std::rand()) / RAND_MAX;
   return fMin + f * (fMax - fMin);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-std::string line;
-    std::ifstream ifs;
-    ifs.open("Data.txt");
-    double s, i, r, d;
-    double a, b, g, u;
-    int Time;
-
-    getline(ifs, line, '.');
-    getline(ifs, line, ':');
-    getline(ifs, line, '=');
-    ifs >> s;
-    getline(ifs, line, '=');
-    ifs >> i;
-    getline(ifs, line, '=');
-    ifs >> r;
-    getline(ifs, line, '=');
-    ifs >> d;
-    getline(ifs, line, ':');
-    getline(ifs, line, '=');
-    ifs >> a;
-    getline(ifs, line, '=');
-    ifs >> b;
-    getline(ifs, line, '=');
-    ifs >> g;
-    getline(ifs, line, '=');
-    ifs >> u;
-    getline(ifs, line, '=');
-    ifs >> Time;
-
-    std::cout << a << '\n'
-              << b << '\n'
-              << g << '\n'
-              << u << '\n';
-
-    People p;
-    Parameters ps;
-    p.setPeople(s, i, r, d);
-    int Num = p.getTotal();
-    ps.setParameters(a, b, g, u);
-
-    Sird oggetto(Time, p, ps, Num);
-    oggetto.simulate();  */// DATO CHE L'OGGETTO SIMULATE è UGUALE PER TUTTI NON
-                         // POSSIAMO CHIAMARLO FUORI DALL'IF? SE HA SENSO PER ME
-                         // POTREMMO CHIAMARE FUORI DALL'IF TUTTO CIò CHE SI
-                         // CHIAMA NELLO STESSO MODO E CHE è INDIPENDENTE DALLA
-                         // SCELTA INZIIALE SUI DATI
