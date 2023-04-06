@@ -1,0 +1,20 @@
+main: people.o parameters.o pandemic.o doctest.o
+	g++ -o doctest $^
+
+parameters.o: parameters.cpp
+	g++ -c parameters.cpp
+
+people.o: people.cpp
+	g++ -c people.cpp
+
+pandemic.o: pandemic.cpp
+	g++ -c pandemic.cpp
+
+main.o: doctest.cpp
+	g++ -c doctest.cpp
+
+run:
+	make && ./doctest
+
+clean:
+	rm ./*.o && rm doctest

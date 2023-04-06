@@ -24,7 +24,51 @@ TEST_CASE("testing the default constructor") {
     CHECK(oggetto.getTime()==50);
 }
 
+TEST_CASE("Setter class Parameters"){
 
+  Parameters ps;
+  
+  SUBCASE("Calling setter with correct values")
+  
+ 
+  CHECK(ps.set_Alfa(0.001)== true); 
+  CHECK(ps.set_Alfa(0.01) == true);
+  CHECK(ps.set_Alfa(0.002) == true);
+
+  CHECK(ps.set_Beta(0.4) == true);
+  CHECK(ps.set_Beta(0.5) == true);
+  CHECK(ps.set_Beta(0.7) == true);
+
+  
+  CHECK(ps.set_Gamma(0.1) == true);
+  CHECK(ps.set_Gamma(0.3) == true);
+  CHECK(ps.set_Gamma(0.5) == true);
+
+  CHECK(ps.set_Mu(0.1) == true);
+  CHECK(ps.set_Mu(0.3) == true);
+  CHECK(ps.set_Mu(0.5) == true);
+
+  SUBCASE("Calling setter with wrong values")
+ 
+  CHECK(ps.set_Alfa(1) == false);
+  CHECK(ps.set_Alfa(-3) == false);
+  CHECK(ps.set_Alfa(0.02) == false);
+
+  CHECK(ps.set_Beta(0) == false);
+  CHECK(ps.set_Beta(1) == false);
+  CHECK(ps.set_Beta(-0.2) == false);
+
+  CHECK(ps.set_Gamma(0) == false);
+  CHECK(ps.set_Gamma(-0.2) == false);
+  CHECK(ps.set_Gamma(1) == false);
+
+  CHECK(ps.set_Mu(0) == false);
+  CHECK(ps.set_Mu(-0.2) == false);
+  CHECK(ps.set_Mu(1) == false);
+  
+
+  
+  }
 
 /*
 TEST_CASE("Testing the class handling a floating point data sample") {
