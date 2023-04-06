@@ -30,7 +30,7 @@ using Grid  = std::vector<Person>;//rinominazione di una variabile scomoda
    public:
     //Cotruisce una griglia bidimensionale (agent x agent)
     Pandemic(int&);
-    Pandemic start (Pandemic& , int&);
+    static Pandemic start (Pandemic& , int&);
     //Accesso alla persona quindi al suo stato  
     Person const& Reading_cell(int r , int c) ;//solo lettura
     // get a mutable reference to the Person at position (r,c)
@@ -58,7 +58,7 @@ using Grid  = std::vector<Person>;//rinominazione di una variabile scomoda
        return output;
     }
     int infected_neighbours(Pandemic& pandemic, int r, int c);
-    Pandemic evolve(Pandemic& current, Probability& prob, Count& count); //ho messo le probabilità come reference per alleggerire l'allocazione in memoria
+    static Pandemic evolve(Pandemic& current, Probability& prob, Count& count); //ho messo le probabilità come reference per alleggerire l'allocazione in memoria
     int const side ();
     //void check_number(Count&, int& n );
     Grid grid();
