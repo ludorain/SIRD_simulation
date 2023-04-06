@@ -150,15 +150,17 @@ int main() {
     simulation.print();
 
 
-  //INGRESSO DA STANDARD INPUT
+  //STANDARD INPUT
   } else if (data == 'S') { 
   
     std::cout << "Great, you've choosen Standard Input, please insert: \n";
     std::cout << "The number of initial  \n";
     
+  //Checking and assigning variables values to the People object
     std::cout << "Susceptible [range 0-60000]: ";
-          
+
     if (readInt(s)) {
+      
       control = p.set_S(s);
 
       if (control == false) {
@@ -167,36 +169,48 @@ int main() {
     } else {
       std::cout << "You entered a non-integer value, susceptible value initialized to default (60000). \n";
     }
-
+          
     std::cout << "Infected [range 0-6000]: ";
     
+    if (readInt(i)) {
+        control = p.set_I(i);
 
-
-
-
-    control = p.set_I(i);
-
-    if (control == false) {
-      std::cout << "Infected value out of range, initialized to default (40). \n";
-    }
+        if (control == false) {
+          std::cout << "Infected value out of range, initialized to default (40). \n";
+        } 
+      } else {
+        std::cout << "You entered a non-integer value, susceptible value initialized to default (40). \n";
+      }
+  
 
     p.control_SI();
 
     std::cout << "Recovered [range 0-6000]: ";
-    std::cin >> r;
-    control = p.set_R(r);
 
-    if (control == false) {
-      std::cout << "Recovered value out of range, initialized to default (0). \n";
-    }
+    if (readInt(r)) {
+        control = p.set_R(r);
+
+        if (control == false) {
+          std::cout << "Recovered value out of range, initialized to default (0). \n";
+        } 
+      } else {
+        std::cout << "You entered a non-integer value, susceptible value initialized to default (0). \n";
+      }
+   
 
     std::cout << "Deaths [range 0-6000]: ";
-    std::cin >> d;
-    control = p.set_D(d);
-    if (control == false) {
-      std::cout << "Infected value out of range, initialized to default (0). \n";
-    }
 
+    if (readInt(d)) {
+        control = p.set_D(d);
+
+        if (control == false) {
+          std::cout << "Deaths value out of range, initialized to default (0). \n";
+        } 
+      } else {
+        std::cout << "You entered a non-integer value, susceptible value initialized to default (0). \n";
+      }
+
+    //Checking and assigning variables values to the Parameters object
     std::cout << "Do you want vaccination? [y/n] \n";
     std::cin >> vax;
 
