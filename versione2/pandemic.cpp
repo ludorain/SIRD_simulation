@@ -86,7 +86,9 @@ void Pandemic::simulate(){
 
       i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_) + next.S_ ;
       next.I_ = i; //ne  aggiungiamo 38
-
+      if (next.I_ <0) {
+        next.I_=0;
+      }
       r += g * now.I_ + now.S_ ;  //-(s2-s1)
       next.R_ = r;
       next.S_= 0; 
@@ -108,17 +110,19 @@ void Pandemic::simulate(){
 
 
     int ghost = N-next.getTotal();
-        std::srand(time(NULL));
+    
+    std::srand(time(NULL));
 
     for (int i = 0; i<ghost; i++) {
+
         dado = static_cast<double>(std::rand()) / RAND_MAX;
-        if (dado>=0 && dado<fract_s/sum)
-        {
-            next.S_+=1 ; 
+
+        if (dado>=0 && dado<fract_s/sum){
+          next.S_+=1 ; 
         } else if (dado<(fract_s+ fract_i)/sum) {
-            next.I_+=1 ; 
+          next.I_+=1 ; 
         } else if (dado<(fract_s+ fract_i+fract_r)/sum) { 
-            next.R_+=1 ;
+          next.R_+=1 ;
         } else { 
           next.D_+=1 ; 
         }
@@ -128,10 +132,7 @@ void Pandemic::simulate(){
     now=next;
 
     if(next.S_ == 0 && next.I_ == 0){ 
-      std::cout<< "Vediamo cosa mettere qui \n";
-      std::cout << "Forse ci va un try catch, ma non so fare \n";
       break;
-      
     }    
 
   }
@@ -143,14 +144,14 @@ void Pandemic::print(){
     
     std::cout << "Time    " << "S       " << "I     " << "R     " << "D   " << "Total \n" ;
     for (int j=0; j<Size; j++){
-
       std::cout<< "Day " << j << ": " << (*it).S_ << " || " << (*it).I_ << " || " << (*it).R_ << " || " << (*it).D_ << " || " << (*it).S_ + (*it).I_ + (*it).R_ + (*it).D_ <<'\n';
       it++;
     }
-  }
-  
 
-
+    if (Size<Time_) {
+      std:: cout << "The simulation ended after " << Size << " days. \n";
+    }
+}
 
 
 
