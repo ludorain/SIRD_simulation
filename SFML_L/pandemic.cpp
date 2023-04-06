@@ -145,10 +145,11 @@ Pandemic Pandemic::evolve(Pandemic& current, Probability& prob, Count& count) //
           next.Writing_cell(r,c) = Person::Recovered;
           count.r++;
           count.i--;                                      
-        } else {
-          next.Writing_cell(r,c) = Person::Dead; //probabilità di morire 
-          count.i--;
-          count.d++;              //sarebbe carino far passare del tempo prima di fare guarire o morire
+        } else {if ((prob.gamma/100) < p1 <= ((prob.gamma+prob.omega)/100)){
+              next.Writing_cell(r,c) = Person::Dead; //probabilità di morire 
+               count.i--;
+               count.d++;
+                        //sarebbe carino far passare del tempo prima di fare guarire o morire
         } 
 
       }
