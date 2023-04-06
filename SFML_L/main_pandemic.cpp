@@ -20,15 +20,18 @@ std::cout<<"lengh";
 std::cin >> l;
 const int mapSize = l;
 //Input values
-life::Count count_;
-std::cout<<"s \n";
-std::cin >> count_.s;
+life::Count count;
 std::cout<<"i \n";
-std::cin >> count_.i;
-std::cout<<"r \n";
-std::cin >> count_.r; 
-std::cout<<"d \n";
-std::cin >> count_.d;
+std::cin >> count.i;
+if(count.i>mapSize/20){
+    std::cout<<"Eccessive number of initial infected, reduced to" << std::round(mapSize/20) << '\n';
+    count.i=std::round(mapSize/20);
+}
+
+
+count.s= ;
+count.r=0;
+count.d=0;
 
 int T;
 std::cout<<"Time \n";
@@ -56,7 +59,7 @@ life::Probability prob_={1,30,10,1};
     l'if(botton is pressed)*/
 
 //Set population (Pandemic object) with initial values
-population = life::Pandemic::start(population, count_.i); 
+population = life::Pandemic::start(population, count.i); 
 //std::cout<< population << std::endl;
 
 //Initializing map with population initial values
@@ -109,7 +112,7 @@ for(size_t x=0; x< mapSize; x++)
 
         for (int j = 0; j != T ; j++)
         {
-            population = life::Pandemic::evolve(population, prob_, count_);
+            population = life::Pandemic::evolve(population, prob_, count);
             
             // idealmente metodo draw_map()
             for(size_t x=0; x< mapSize; x++)
