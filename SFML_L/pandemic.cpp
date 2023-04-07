@@ -170,7 +170,7 @@ void life::Pandemic::check_number(int& n ,int& lato)
   double limit = (lato * lato ) *0.02;
   int lim = (int)limit;
  
-     if ((limit -lim)>=0.5) lim++;
+     if ((limit -lim)>=0.5) lim++;//limit è un double e lo devo approssimare per farlo diventare intero 
      
   if (n > lim ) {
     std::cout<< "the value insered  for the initial number of infected is ...... "<< '\n' << "It will be asigned a value by default"<<'\n';//molto improvvisato il testo è da riguardare , c'ho provato
