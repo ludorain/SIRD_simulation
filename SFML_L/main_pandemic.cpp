@@ -1,27 +1,33 @@
- #include <SFML/Graphics.hpp>
-//#include <SFML/Time.hpp>
-//#include <SFML/Clock.hpp>
+#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
 #include <iostream>
+
 #include "pandemic.hpp"
-//#include "button.hpp"
-//using namespace life;
 
 
-int main (){
-    
+int main () {
+
     //Init simulation values
-    class Pandemic ;
+    class Pandemic;
+    Count count;
 
     int l;
-    std::cout<<"Please insert: \n Grid lengh: ";
+    std::cout<<"Please insert: \n Grid lengh = ";
     std::cin >> l;
+    
+    if ( l <= 0 ) {
+        l=10;
+        std::cout<< "";
+    } 
+
+
+
     const int mapSize = l;
 
 
-    life::Count count;
+
     std::cout<<"i \n";
     std::cin >> count.i;
     if(count.i>mapSize/20){
@@ -172,5 +178,5 @@ int main (){
         
 
         return 0;
-  
+
 }

@@ -1,14 +1,48 @@
 #include "pandemic.hpp"
-#include <cassert>
+
 #include <iostream>
 #include <random>
 
-using namespace life;
 
 Pandemic::Pandemic(int& N) : 
   pan_side {N},
   pan_grid (N * N) 
 {} 
+
+
+//Setting initial infected
+Pandemic Pandemic::start(Pandemic& clear, int& infected) {
+
+  int l = clear.pan_side;
+  Pandemic set(l);
+
+  std::default_random_engine eng{std::random_device{}()};
+  std::uniform_int_distribution<int> dist{0, l - 1};
+
+  for (int j=0; j < infected; j++) {
+
+    int k = dist(eng);
+    int h = dist(eng);
+    
+    while (set.Reading_cell(k,h) == Person::Infected){
+      k++;
+      h++;
+    }
+
+    set.Writing_cell(k,h) = Person::Infected;
+  }
+
+  return set;
+}
+
+
+int const Pandemic::get_Side (){
+  return  pan_side;
+}
+
+Grid Pandemic::get_Grid(){
+  return pan_grid;
+}
 
 
 //Creating toroidal structure 
@@ -31,38 +65,6 @@ Person& Pandemic::Writing_cell(int r, int c){
   return pan_grid[index];   
 }
 
-int const Pandemic::get_Side (){
-  return  pan_side;
-}
-
-Grid Pandemic::get_Grid(){
-  return pan_grid;
-}
-
-//Setting initial infected
-Pandemic Pandemic::start(Pandemic& clear, int& infected) {
-
-  int l = clear.pan_side;
-  Pandemic set(l);
-
-  std::default_random_engine eng{std::random_device{}()};
-  std::uniform_int_distribution<int> dist{0, l - 1};
-
-  for (int j=0;j < infected ; j++) {
-
-    int k = dist(eng);
-    int h = dist(eng);
-    
-    while (set.Reading_cell(k,h) == Person::Infected){
-      k++;
-      h++;
-    }
-
-    set.Writing_cell(k,h) = Person::Infected;
-  }
-
-  return set;
-}
 
 
 //Check infected number next to the cell
@@ -98,44 +100,43 @@ Pandemic Pandemic::evolve(Pandemic& now, Probability& prob, Count& count) {
 
     for (int c = 0 ; c < l ; c++) {
 
-      if (current.Reading_cell(r,c) == Person::Susceptible ) {
+      if (now.Reading_cell(r,c) == Person::Susceptible ) {
 
         float p1 = dis(eng);
-        double b = prob.Beta_*current.infected_neighbours(now, r, c); 
+        double b = prob.Beta_*now.infected_neighbours(now, r, c); 
            
-        if (prob.alfa != 0 && p1 <= prob.Alfa_ ){
+        if (prob.Alfa_ != 0 && p1 <= prob.Alfa_ ){
 
           next.Writing_cell(r,c) = Person::Recovered; 
-          count.r+=1;
-          count.s-=1;
+          count.R_+=1;
+          count.S_-=1;
 
         } else  if ( p1 <= (prob.Alfa_+ b)) {
 
           next.Writing_cell(r,c) = Person::Infected;
-          count.i+=1; 
-          count.s-=1; 
+          count.I_+=1; 
+          count.S_-=1; 
               
         } else {
           //It doesn't change states
         }
 
 
-      } else if (current.Reading_cell(r,c) == Person::Infected) {                 
+      } else if (now.Reading_cell(r,c) == Person::Infected) {                 
 
-        std::this_thread::sleep_for(std::chrono::5);  
         double p2 = dis(eng);
 
         if (p2<=(prob.Gamma_)) {
 
           next.Writing_cell(r,c) = Person::Recovered;
-          count.r+=1;
-          count.i-=1; 
+          count.R_+=1;
+          count.I_-=1; 
 
         } else if ( p2 <= (prob.Gamma_+prob.Mu_)) {
 
           next.Writing_cell(r,c) = Person::Dead; 
-          count.i-=1;
-          count.d+=1;
+          count.I_-=1;
+          count.D_+=1;
 
         } else { 
           //Here it doesn't change state
@@ -146,6 +147,28 @@ Pandemic Pandemic::evolve(Pandemic& now, Probability& prob, Count& count) {
 
   return next;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 void life::Pandemic::check_number(int& n ,int& lato)
@@ -169,7 +192,7 @@ void life::Pandemic::check_number(int& n ,int& lato)
 } */
 
 
-
+//std::this_thread::sleep_for(std::chrono::seconds(5));  
 
 
 
