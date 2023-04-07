@@ -45,16 +45,6 @@ bool Parameters::set_Mu(double m) {
   } else {return false;}
 }  
  
-void Parameters::control_R0(){
-
-  if(Gamma_==0.5 && Mu_==0.5){
-  throw std::runtime_error("Unrealistic situation, program terminated. \n");
-  } 
-
-  if (Gamma_+Mu_>Beta_){
-    throw std::runtime_error("The epidemy won't start, program terminated. \n");
-  }
-}
 
 //Setter without control
 void Parameters::set_Parameters(double a, double b, double g, double u) {

@@ -33,11 +33,6 @@ bool People::set_I(int i){
   }
 }
 
-void People::control_SI(){
-  if(S_==0 && I_==0){
-    throw std::runtime_error{"The simulation won't do anything. Program interrupted. '\n'"};
-  }
-}
 
 bool People::set_R(int r){
   if (r >= 0 && r < 6000) {

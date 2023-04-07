@@ -94,8 +94,18 @@ int main() {
       std::cout << "Infected value out of range, initialized to default (40). \n";
     }
 
-    p.control_SI();
+    try {
+    
+    if(p.get_Susceptible()==0 && p.get_Infected()==0){
+    throw std::runtime_error("Error");
+  }
+    }
+    catch(std::runtime_error& e) {
+    std::cerr<<"The simulation won't do anything. Program interrupted. '\n'";
+    exit;
+    }
 
+    
     control = p.set_R(r);
 
     if (control == false) {
@@ -137,8 +147,25 @@ int main() {
       std::cout << "Death parameter out of range, initialized to default (0.2). \n";
     }
 
-    ps.control_R0();
+    try {
+    char e = 'e';
+    int er = 2;
+    if(ps.get_Gamma()==0.5 && ps.get_Mu()==0.5){
+    throw (e);
+    } 
 
+    if (ps.get_Gamma()+ps.get_Mu()>ps.get_Beta()){
+    throw (er);
+    }
+    }
+    catch(char e) {
+    std::cerr<<"The simulation won't do anything. Program interrupted. \n";
+    exit;
+    }
+    catch(int er) {
+    std::cerr<<"The simulation won't do anything. Program interrupted. \n";
+    exit;
+    }
     //Pandemic simulation   
     control = simulation.set_Pandemic(p, ps, t);
 
@@ -183,7 +210,16 @@ int main() {
       }
   
 
-    p.control_SI();
+    try {
+    
+    if(p.get_Susceptible()==0 && p.get_Infected()==0){
+    throw std::runtime_error("Error");
+  }
+    }
+    catch(std::runtime_error& e) {
+    std::cerr<<"The simulation won't do anything. Program interrupted. '\n'";
+    exit;
+    }
 
     std::cout << "Recovered [range 0-6000]: ";
 
@@ -249,7 +285,25 @@ int main() {
       std::cout << "Death parameter out of range, initialized to default (0.2). \n";
     }
 
-    ps.control_R0();
+    try {
+    char e = 'e';
+    int er = 2;
+    if(ps.get_Gamma()==0.5 && ps.get_Mu()==0.5){
+    throw (e);
+    } 
+
+    if (ps.get_Gamma()+ps.get_Mu()>ps.get_Beta()){
+    throw (er);
+    }
+    }
+    catch(char e) {
+    std::cerr<<"The simulation won't do anything. Program interrupted. \n";
+    exit;
+    }
+    catch(int er) {
+    std::cerr<<"The simulation won't do anything. Program interrupted. \n";
+    exit;
+    }
 
     std::cout << "Simulation time \n";
     std::cin >> t;
