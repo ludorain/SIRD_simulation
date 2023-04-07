@@ -160,20 +160,20 @@ Pandemic Pandemic::evolve(Pandemic& current, Probability& prob, Count& count) //
 }
 
 
-
-
-
-
-
-
-
-/*void Pandemic::check_number(Count& c_start, int& n)
+void life::Pandemic::check_number(int& n ,int& lato)
 { 
-  int A = pan_side * pan_side;
-  c_start.d = n ;
-  c_start.r = 
-  
-
-}*/
+  if ( lato > 50){
+    std::cout<< "the value insered  for the grid side is too much big "<< '\n' << "It will be asigned a value by default"<<'\n';//molto improvvisato il testo è da riguardare , c'ho provato
+    pan_side = 50;
+    lato = 50 ;
+  }
+  double limit = (lato * lato ) *0.02;
+  int lim = (int)limit;
  
-
+     if ((limit -lim)>=0.5) lim++;
+     
+  if (n > lim ) {
+    std::cout<< "the value insered  for the initial number of infected is ...... "<< '\n' << "It will be asigned a value by default"<<'\n';//molto improvvisato il testo è da riguardare , c'ho provato
+    n = lim;
+  }
+}
