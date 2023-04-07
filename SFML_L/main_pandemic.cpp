@@ -52,6 +52,7 @@ tileMap.resize(mapSize, std::vector<sf::RectangleShape>());
 
 //Creating simulation objects
 life::Pandemic population(l);
+population.check_number(count_.i,l);//the grid side and the infected number input control 
 life::Probability prob_={1,30,10,1};
 
 
