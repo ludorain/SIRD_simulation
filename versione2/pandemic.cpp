@@ -124,7 +124,7 @@ void Pandemic::simulate(){
 
   }
   
-    double dado;
+    double dice;
     double fract_s, int_s;
     fract_s = std::modf(s, &int_s);
     double fract_i, int_i;
@@ -142,13 +142,13 @@ void Pandemic::simulate(){
 
     for (int i = 0; i<ghost; i++) {
 
-        dado = static_cast<double>(std::rand()) / RAND_MAX;
+        dice = static_cast<double>(std::rand()) / RAND_MAX;
 
-        if (dado>=0 && dado<fract_s/sum){
+        if (dice>=0 && dice<fract_s/sum){
           next.S_+=1 ; 
-        } else if (dado<(fract_s+ fract_i)/sum) {
+        } else if (dice<(fract_s+ fract_i)/sum) {
           next.I_+=1 ; 
-        } else if (dado<(fract_s+ fract_i+fract_r)/sum) { 
+        } else if (dice<(fract_s+ fract_i+fract_r)/sum) { 
           next.R_+=1 ;
         } else { 
           next.D_+=1 ; 
