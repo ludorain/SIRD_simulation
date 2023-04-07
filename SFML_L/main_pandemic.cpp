@@ -13,36 +13,58 @@ int main () {
     class Pandemic;
     Count count;
 
+
     int l;
     std::cout<<"Please insert: \n Grid lengh = ";
     std::cin >> l;
-    
-    if ( l <= 0 ) {
-        l=10;
-        std::cout<< "";
+
+    bool control;
+    control = count.set_L(l);
+    if ( control == false ) {
+        std::cout<< "Value out of range. Initialized to default.";
     } 
 
 
+    int infected;
+    std:: cout << "Infected = " ;
+    std::cin >> infected ;
+
+    bool control;
+    control = count.set_I(infected);
+    if ( control == false ) {
+        std::cout<< "Value out of range. Initialized to default.";
+    } 
+
+    int gamma;
+    std:: cout << "Gamma = " ;
+    std::cin >> gamma ;
+
+    int mu;
+    std:: cout << "Mu = " ;
+    std::cin >> mu ;
 
     const int mapSize = l;
-
-
-
-    std::cout<<"i \n";
-    std::cin >> count.i;
-    if(count.i>mapSize/20){
+    ////BOH
+    if(count.I_>mapSize/20){
         std::cout<<"Eccessive number of initial infected, reduced to" << std::round(mapSize/20) << '\n';
         count.i=std::round(mapSize/20);
     }
 
 
-    count.s= ;
-    count.r=0;
-    count.d=0;
+    count.S_= ;
+    count.R_=0;
+    count.D_=0;
 
     int T;
-    std::cout<<"Time \n";
+    std::cout<<"Simulation time = ";
     std::cin >> T;
+
+    bool control;
+    control = ;
+    if ( control == false ) {
+        std::cout<< "Value out of range. Initialized to default.";
+    }
+
     //Init map variables
     float gridSizeF = 680/mapSize;
     float dt = 0.f;
@@ -58,16 +80,16 @@ int main () {
     tileMap.resize(mapSize, std::vector<sf::RectangleShape>());
 
     //Creating simulation objects
-    life::Pandemic population(l);
+    Pandemic population(l);
     population.check_number(count_.i,l);//the grid side and the infected number input control 
-    life::Probability prob_={1,30,10,1};
+    Probability prob_={0.1,0.30,0.10,0.1};
 
 
         /*Se volessimo mettere un bottone qui ci andrebbe
         l'if(botton is pressed)*/
 
     //Set population (Pandemic object) with initial values
-    population = life::Pandemic::start(population, count.i); 
+    population = Pandemic::start(population, count.i); 
     //std::cout<< population << std::endl;
 
     //Initializing map with population initial values
@@ -163,20 +185,8 @@ int main () {
         //creazione dei bottoni 
         
         //creazione della griglia, con cambiamento delle celle coi 4 colori associati (nero=morti, blu=susciettibili, rosso=infettati, verde=guariti): display.hpp
-
-        
-
-        /*
-        population.Writing_cell(4,3) = life::Person::Infected;
-        population.Writing_cell(3,3) = life::Person::Infected;
-        population.Writing_cell(5,3) = life::Person::Infected;
-        population.Writing_cell(5,2) = life::Person::Infected;
-        population.Writing_cell(3,2) = life::Person::Infected;
-        population.Writing_cell(5,5) = life::Person::Infected;
-        */
-        
-        
-
-        return 0;
+  
+    return 0;
 
 }
+

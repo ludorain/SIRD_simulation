@@ -9,6 +9,24 @@ Pandemic::Pandemic(int N) :
   pan_grid (N * N) 
 {} 
 
+bool Count::set_I(int i){
+  if () {
+    
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool Count::set_L(int i){
+  if () {
+    
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 //Setting initial infected
 Pandemic Pandemic::start(Pandemic& clear, int& infected) {
