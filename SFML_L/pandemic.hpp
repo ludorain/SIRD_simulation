@@ -34,7 +34,10 @@ class Pandemic
    public:
 
    //Default constructor
-   Pandemic(int&);
+
+
+   //Constructor
+   Pandemic(int);
 
    //Setting the grid 
    static Pandemic start (Pandemic& , int&);

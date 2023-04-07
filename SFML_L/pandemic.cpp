@@ -4,7 +4,7 @@
 #include <random>
 
 
-Pandemic::Pandemic(int& N) : 
+Pandemic::Pandemic(int N) : 
   pan_side {N},
   pan_grid (N * N) 
 {} 
