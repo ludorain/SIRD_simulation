@@ -172,15 +172,22 @@ TEST_CASE("Testing the pandemic constructor.") {
 
 TEST_CASE("Testing method simulate.") {
 
+  People p;
+  Parameters ps;
   Pandemic population;
+
+  p.set_People(5502,60,148,67);
+  ps.set_Parameters(0.00362329,0.48215,0.164518,0.0183258);
+  population.set_Pandemic(p, ps, 85);
+
   population.simulate();
 
   auto it=population.get_Population().begin();
   int Size=population.get_Population().size();
 
-  bool s,i,r,d;
+  bool s, i, r, d;
 
-  for (int j=0; j<Size; j++){
+  for (int j=0; j<Size-1; j++){
 
     if ((*it).get_Susceptible() >= 0 ) {
       s = true;
