@@ -46,11 +46,11 @@ int Pandemic::get_Time()
   return Time_;
 }
 
-//prima prova simulate
+//Evolution
 void Pandemic::simulate(){
 
   People now = Population_[0];
-  People next = now; //double
+  People next = now; 
   double S0= now.S_;
   double a = Par_.get_Alfa();
   double b = Par_.get_Beta();
@@ -66,64 +66,44 @@ void Pandemic::simulate(){
   double d = now.D_;
   
   for (int j = 0; j < t; j++) {
-  
-  s += ((-now.S_ * now.I_ * b) / N - a * S0);
-  next.S_ = s;
 
-  i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
-  next.I_ = i;
-
-  if(next.S_>0 && i>1){
-    
-    r += (g * now.I_ + a * S0);
-    next.R_ = r;
-
-    d += m * now.I_;
-    next.D_ = d; 
-  }
-
-  if(next.S_>0 && i<1){
-    s= now.S_ -a*S0;
-    next.S_=s;
-    
-    i=0;
-    next.I_=0;
-
-    r+= a*S0;
-    next.R_ = r;
-
-    d +=0;
-    next.D_ = d; 
-  }
-    
-  if (next.S_<0 && i>1){
-    s = 0;
+    s += ((-now.S_ * now.I_ * b) / N - a * S0); 
     next.S_ = s;
 
-    i +=  -g * now.I_ - m * now.I_;
-    next.I_ = i;
+    if(next.S_>0) {
 
-    r += (g * now.I_ + a * now.S_);
-    next.R_ = r;
+      i += ((b * now.S_ * now.I_ )/ N - g * now.I_ - m * now.I_);
+      next.I_ = i;
 
-    d += m * now.I_;
-    next.D_ = d; 
-  }
+      r += (g * now.I_ + a * S0);
+      next.R_ = r;
 
-  if(next.S_<0 && i<1){
-    s = 0;
-    next.S_ = s;
+      d += m * now.I_;
+      next.D_ = d; 
 
-    i = 0;
-    next.I_ = i;
+      if (i<1) {
+        i=0;
+      }
 
-    r = 0;
-    next.R_ += now.S_ ;
+    } else {
 
-    d = 0;
-    next.D_ += now.I_ ; 
+      s = 0;
+      next.S_ = 0;
+      
+      r += now.S_ + g * now.I_;
+      next.R_ = r;
 
-  }
+      i += - g * now.I_ - m * now.I_;
+      next.I_ = i;
+
+      d += m * now.I_;
+      next.D_ = d;
+
+      if (i<1) {
+        i=0;
+      }
+
+    }
   
     double dice;
     double fract_s, int_s;
