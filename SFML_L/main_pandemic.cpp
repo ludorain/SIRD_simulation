@@ -4,72 +4,94 @@
 
 #include <iostream>
 
+
 #include "pandemic.hpp"
+#include "parameters.hpp"
+
+
+//Function for reading integers
+bool readInt(int &x) {
+  std::cin >> x;
+  if(std::cin.fail()||std::cin.peek()!='\n')
+  {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      return false;
+  }
+  return true;
+}
 
 
 int main () {
 
+
+    Parameters ps;
+    Pandemic population;
+
+    float b,g,m;
+
+    std::cout << "Infection probability [range 0-1]: ";
+    std::cin >> b >> '\n';
+    ps.set_Beta(b);
+    
+    std::cout << "Recovery probability [range 0-0.5]: ";
+    std::cin >> g >> '\n';
+    ps.set_Gamma(g);
+
+    std::cout << "Death probability [range 0-0.5]: ";
+    std::cin >> m >> '\n';
+    ps.set_Mu(m);
+    
+
+    try {
+        int er = 2;
+        
+        if (ps.get_Gamma()+ps.get_Mu()>ps.get_Beta()){
+            throw (er);
+        }
+    }
+
+    catch(int er) {
+        std::cerr<<"The epidemy won't start. Program abort. \n";
+        exit;
+    }
+
     //Init simulation values
     class Pandemic;
-    Count count;
 
 
     int l;
-    std::cout<<"Please insert: \n Grid lengh = ";
+    std::cout<<"Please insert: \nGrid lengh = ";
     std::cin >> l;
-
-    bool control;
-    control = count.set_L(l);
-    if ( control == false ) {
-        std::cout<< "Value out of range. Initialized to default.";
+    if (readInt(infected)) {
+      population.set_Side_(l);
     } 
-
+    
 
     int infected;
-    std:: cout << "Infected = " ;
+    std:: cout << "\nInfected = " ;
     std::cin >> infected ;
-
-    bool control;
-    control = count.set_I(infected);
-    if ( control == false ) {
-        std::cout<< "Value out of range. Initialized to default.";
+    if (readInt(infected)) {
+      population.set_I(infected);
     } 
 
-    int gamma;
-    std:: cout << "Gamma = " ;
-    std::cin >> gamma ;
 
-    int mu;
-    std:: cout << "Mu = " ;
-    std::cin >> mu ;
+    int t;
+    std::cout<<"\nSimulation time = ";
+    std::cin >> t;
+    if (t<0 || t>300) {
+        t=50;
+        std::cout<< "Value out of range. Initialized to 50";
+    } 
+    
 
-    const int mapSize = l;
-    ////BOH
-    if(count.I_>mapSize/20){
-        std::cout<<"Eccessive number of initial infected, reduced to" << std::round(mapSize/20) << '\n';
-        count.i=std::round(mapSize/20);
-    }
+    const int mapSize = population.get_Side();
 
-
-    count.S_= ;
-    count.R_=0;
-    count.D_=0;
-
-    int T;
-    std::cout<<"Simulation time = ";
-    std::cin >> T;
-
-    bool control;
-    control = ;
-    if ( control == false ) {
-        std::cout<< "Value out of range. Initialized to default.";
-    }
 
     //Init map variables
     float gridSizeF = 680/mapSize;
     float dt = 0.f;
     sf::Clock dtClock;
-
 
     //Init window     
     sf::RenderWindow window(sf::VideoMode(1200, 700), "Pandemic evolution");
@@ -79,114 +101,100 @@ int main () {
     std::vector<std::vector <sf::RectangleShape>> tileMap;
     tileMap.resize(mapSize, std::vector<sf::RectangleShape>());
 
-    //Creating simulation objects
-    Pandemic population(l);
-    population.check_number(count_.i,l);//the grid side and the infected number input control 
-    Probability prob_={0.1,0.30,0.10,0.1};
-
-
-        /*Se volessimo mettere un bottone qui ci andrebbe
-        l'if(botton is pressed)*/
-
-    //Set population (Pandemic object) with initial values
-    population = Pandemic::start(population, count.i); 
-    //std::cout<< population << std::endl;
+    population = Pandemic::start(population, get_I()); 
 
     //Initializing map with population initial values
-    for(size_t x=0; x< mapSize; x++)
-        {   
-            tileMap[x].resize(mapSize, sf::RectangleShape());
+    for(size_t x=0; x< mapSize; x++) {
 
-            for(size_t y=0; y< mapSize; y++)
-            {   
-                tileMap[x][y].setSize(sf::Vector2f(gridSizeF, gridSizeF));
-                tileMap[x][y].setOutlineThickness(1.f);
-                tileMap[x][y].setOutlineColor(sf::Color::White);
-                tileMap[x][y].setPosition(x*gridSizeF, y*gridSizeF);
+        tileMap[x].resize(mapSize, sf::RectangleShape());
 
-                if (population.Reading_cell(x,y) == life::Person::Susceptible )
-                {
+        for(size_t y=0; y< mapSize; y++) {
+                
+            tileMap[x][y].setSize(sf::Vector2f(gridSizeF, gridSizeF));
+            tileMap[x][y].setOutlineThickness(1.f);
+            tileMap[x][y].setOutlineColor(sf::Color::White);
+            tileMap[x][y].setPosition(x*gridSizeF, y*gridSizeF);
+
+            if (population.Reading_cell(x,y) == Person::Susceptible ) {
+            
                 tileMap[x][y].setFillColor(sf::Color::Blue);
-                } else if(population.Reading_cell(x,y) == life::Person::Infected)
-                    {
-                    tileMap[x][y].setFillColor(sf::Color::Red);
-                    }
+
+            } else if(population.Reading_cell(x,y) == Person::Infected){
+
+                tileMap[x][y].setFillColor(sf::Color::Red);
+            }
+        }
+    }
+
+    while (window.isOpen()){
+
+        for(size_t x=0; x< mapSize; x++) {   
+            
+            for(size_t y=0; y< mapSize; y++) {
+
+                window.draw(tileMap[x][y]);
             }
         }
 
-        while (window.isOpen())
-        {
-            for(size_t x=0; x< mapSize; x++)        
-                {   for(size_t y=0; y< mapSize; y++)  
-                    { 
-                        window.draw(tileMap[x][y]);
-                    }
+        //update dt
+        dt = dtClock.restart().asSeconds();
+        window.setView(window.getDefaultView());
+
+        //Events
+        sf::Event event;
+
+        while (window.pollEvent(event)) {
+
+            if (event.type == sf::Event::Closed) {
+                window.close(); 
+            }
+        }
+
+        window.clear();        
+        window.draw(shape);
+
+        for (int j = 0; j != T ; j++) {
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            population = Pandemic::evolve(population, ps);
+            
+            for(size_t x=0; x< mapSize; x++) {
+
+                for(size_t y=0; y< mapSize; y++) {
+
+                    if (population.Reading_cell(x,y) == Person::Susceptible )
+                    {tileMap[x][y].setFillColor(sf::Color::Blue);}
+
+                    if(population.Reading_cell(x,y) == Person::Infected)
+                    {tileMap[x][y].setFillColor(sf::Color::Red);}
+
+                    if(population.Reading_cell(x,y) == Person::Recovered)
+                    {tileMap[x][y].setFillColor(sf::Color::Green);}
+
+                    if(population.Reading_cell(x,y) == Person::Dead)
+                    {tileMap[x][y].setFillColor(sf::Color::Black);}
                 }
-            //update dt
-            dt = dtClock.restart().asSeconds();
-            window.setView(window.getDefaultView());
+            }  
 
-            //Events
-            sf::Event event;
-                while (window.pollEvent(event))
-                {
-                    if (event.type == sf::Event::Closed) {
-                    window.close(); 
-                    }
-                }
-
-            window.clear();        
-            window.draw(shape);
-
-            //forse ci va un primo draw tileMap qui
-
-            for (int j = 0; j != T ; j++)
-            {
-                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-                population = life::Pandemic::evolve(population, prob_, count);
+            for(size_t x=0; x< mapSize; x++) {   
                 
-                // idealmente metodo draw_map()
-                for(size_t x=0; x< mapSize; x++)
-                {
-                    for(size_t y=0; y< mapSize; y++)
-                    {   
-                        if (population.Reading_cell(x,y) == life::Person::Susceptible )
-                        {tileMap[x][y].setFillColor(sf::Color::Blue);}
+                for(size_t y=0; y< mapSize; y++) {
 
-                        if(population.Reading_cell(x,y) == life::Person::Infected)
-                        {tileMap[x][y].setFillColor(sf::Color::Red);}
-
-                        if(population.Reading_cell(x,y) == life::Person::Recovered)
-                            {tileMap[x][y].setFillColor(sf::Color::Green);}
-
-                        if(population.Reading_cell(x,y) == life::Person::Dead)
-                            {tileMap[x][y].setFillColor(sf::Color::Black);}
-                    }
-                }  
-
-                for(size_t x=0; x< mapSize; x++)        
-                {   for(size_t y=0; y< mapSize; y++)  
-                    { 
-                        window.draw(tileMap[x][y]);
-                    }
+                    window.draw(tileMap[x][y]);
                 }
-            window.setView(window.getDefaultView()); //this is gonna reset the view at the end of the drawing
-        
-            window.display();
-            //////////////////////////////////////////////
-            sf::Clock clock;
-            sf::Time elapsed = clock.restart();
             }
             
-
+            window.setView(window.getDefaultView());
+        
+            window.display();
+       
+            sf::Clock clock;
+            sf::Time elapsed = clock.restart();         
         
         }
 
-        //creazione dei bottoni 
-        
-        //creazione della griglia, con cambiamento delle celle coi 4 colori associati (nero=morti, blu=susciettibili, rosso=infettati, verde=guariti): display.hpp
-  
+    }
+    
     return 0;
 
 }
-

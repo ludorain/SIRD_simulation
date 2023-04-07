@@ -75,11 +75,11 @@ int main() {
     i = std::stoi(ini.get("PEOPLE").get("Infected"));
     r = std::stoi(ini.get("PEOPLE").get("Recovered"));
     d = std::stoi(ini.get("PEOPLE").get("Dead"));
-    a = std::stod(ini.get("PARAMETERS").get("alfa"));
-    b = std::stod(ini.get("PARAMETERS").get("beta"));
-    g = std::stod(ini.get("PARAMETERS").get("gamma"));       
-    m = std::stod(ini.get("PARAMETERS").get("mu"));
-    t = std::stoi(ini.get("PARAMETERS").get("time"));      
+    a = std::stod(ini.get("PARAMETERS").get("Alfa"));
+    b = std::stod(ini.get("PARAMETERS").get("Beta"));
+    g = std::stod(ini.get("PARAMETERS").get("Gamma"));       
+    m = std::stod(ini.get("PARAMETERS").get("Mu"));
+    t = std::stoi(ini.get("PARAMETERS").get("Time"));      
     
     //Checking and assigning variables values to the People object
     control = p.set_S(s);
@@ -148,24 +148,29 @@ int main() {
     }
 
     try {
-    char e = 'e';
-    int er = 2;
-    if(ps.get_Gamma()==0.5 && ps.get_Mu()==0.5){
-    throw (e);
-    } 
+      char e = 'e';
+      int er = 2;
+      if(ps.get_Gamma()==0.5 && ps.get_Mu()==0.5) {
+        throw (e);
+      } 
 
-    if (ps.get_Gamma()+ps.get_Mu()>ps.get_Beta()){
-    throw (er);
+      if (ps.get_Gamma()+ps.get_Mu()>ps.get_Beta()){
+        throw (er);
+      }
+
     }
-    }
+
     catch(char e) {
-    std::cerr<<"The simulation won't do anything. Program interrupted. \n";
-    exit;
+      std::cerr<<"------------. \n";
+      exit;
     }
+
     catch(int er) {
-    std::cerr<<"The simulation won't do anything. Program interrupted. \n";
-    exit;
+      std::cerr<<"The simulation won't do anything. Program interrupted. \n";
+      exit;
     }
+
+
     //Pandemic simulation   
     control = simulation.set_Pandemic(p, ps, t);
 

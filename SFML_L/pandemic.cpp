@@ -4,26 +4,27 @@
 #include <random>
 
 
-Pandemic::Pandemic(int N) : 
-  pan_side {N},
-  pan_grid (N * N) 
-{} 
+Pandemic::Pandemic()   
+{
+  Side_= 30;
+  Grid_ (Side_*Side_);
 
-bool Count::set_I(int i){
-  if () {
-    
-    return true;
-  } else {
-    return false;
+  S_= 882;
+  I_= 18;
+  R_= 0;
+  D_= 0;
+
+} 
+
+void Pandemic::set_Side(int s){
+  if ( s>10 && s<50) {
+    Side_=s;
   }
 }
 
-bool Count::set_L(int i){
-  if () {
-    
-    return true;
-  } else {
-    return false;
+void Pandemic::set_I(int i){
+  if (i>0 && i<=Side_*Side_) {
+    I_=i;
   }
 }
 
@@ -55,13 +56,16 @@ Pandemic Pandemic::start(Pandemic& clear, int& infected) {
 
 
 int const Pandemic::get_Side (){
-  return  pan_side;
+  return  Side_;
 }
 
 Grid Pandemic::get_Grid(){
-  return pan_grid;
+  return Grid_;
 }
 
+int Pandemic::get_I() {
+  return I_;
+}
 
 //Creating toroidal structure 
 Person const& Pandemic::Reading_cell(int r, int c) {

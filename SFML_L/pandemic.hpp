@@ -9,42 +9,24 @@
 //Possible states
 enum Person {Susceptible = 0, Infected, Recovered, Dead};
 
-//Pandemic probabilities
-struct Probability 
-{
-   float Alfa_;
-   float Beta_;
-   float Gamma_;
-   float Mu_;
-};
-
-//Control counter 
-struct Count 
-{
-   int S_;
-   int I_;
-   int R_;
-   int D_;
-};
-
-using Grid  = std::vector<Person>;
-
 class Pandemic
 {
    public:
 
    //Default constructor
-
-
-   //Constructor
-   Pandemic(int);
+   Pandemic();
 
    //Setting the grid 
+   void set_I (int);
+   void set_Side (int);
+
    static Pandemic start (Pandemic& , int&);
 
    //Getter
-   int const get_Side ();
+   int const get_Side();
    Grid get_Grid();
+   int get_I();
+   
 
 
    //Reading and modifying cell
@@ -93,12 +75,15 @@ class Pandemic
 
    private: 
 
-   //Create a grid 
-   Grid pan_grid;
-   int pan_side;  
+   std::vector<Person> Grid_;
+   int Side_;  
+
+   int S_;
+   int I_;
+   int R_;
+   int D_;
 
 };
-
 
 
 
