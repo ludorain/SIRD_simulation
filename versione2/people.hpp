@@ -19,11 +19,11 @@ bool set_D(int);
 void set_People(int,int,int,int);
 
 //Getter functions
-int getTotal();
-int getSusceptible();
-int getInfected();
-int getRecovered();
-int getDeads();
+int get_Total();
+int get_Susceptible();
+int get_Infected();
+int get_Recovered();
+int get_Deads();
 
 protected:
 

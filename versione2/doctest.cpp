@@ -28,16 +28,16 @@ TEST_CASE("Setters class Parameters."){
   CHECK(ps.set_Mu(0.5) == true);
 
 
-  CHECK(ps.getAlfa() == 0.002);
-  CHECK(ps.getBeta() == 0.7);
-  CHECK(ps.getGamma() == 0.5);
-  CHECK(ps.getMu() == 0.5);
+  CHECK(ps.get_Alfa() == 0.002);
+  CHECK(ps.get_Beta() == 0.7);
+  CHECK(ps.get_Gamma() == 0.5);
+  CHECK(ps.get_Mu() == 0.5);
 
   ps.set_Parameters(0.003,0.3,0.4,0.6);
-  CHECK(ps.getAlfa() == 0.003);
-  CHECK(ps.getBeta() == 0.3);
-  CHECK(ps.getGamma() == 0.4);
-  CHECK(ps.getMu() == 0.6);
+  CHECK(ps.get_Alfa() == 0.003);
+  CHECK(ps.get_Beta() == 0.3);
+  CHECK(ps.get_Gamma() == 0.4);
+  CHECK(ps.get_Mu() == 0.6);
 
 
 
@@ -86,18 +86,18 @@ TEST_CASE("Setters & getters class People."){
   CHECK(p.set_D(453) == true);
 
 
-  CHECK(p.getSusceptible()==450);
-  CHECK(p.getInfected()==120);
-  CHECK(p.getRecovered()==1);
-  CHECK(p.getDeads()==453);
+  CHECK(p.get_Susceptible()==450);
+  CHECK(p.get_Infected()==120);
+  CHECK(p.get_Recovered()==1);
+  CHECK(p.get_Deads()==453);
 
-  CHECK(p.getTotal()==1024);
+  CHECK(p.get_Total()==1024);
 
   p.set_People(1,2,3,4);
-  CHECK(p.getSusceptible()==1);
-  CHECK(p.getInfected()==2);
-  CHECK(p.getRecovered()==3);
-  CHECK(p.getDeads()==4);
+  CHECK(p.get_Susceptible()==1);
+  CHECK(p.get_Infected()==2);
+  CHECK(p.get_Recovered()==3);
+  CHECK(p.get_Deads()==4);
 
 
 
@@ -128,17 +128,17 @@ TEST_CASE("Testing the pandemic default constructor.") {
   Parameters ps;
   Pandemic oggetto;
 
-  CHECK(p.getSusceptible() == 60000); 
-  CHECK(p.getInfected() == 40);
-  CHECK(p.getRecovered() == 0);
-  CHECK(p.getDeads() == 0);
+  CHECK(p.get_Susceptible() == 60000); 
+  CHECK(p.get_Infected() == 40);
+  CHECK(p.get_Recovered() == 0);
+  CHECK(p.get_Deads() == 0);
   
-  CHECK(ps.getAlfa() == 0.001);
-  CHECK(ps.getBeta() == 0.85);
-  CHECK(ps.getGamma() == 0.2);
-  CHECK(ps.getMu() == 0.2);
+  CHECK(ps.get_Alfa() == 0.001);
+  CHECK(ps.get_Beta() == 0.85);
+  CHECK(ps.get_Gamma() == 0.2);
+  CHECK(ps.get_Mu() == 0.2);
 
-  CHECK(oggetto.getTime()==50);
+  CHECK(oggetto.get_Time()==50);
 }
 
 
@@ -155,17 +155,17 @@ TEST_CASE("Testing the pandemic constructor.") {
   CHECK(oggetto.set_Pandemic(p,ps,-40)==false);
 
 
-  CHECK(oggetto.getPar().getAlfa()==0.003);
-  CHECK(oggetto.getPar().getBeta()==0.3);
-  CHECK(oggetto.getPar().getGamma()==0.4);
-  CHECK(oggetto.getPar().getMu()==0.6);
+  CHECK(oggetto.get_Par().get_Alfa()==0.003);
+  CHECK(oggetto.get_Par().get_Beta()==0.3);
+  CHECK(oggetto.get_Par().get_Gamma()==0.4);
+  CHECK(oggetto.get_Par().get_Mu()==0.6);
 
-  CHECK(oggetto.getPopulation()[0].getSusceptible()==300);
-  CHECK(oggetto.getPopulation()[0].getInfected()==4);
-  CHECK(oggetto.getPopulation()[0].getRecovered()==5);
-  CHECK(oggetto.getPopulation()[0].getDeads()==6);
+  CHECK(oggetto.get_Population()[0].get_Susceptible()==300);
+  CHECK(oggetto.get_Population()[0].get_Infected()==4);
+  CHECK(oggetto.get_Population()[0].get_Recovered()==5);
+  CHECK(oggetto.get_Population()[0].get_Deads()==6);
 
-  CHECK(oggetto.getTime()==60);
+  CHECK(oggetto.get_Time()==60);
 
 }
 
@@ -175,58 +175,36 @@ TEST_CASE("Testing method simulate.") {
   Pandemic population;
   population.simulate();
 
-  auto it=population.getPopulation().begin();
-  int Size=population.getPopulation().size();
+  auto it=population.get_Population().begin();
+  int Size=population.get_Population().size();
 
-  bool a,b,c,d;
+  bool s,i,r,d;
 
   for (int j=0; j<Size; j++){
 
-    if ((*it).getSusceptible() >=0 ) {
-      a = true;
-    } else { a = false; }
+    if ((*it).get_Susceptible() >= 0 ) {
+      s = true;
+    } else { s = false; }
 
-    if ((*it).getInfected() >=0 ) {
-      b = true;
-    } else { b = false; }
+    if ((*it).get_Infected() >= 0 ) {
+      i = true;
+    } else { i = false; }
 
-    if ((*it).getRecovered() >=0 ) {
-      c = true;
-    } else { c = false; }
+    if ((*it).get_Recovered() >= 0 ) {
+      r = true;
+    } else { r = false; }
 
-    if ((*it).getDeads() >=0 ) {
+    if ((*it).get_Deads() >= 0 ) {
       d = true;
     } else { d = false; }
     
 
-    CHECK (a == true);
-    CHECK (b == true);
-    CHECK (c == true);
+    CHECK (s == true);
+    CHECK (i == true);
+    CHECK (r == true);
     CHECK (d == true);
 
     it++;
   }
   
 }
-
-
-
-
-/*
-TEST_CASE("Testing the class handling a floating point data sample") {
-  Sample sample;
-
-  REQUIRE(sample.size() == 0);
-
-  SUBCASE("Calling size() with four points") {
-    sample.add(1.0);
-    sample.add(1.5);
-    sample.add(2.0);
-    sample.add(2.5);
-    CHECK(sample.size() == 4);
-  }
-
-  SUBCASE("Calling statistics() with no points throws") {
-    CHECK_THROWS(sample.statistics());
-  }
-}*/

@@ -31,17 +31,17 @@ bool Pandemic::set_Pandemic(People p, Parameters ps, int t){
 }
 
 //Class getter
-Parameters Pandemic::getPar()
+Parameters Pandemic::get_Par()
 {
   return Par_;
 }
 
-std::vector<People> Pandemic::getPopulation()
+std::vector<People> Pandemic::get_Population()
 {
   return Population_;
 }
 
-int Pandemic::getTime()
+int Pandemic::get_Time()
 {
   return Time_;
 }
@@ -52,13 +52,13 @@ void Pandemic::simulate(){
   People now = Population_[0];
   People next = now; //double
   double S0= now.S_;
-  double a = Par_.getAlfa();
-  double b = Par_.getBeta();
-  double g = Par_.getGamma();
-  double m = Par_.getMu();
+  double a = Par_.get_Alfa();
+  double b = Par_.get_Beta();
+  double g = Par_.get_Gamma();
+  double m = Par_.get_Mu();
 
   double t = Time_;
-  int const N = now.getTotal();
+  int const N = now.get_Total();
 
   double s = now.S_;
   double i = now.I_;
@@ -76,9 +76,10 @@ void Pandemic::simulate(){
   if(next.S_>0 && i>1){
     
     r += (g * now.I_ + a * S0);
-        next.R_ = r;
+    next.R_ = r;
+
     d += m * now.I_;
-      next.D_ = d; 
+    next.D_ = d; 
   }
 
   if(next.S_>0 && i<1){
@@ -136,23 +137,24 @@ void Pandemic::simulate(){
     double sum = fract_s + fract_i + fract_r + fract_d;
 
 
-    int ghost = N-next.getTotal();
+    int ghost = N-next.get_Total();
     
     std::srand(time(NULL));
 
     for (int i = 0; i<ghost; i++) {
 
-        dice = static_cast<double>(std::rand()) / RAND_MAX;
+      dice = static_cast<double>(std::rand()) / RAND_MAX;
 
-        if (dice>=0 && dice<fract_s/sum){
-          next.S_+=1 ; 
-        } else if (dice<(fract_s+ fract_i)/sum) {
-          next.I_+=1 ; 
-        } else if (dice<(fract_s+ fract_i+fract_r)/sum) { 
-          next.R_+=1 ;
-        } else { 
-          next.D_+=1 ; 
-        }
+      if (dice>=0 && dice<fract_s/sum){
+        next.S_+=1 ; 
+      } else if (dice<(fract_s+ fract_i)/sum) {
+        next.I_+=1 ; 
+      } else if (dice<(fract_s+ fract_i+fract_r)/sum) { 
+        next.R_+=1 ;
+      } else { 
+        next.D_+=1 ; 
+      }
+
     }
 
     Population_.push_back(next);

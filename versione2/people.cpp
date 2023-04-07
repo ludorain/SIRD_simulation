@@ -68,12 +68,12 @@ void People::set_People(int s, int i, int r, int d) {
 
 
 // getter class People
-int People::getTotal() {
+int People::get_Total() {
   int Tot = S_ + I_ + R_ + D_;
   return Tot;
 }
 
-int People::getSusceptible() { return S_; };
-int People::getInfected() { return I_; };
-int People::getRecovered() { return R_; };
-int People::getDeads() { return D_; };
+int People::get_Susceptible() { return S_; };
+int People::get_Infected() { return I_; };
+int People::get_Recovered() { return R_; };
+int People::get_Deads() { return D_; };

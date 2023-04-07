@@ -65,7 +65,7 @@ void Parameters::set_Parameters(double a, double b, double g, double u) {
 }
 
 // class Parameters getters
-double Parameters::getAlfa() { return Alfa_; };
-double Parameters::getBeta() { return Beta_; };
-double Parameters::getGamma() { return Gamma_; };
-double Parameters::getMu() { return Mu_; };
+double Parameters::get_Alfa() { return Alfa_; };
+double Parameters::get_Beta() { return Beta_; };
+double Parameters::get_Gamma() { return Gamma_; };
+double Parameters::get_Mu() { return Mu_; };

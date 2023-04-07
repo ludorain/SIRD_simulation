@@ -20,10 +20,10 @@ void set_Zero();
 void set_Parameters(double, double, double, double);
 
 //funzioni get
-double getAlfa();
-double getBeta();
-double getGamma();
-double getMu();
+double get_Alfa();
+double get_Beta();
+double get_Gamma();
+double get_Mu();
 
 private:
 

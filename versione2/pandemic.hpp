@@ -21,9 +21,9 @@ class Pandemic {
         void print();
 
         //Getter
-        Parameters getPar();
-        std::vector<People> getPopulation();
-        int getTime();
+        Parameters get_Par();
+        std::vector<People> get_Population();
+        int get_Time();
 
     private:
 
@@ -33,23 +33,5 @@ class Pandemic {
 
 };
 
-
-/*
-VECCHIA CLASSE
-class Sird{
-
-public:
-Sird(int T_, People people_, Parameters parameters_, int N_);
-void simulate();
-
-private:
-
-//People people;
-//Time, total people, probability of infection, probability of recovery, probability
-int T;
-People people;
-Parameters parameters;
-int N;
-};*/
 #endif
 

@@ -34,7 +34,7 @@ bool readInt(int &x) {
 int main() {
   //Assignment variables
   int s, i, r, d;   
-  int Num;
+  int num;
   double a, b, g, m;
   int t;
 
@@ -292,12 +292,12 @@ int main() {
     // Assign random values to class object and print them
     p.set_People(s, i, r, d);    
     ps.set_Parameters(a, b, g, m);
-    Num = p.getTotal();
+    num = p.get_Total();
 
     std::cout << "The initial persons are: \n";
     std::cout << "Susceptible = " << s << '\n' << "Infected = " << i << '\n';
     std::cout << "Recovered = " << r << '\n' << "Dead = " << d << '\n';
-    std::cout << "Total people =" << Num << '\n';
+    std::cout << "Total people =" << num << '\n';
 
     std::cout << "The initial parameters are: \n";
     std::cout << "alfa = " << a << '\n' << "beta = " << b << '\n';
