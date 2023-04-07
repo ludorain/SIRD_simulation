@@ -76,7 +76,7 @@ namespace life {
       
       int const side ();
 
-      //void check_number(Count&, int& n );
+      void check_number(int& n,int& lato);
       Grid grid();
 
       //void print(Pandemic& p, Probability& prob, Count& count,int& T);
