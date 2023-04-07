@@ -112,6 +112,7 @@ for(size_t x=0; x< mapSize; x++)
 
         for (int j = 0; j != T ; j++)
         {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             population = life::Pandemic::evolve(population, prob_, count);
             
             // idealmente metodo draw_map()
