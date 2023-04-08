@@ -135,7 +135,7 @@ int main() {
     window.draw(shape);
 
     for (int j = 0; j != t; j++) {
-      // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
       population = Pandemic::evolve(population, ps);
 
       for (size_t x = 0; x < maps; x++) {
@@ -168,7 +168,7 @@ int main() {
 
       window.display();
 
-      if (j == t) {
+      if (j == t-1) {
         window.close();
       }
     }

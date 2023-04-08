@@ -24,7 +24,7 @@ void Parameters::set_Zero(){
 }
 
 bool Parameters::set_Beta(double b) {
-  if(b>0&&b<1){
+  if(b>0 && b<1){
     Beta_ = b;
     return true;
   } else {return false;}

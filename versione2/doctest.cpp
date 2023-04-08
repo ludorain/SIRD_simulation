@@ -74,15 +74,15 @@ TEST_CASE("Setters & getters class People."){
   CHECK(p.set_S(450) == true);
 
   CHECK(p.set_I(0) == true);
-  CHECK(p.set_I(5999) == true);
+  CHECK(p.set_I(900000000) == true);
   CHECK(p.set_I(120) == true);
   
   CHECK(p.set_R(0) == true);
-  CHECK(p.set_R(5999) == true);
+  CHECK(p.set_R(900000000) == true);
   CHECK(p.set_R(1) == true);
 
   CHECK(p.set_D(0) == true);
-  CHECK(p.set_D(5999) == true);
+  CHECK(p.set_D(900000000) == true);
   CHECK(p.set_D(453) == true);
 
 

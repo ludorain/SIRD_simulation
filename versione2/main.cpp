@@ -189,7 +189,7 @@ int main() {
     std::cout << "The number of initial  \n";
     
   //Checking and assigning variables values to the People object
-    std::cout << "Susceptible [range 0-60000]: ";
+    std::cout << "Susceptible [range 0-900000000]: ";
 
     if (readInt(s)) {
       
@@ -202,7 +202,7 @@ int main() {
       std::cout << "You entered a non-integer value, susceptible value initialized to default (60000). \n";
     }
           
-    std::cout << "Infected [range 0-6000]: ";
+    std::cout << "Infected [range 0-900000000]: ";
     
     if (readInt(i)) {
         control = p.set_I(i);
@@ -226,7 +226,7 @@ int main() {
     exit(0);
     }
 
-    std::cout << "Recovered [range 0-6000]: ";
+    std::cout << "Recovered [range 0-900000000]: ";
 
     if (readInt(r)) {
         control = p.set_R(r);
@@ -239,7 +239,7 @@ int main() {
       }
    
 
-    std::cout << "Deaths [range 0-6000]: ";
+    std::cout << "Deaths [range 0-900000000]: ";
 
     if (readInt(d)) {
         control = p.set_D(d);
@@ -337,15 +337,15 @@ int main() {
     t = 30 + (std::rand() % 101);
 
     // Generate people for simulation
-    s = std::rand() % 500 + 5501;  // suscettibili tra 500 e 6000   5000-10000
-    i = std::rand() % 101;         // infetti tra 0 e 100
-    r = std::rand() % 501;         // resuscitati tra 0 e 500
-    d = std::rand() % 101;         // deceduti tra 0 e 100
+    s = std::rand() % 900000001;  
+    i = std::rand() % 900000001;         
+    r = std::rand() % 900000001;         
+    d = std::rand() % 900000001;         
 
     // Generate parameters for simulation    
-    a = fRand(0.000, 0.01);  // between 0.00 e 0.01
-    b = fRand(0.400, 0.900);  // between 0.1 e 0.9
-    g = fRand(0.001, 0.200);  //
+    a = fRand(0.000, 0.01);  
+    b = fRand(0.400, 0.900);  
+    g = fRand(0.001, 0.200);  
     m = fRand(0.001, 0.100);
 
     // Assign random values to class object and print them
