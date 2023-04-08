@@ -89,9 +89,7 @@ int main () {
 
     //Init map variables
     float gridSizeF = 680/mapSize;
-    //float dt;
-    //sf::Clock dtClock;
-
+    
     //Init window     
     sf::RenderWindow window(sf::VideoMode(1200, 700), "Pandemic evolution");
 
@@ -187,10 +185,8 @@ int main () {
         
             window.display();
        
-            //sf::Clock clock;
-            //sf::Time dt = clock.restart();  
-
             if (j==t){
+
                 window.close();
             }       
         

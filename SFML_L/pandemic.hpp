@@ -68,9 +68,9 @@ class Pandemic
 
    private: 
 
-   std::vector<Person> Grid_;
    int Side_;  
-
+   std::vector<Person> Grid_;
+   
    int S_;
    int I_;
    int R_;
