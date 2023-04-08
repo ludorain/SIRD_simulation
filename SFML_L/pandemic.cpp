@@ -8,7 +8,7 @@
 Pandemic::Pandemic():
 Grid_(Side_*Side_)
 {
-  Side_= 30;
+  Side_= 20;
 
   S_= 882;
   I_= 18;

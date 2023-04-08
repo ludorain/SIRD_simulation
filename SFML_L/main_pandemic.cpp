@@ -7,7 +7,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-
+#include <vector>
 
 #include "pandemic.hpp"
 #include "parameters.hpp"
@@ -85,6 +85,7 @@ int main () {
     
 
     int mapSize = population.get_Side();
+    unsigned long maps = population.get_Side();
 
 
     //Init map variables
@@ -103,7 +104,7 @@ int main () {
     population = Pandemic::start(population, population.get_I()); 
 
     //Initializing map with population initial values
-    for(int x=0; x< mapSize; x++) {
+    /*for(int x=0; x< mapSize; x++) {
 
         tileMap[x].resize(mapSize, sf::RectangleShape());
 
@@ -123,18 +124,46 @@ int main () {
                 tileMap[x][y].setFillColor(sf::Color::Red);
             }
         }
+    }*/
+
+    for(size_t x=0; x< maps; x++) {
+
+        tileMap[x].resize(mapSize, sf::RectangleShape());
+
+        for(size_t y=0; y< maps; y++) {
+                
+            tileMap[x][y].setSize(sf::Vector2f(gridSizeF, gridSizeF));
+            tileMap[x][y].setOutlineThickness(1.f);
+            tileMap[x][y].setOutlineColor(sf::Color::White);
+            tileMap[x][y].setPosition(x*gridSizeF, y*gridSizeF);
+            
+            if (population.Reading_cell(x,y) == Person::Susceptible ) {
+            
+                tileMap[x][y].setFillColor(sf::Color::Blue);
+
+            } else if(population.Reading_cell(x,y) == Person::Infected){
+
+                tileMap[x][y].setFillColor(sf::Color::Red);
+            }
+        }
     }
 
     while (window.isOpen()){
-
+        /*
         for(int x=0; x< mapSize; x++) {   
 
             for(int y=0; y< mapSize; y++) {
 
                 window.draw(tileMap[x][y]);
             }
-        }
+        }*/
 
+            for(size_t x=0; x< maps; x++)        
+            {   for(size_t y=0; y< maps; y++)  
+                { 
+                    window.draw(tileMap[x][y]);
+                }
+            }
         //update dt
         dt = dtClock.restart().asSeconds();
         window.setView(window.getDefaultView());
@@ -154,12 +183,12 @@ int main () {
 
         for (int j = 0; j != t ; j++) {
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
             population = Pandemic::evolve(population, ps);
             
-            for(int x=0; x< mapSize; x++) {
+            for(size_t x=0; x< maps; x++) {
 
-                for(int y=0; y< mapSize; y++) {
+                for(size_t y=0; y< maps; y++) {
 
                     if (population.Reading_cell(x,y) == Person::Susceptible )
                     {tileMap[x][y].setFillColor(sf::Color::Blue);}
@@ -175,9 +204,9 @@ int main () {
                 }
             }  
 
-            for(int x=0; x< mapSize; x++) {   
+            for(size_t x=0; x< maps; x++) {   
                 
-                for(int y=0; y< mapSize; y++) {
+                for(size_t y=0; y< maps; y++) {
 
                     window.draw(tileMap[x][y]);
                 }
