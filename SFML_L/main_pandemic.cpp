@@ -63,22 +63,20 @@ int main () {
     //Init simulation values
     int l;
     std::cout<<"Please insert: \nGrid lengh = ";
-    std::cin >> l;
     if (readInt(l)) {
       population.set_Side(l);
     } 
     
 
     int infected;
-    std:: cout << "\nInfected = " ;
-    std::cin >> infected ;
+    std:: cout << "Infected = " ;
     if (readInt(infected)) {
       population.set_I(infected);
     } 
 
 
     int t;
-    std::cout<<"\nSimulation time = ";
+    std::cout<<"Simulation time = ";
     std::cin >> t;
     if (t<0 || t>300) {
         t=50;
@@ -91,7 +89,7 @@ int main () {
 
     //Init map variables
     float gridSizeF = 680/mapSize;
-    //float dt;
+    float dt;
     sf::Clock dtClock;
 
     //Init window     
@@ -138,7 +136,7 @@ int main () {
         }
 
         //update dt
-        //dt = dtClock.restart().asSeconds();
+        dt = dtClock.restart().asSeconds();
         window.setView(window.getDefaultView());
 
         //Events
@@ -190,7 +188,7 @@ int main () {
             window.display();
        
             sf::Clock clock;
-            //sf::Time dt = clock.restart();         
+            sf::Time dt = clock.restart();         
         
         }
 

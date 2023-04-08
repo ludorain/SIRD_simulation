@@ -1,10 +1,9 @@
 #ifndef PANDEMIC_HPP
 #define PANDEMIC_HPP
+#include "parameters.hpp"
 
 #include <iostream>
 #include <vector>
-
-#include "parameters.hpp"
 
 //Possible states
 enum Person {Susceptible = 0, Infected, Recovered, Dead};
