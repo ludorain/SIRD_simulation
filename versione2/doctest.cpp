@@ -9,7 +9,7 @@ TEST_CASE("Setters class Parameters."){
 
   Parameters ps;
   
-  SUBCASE("Calling setters with correct values & checking getters.")
+  SUBCASE("Calling setters with correct values & checking getters."){
  
   CHECK(ps.set_Alfa(0.001)== true); 
   CHECK(ps.set_Alfa(0.01) == true);
@@ -38,11 +38,10 @@ TEST_CASE("Setters class Parameters."){
   CHECK(ps.get_Beta() == 0.3);
   CHECK(ps.get_Gamma() == 0.4);
   CHECK(ps.get_Mu() == 0.6);
+  }
 
 
-
-  SUBCASE("Calling setter with wrong values")
- 
+  SUBCASE("Calling setter with wrong values"){ 
   CHECK(ps.set_Alfa(1) == false);
   CHECK(ps.set_Alfa(-3) == false);
   CHECK(ps.set_Alfa(0.02) == false);
@@ -58,7 +57,7 @@ TEST_CASE("Setters class Parameters."){
   CHECK(ps.set_Mu(0) == false);
   CHECK(ps.set_Mu(-0.2) == false);
   CHECK(ps.set_Mu(1) == false);
-
+  }
 }
 
 
@@ -66,23 +65,23 @@ TEST_CASE("Setters & getters class People."){
 
   People p;
   
-  SUBCASE("Calling setters with correct values & checking getters.")
+  SUBCASE("Calling setters with correct values & checking getters."){
   
  
   CHECK(p.set_S(0)== true); 
-  CHECK(p.set_S(900000000) == true);
+  CHECK(p.set_S(200000000) == true);
   CHECK(p.set_S(450) == true);
 
   CHECK(p.set_I(0) == true);
-  CHECK(p.set_I(900000000) == true);
+  CHECK(p.set_I(200000000) == true);
   CHECK(p.set_I(120) == true);
   
   CHECK(p.set_R(0) == true);
-  CHECK(p.set_R(900000000) == true);
+  CHECK(p.set_R(200000000) == true);
   CHECK(p.set_R(1) == true);
 
   CHECK(p.set_D(0) == true);
-  CHECK(p.set_D(900000000) == true);
+  CHECK(p.set_D(200000000) == true);
   CHECK(p.set_D(453) == true);
 
 
@@ -98,27 +97,27 @@ TEST_CASE("Setters & getters class People."){
   CHECK(p.get_Infected()==2);
   CHECK(p.get_Recovered()==3);
   CHECK(p.get_Deads()==4);
+  }
 
 
-
-  SUBCASE("Calling setter with wrong values")
+  SUBCASE("Calling setter with wrong values"){
  
   CHECK(p.set_S(-1)== false); 
-  CHECK(p.set_S(60000) == false);
+  CHECK(p.set_S(900000000) == false);
   CHECK(p.set_S(-4) == false);
 
   CHECK(p.set_I(-1) == false);
-  CHECK(p.set_I(6000) == false);
-  CHECK(p.set_I(6511) == false);
+  CHECK(p.set_I(900000000) == false);
+  CHECK(p.set_I(-700) == false);
 
   CHECK(p.set_R(-1) == false);
-  CHECK(p.set_R(6000) == false);
-  CHECK(p.set_R(7500) == false);
+  CHECK(p.set_R(900000000) == false);
+  CHECK(p.set_R(400000000) == false);
 
   CHECK(p.set_D(-1) == false);
-  CHECK(p.set_D(6000) == false);
-  CHECK(p.set_D(10000) == false);
-
+  CHECK(p.set_D(900000000) == false);
+  CHECK(p.set_D(4000000000) == false);
+  }
 }
 
 

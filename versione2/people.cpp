@@ -16,7 +16,7 @@ People::People() {
 
 //Setter with control
 bool People::set_S(int s){
-  if (s >= 0 && s <= 900000000) {
+  if (s >= 0 && s <= 200000000) {
     S_ = s;
     return true;
   } else {
@@ -25,7 +25,7 @@ bool People::set_S(int s){
 }
 
 bool People::set_I(int i){
-  if (i >= 0 && i <= 900000000) {
+  if (i >= 0 && i <= 200000000) {
     I_ = i;
     return true;
   } else {
@@ -35,7 +35,7 @@ bool People::set_I(int i){
 
 
 bool People::set_R(int r){
-  if (r >= 0 && r <= 900000000) {
+  if (r >= 0 && r <= 200000000) {
     R_ = r;
     return true;
   } else {
@@ -44,7 +44,7 @@ bool People::set_R(int r){
 }
 
 bool People::set_D(int d){
-  if (d >= 0 && d <= 900000000) {
+  if (d >= 0 && d <= 200000000) {
     D_ = d;
     return true;
   } else {
