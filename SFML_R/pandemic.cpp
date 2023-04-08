@@ -16,6 +16,17 @@ Grid_(50*50)
 
 } 
 
+Pandemic::Pandemic(int lengh, int infected)
+{
+  set_Side(lengh); 
+  std::vector<Person> temp(Side_);
+  Grid_ = temp;
+  set_I(infected);
+  S_= Side_*Side_ - I_;
+  R_= 0;
+  D_= 0;
+}
+
 void Pandemic::set_Side(int s){
   if ( s>10 && s<50) {
     Side_=s;
@@ -33,9 +44,8 @@ void Pandemic::set_I(int i){
 Pandemic Pandemic::start(Pandemic& clear, int infected) {
 
   int l=clear.get_Side();
-  Pandemic set;
-  set.set_Side(l);
-
+  Pandemic set(l, infected);
+  
   std::default_random_engine eng{std::random_device{}()};
   std::uniform_int_distribution<int> dist{0, l - 1};
 
@@ -110,14 +120,12 @@ int Pandemic::infected_neighbours(Pandemic& pandemic, int r, int c) {
 
 //Day evolution
 Pandemic Pandemic::evolve(Pandemic& now, Parameters ps) {
-
-  Pandemic next;
+  
+  //next=now
   int l = now.get_Side();
-  next.set_Side(l);
-  next.Grid_(l*l);
-
-  next=now;
-
+  int f = now.get_I();
+  Pandemic next(l, f);
+  
   std::default_random_engine eng{std::random_device{}()};
   std::uniform_real_distribution <float> dis(0.0, 1.0); 
 
