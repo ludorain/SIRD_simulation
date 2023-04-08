@@ -6,11 +6,11 @@
 
 
 Pandemic::Pandemic():
-Side_ {20},
-Grid_(20*20)
+Side_ {50},
+Grid_(50*50)
 {
-  S_= 882;
-  I_= 18;
+  S_= 2450;
+  I_= 50;
   R_= 0;
   D_= 0;
 

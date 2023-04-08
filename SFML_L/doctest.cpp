@@ -59,8 +59,8 @@ TEST_CASE ("Testing class Pandemic.") {
 
   SUBCASE("Checking default constructor."){
   
-  CHECK(pan1.get_I() == 18);
-  CHECK(pan1.get_Side() == 20);
+  CHECK(pan1.get_I() == 50);
+  CHECK(pan1.get_Side() == 50);
   }
 
 
@@ -104,7 +104,7 @@ TEST_CASE ("Testing class Pandemic.") {
   int l = 50;
   evolving2.set_Side(l);
   int infected = 90;
-  evol
+
 
   evolving2 = Pandemic::start(evolving2, infected);
   
@@ -120,9 +120,30 @@ TEST_CASE ("Testing class Pandemic.") {
   }
   
   CHECK(check == 90);
+  }
+  
+  SUBCASE("Setting the initial grid by calling the member function start().") {
+  int l = 40;
+  evolving2.set_Side(l);
+  int infected = 10;
+
+
+  evolving2 = Pandemic::start(evolving2, infected);
+  
+  int check = 0;
+
+  for (int r = 0 ; r < l ; r++ ) {   
+  
+    for (int c = 0 ; c < l ; c++) {
+
+      if (evolving2.Reading_cell(r,c) == Person::Infected) 
+      {check++;}
+    }
+  }
+  
+  CHECK(check == 10);
 
   }
-
 
   SUBCASE("Testing number of infected neighbours."){
 
