@@ -155,7 +155,7 @@ TEST_CASE ("Testing class Pandemic.") {
   CHECK(neighbours.Reading_cell(2,5)<=8);
   CHECK(neighbours.Reading_cell(3,2)<=8);
   CHECK(neighbours.Reading_cell(2,3)<=8);
-}
+} 
 
 
 
