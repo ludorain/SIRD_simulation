@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
-
 #include <typeinfo>
 #include <limits>
 #include <iostream>
@@ -19,7 +18,6 @@ bool readInt(int &x) {
   if(std::cin.fail()||std::cin.peek()!='\n')
   {
       std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       return false;
   }
   return true;
@@ -78,7 +76,8 @@ int main () {
     int t;
     std::cout<<"Simulation time = ";
     std::cin >> t;
-    if (t<0 || t>300) {
+    if (t<0 || t>300 || std::cin.fail()||std::cin.peek()!='\n') {
+        std::cin.clear();
         t=50;
         std::cout<< "Value out of range. Initialized to 50";
     } 
@@ -90,8 +89,8 @@ int main () {
 
     //Init map variables
     float gridSizeF = 680/mapSize;
-    float dt;
-    sf::Clock dtClock;
+    //float dt;
+    //sf::Clock dtClock;
 
     //Init window     
     sf::RenderWindow window(sf::VideoMode(1200, 700), "Pandemic evolution");
@@ -104,28 +103,7 @@ int main () {
     population = Pandemic::start(population, population.get_I()); 
 
     //Initializing map with population initial values
-    /*for(int x=0; x< mapSize; x++) {
-
-        tileMap[x].resize(mapSize, sf::RectangleShape());
-
-        for(int y=0; y< mapSize; y++) {
-                
-            tileMap[x][y].setSize(sf::Vector2f(gridSizeF, gridSizeF));
-            tileMap[x][y].setOutlineThickness(1.f);
-            tileMap[x][y].setOutlineColor(sf::Color::White);
-            tileMap[x][y].setPosition(x*gridSizeF, y*gridSizeF);
-
-            if (population.Reading_cell(x,y) == Person::Susceptible ) {
-            
-                tileMap[x][y].setFillColor(sf::Color::Blue);
-
-            } else if(population.Reading_cell(x,y) == Person::Infected){
-
-                tileMap[x][y].setFillColor(sf::Color::Red);
-            }
-        }
-    }*/
-
+    
     for(size_t x=0; x< maps; x++) {
 
         tileMap[x].resize(mapSize, sf::RectangleShape());
@@ -149,14 +127,7 @@ int main () {
     }
 
     while (window.isOpen()){
-        /*
-        for(int x=0; x< mapSize; x++) {   
-
-            for(int y=0; y< mapSize; y++) {
-
-                window.draw(tileMap[x][y]);
-            }
-        }*/
+       std::this_thread::sleep_for(std::chrono::milliseconds(1000)); 
 
             for(size_t x=0; x< maps; x++)        
             {   for(size_t y=0; y< maps; y++)  
@@ -165,7 +136,7 @@ int main () {
                 }
             }
         //update dt
-        dt = dtClock.restart().asSeconds();
+        //dt = dtClock.restart().asSeconds();
         window.setView(window.getDefaultView());
 
         //Events
@@ -183,7 +154,7 @@ int main () {
 
         for (int j = 0; j != t ; j++) {
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            //std::this_thread::sleep_for(std::chrono::milliseconds(100));
             population = Pandemic::evolve(population, ps);
             
             for(size_t x=0; x< maps; x++) {
@@ -216,8 +187,12 @@ int main () {
         
             window.display();
        
-            sf::Clock clock;
-            sf::Time dt = clock.restart();         
+            //sf::Clock clock;
+            //sf::Time dt = clock.restart();  
+
+            if (j==t){
+                window.close();
+            }       
         
         }
 
