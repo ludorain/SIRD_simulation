@@ -20,7 +20,7 @@ class Pandemic
    void set_I (int);
    void set_Side (int);
 
-   static Pandemic start (Pandemic& , int);
+   static Pandemic start (Pandemic&, int);
 
    //Getter
    int get_Side();
@@ -64,7 +64,7 @@ class Pandemic
    int infected_neighbours(Pandemic& pandemic, int r, int c);
 
    //Day evolution 
-   static Pandemic evolve(Pandemic& current, Parameters ps); 
+   static Pandemic evolve(Pandemic& now, Parameters ps); 
 
 
    private: 

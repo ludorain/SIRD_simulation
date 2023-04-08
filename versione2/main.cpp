@@ -102,7 +102,7 @@ int main() {
     }
     catch(std::runtime_error& e) {
     std::cerr<<"The simulation won't do anything. Program interrupted. '\n'";
-    exit;
+    exit(0);
     }
 
     
@@ -162,12 +162,12 @@ int main() {
 
     catch(char e) {
       std::cerr<<"------------. \n";
-      exit;
+      exit(0);
     }
 
     catch(int er) {
       std::cerr<<"The simulation won't do anything. Program interrupted. \n";
-      exit;
+      exit(0);
     }
 
 
@@ -223,7 +223,7 @@ int main() {
     }
     catch(std::runtime_error& e) {
     std::cerr<<"The simulation won't do anything. Program interrupted. '\n'";
-    exit;
+    exit(0);
     }
 
     std::cout << "Recovered [range 0-6000]: ";
@@ -303,11 +303,11 @@ int main() {
     }
     catch(char e) {
     std::cerr<<"The simulation won't do anything. Program interrupted. \n";
-    exit;
+    exit(0);
     }
     catch(int er) {
     std::cerr<<"The simulation won't do anything. Program interrupted. \n";
-    exit;
+    exit(0);
     }
 
     std::cout << "Simulation time \n";

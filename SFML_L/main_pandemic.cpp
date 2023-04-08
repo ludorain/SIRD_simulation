@@ -56,13 +56,11 @@ int main () {
 
     catch(int er) {
         std::cerr<<"The epidemy won't start. Program abort. \n";
-        exit;
+        exit(0);
     }
 
+
     //Init simulation values
-    class Pandemic;
-
-
     int l;
     std::cout<<"Please insert: \nGrid lengh = ";
     std::cin >> l;
@@ -88,12 +86,12 @@ int main () {
     } 
     
 
-    const int mapSize = population.get_Side();
+    int mapSize = population.get_Side();
 
 
     //Init map variables
     float gridSizeF = 680/mapSize;
-    float dt = 0.f;
+    //float dt;
     sf::Clock dtClock;
 
     //Init window     
@@ -107,11 +105,11 @@ int main () {
     population = Pandemic::start(population, population.get_I()); 
 
     //Initializing map with population initial values
-    for(size_t x=0; x< mapSize; x++) {
+    for(int x=0; x< mapSize; x++) {
 
         tileMap[x].resize(mapSize, sf::RectangleShape());
 
-        for(size_t y=0; y< mapSize; y++) {
+        for(int y=0; y< mapSize; y++) {
                 
             tileMap[x][y].setSize(sf::Vector2f(gridSizeF, gridSizeF));
             tileMap[x][y].setOutlineThickness(1.f);
@@ -131,16 +129,16 @@ int main () {
 
     while (window.isOpen()){
 
-        for(size_t x=0; x< mapSize; x++) {   
-            
-            for(size_t y=0; y< mapSize; y++) {
+        for(int x=0; x< mapSize; x++) {   
+
+            for(int y=0; y< mapSize; y++) {
 
                 window.draw(tileMap[x][y]);
             }
         }
 
         //update dt
-        dt = dtClock.restart().asSeconds();
+        //dt = dtClock.restart().asSeconds();
         window.setView(window.getDefaultView());
 
         //Events
@@ -161,9 +159,9 @@ int main () {
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             population = Pandemic::evolve(population, ps);
             
-            for(size_t x=0; x< mapSize; x++) {
+            for(int x=0; x< mapSize; x++) {
 
-                for(size_t y=0; y< mapSize; y++) {
+                for(int y=0; y< mapSize; y++) {
 
                     if (population.Reading_cell(x,y) == Person::Susceptible )
                     {tileMap[x][y].setFillColor(sf::Color::Blue);}
@@ -179,9 +177,9 @@ int main () {
                 }
             }  
 
-            for(size_t x=0; x< mapSize; x++) {   
+            for(int x=0; x< mapSize; x++) {   
                 
-                for(size_t y=0; y< mapSize; y++) {
+                for(int y=0; y< mapSize; y++) {
 
                     window.draw(tileMap[x][y]);
                 }
@@ -192,7 +190,7 @@ int main () {
             window.display();
        
             sf::Clock clock;
-            sf::Time elapsed = clock.restart();         
+            //sf::Time dt = clock.restart();         
         
         }
 
