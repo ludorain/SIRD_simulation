@@ -14,7 +14,7 @@ TEST_CASE("Setters & getters class Parameters.") {
   Parameters ps1;
 
 
-  SUBCASE("Calling setters with correct values & checking getters.")
+  SUBCASE("Calling setters with correct values & checking getters."){
   
   ps.set_Beta(0.2);
   CHECK(ps.get_Beta() == doctest::Approx(0.2));
@@ -25,15 +25,15 @@ TEST_CASE("Setters & getters class Parameters.") {
   ps.set_Mu(0.1);
   CHECK(ps.get_Mu() == doctest::Approx(0.1));
   
-  
+  }
 
-  SUBCASE("Checking default constructor.")
+  SUBCASE("Checking default constructor."){
   
   CHECK(ps1.get_Alfa() == doctest::Approx(0.001));
   CHECK(ps1.get_Beta() == doctest::Approx(0.85));
   CHECK(ps1.get_Gamma() == doctest::Approx(0.2));
   CHECK(ps1.get_Mu() == doctest::Approx(0.2));
-  
+  }
 }
 
 
@@ -47,24 +47,24 @@ TEST_CASE ("Testing class Pandemic.") {
   Parameters ps;
 
   
-  SUBCASE("Calling setters with correct values & checking getters.")
+  SUBCASE("Calling setters with correct values & checking getters."){
 
   pan.set_I(100);
   CHECK(pan.get_I()==100);
 
   pan.set_Side(30);
   CHECK(pan.get_I()==30);
-  
+  }
   
 
-  SUBCASE("Checking default constructor.")
+  SUBCASE("Checking default constructor."){
   
   CHECK(pan1.get_I() == 18);
   CHECK(pan1.get_Side() == 20);
+  }
 
 
-
-  SUBCASE("Reading and changing person's state") 
+  SUBCASE("Reading and changing person's state"){ 
 
   CHECK(evolving.Reading_cell(1,1) == Person::Susceptible);
 
@@ -76,10 +76,10 @@ TEST_CASE ("Testing class Pandemic.") {
 
   evolving.Writing_cell(5,1) = Person::Dead;
   CHECK(evolving.Reading_cell(5,1) == Person::Dead);
+  }
 
 
-
-  SUBCASE("Testing evolution")
+  SUBCASE("Testing evolution") {
 
   evolving.Writing_cell(4,6) = Person::Infected;
   evolving.Writing_cell(3,5) = Person::Recovered;
@@ -96,10 +96,10 @@ TEST_CASE ("Testing class Pandemic.") {
   CHECK(evolving.Reading_cell(5,3) != Person::Susceptible);
   CHECK(evolving.Reading_cell(5,3) != Person::Recovered);
   CHECK(evolving.Reading_cell(5,3) != Person::Infected);
+  }
 
 
-
-  SUBCASE("Setting the initial grid by calling the member function start().")
+  SUBCASE("Setting the initial grid by calling the member function start().") {
   
   int l = 50;
   evolving2.set_Side(l);
@@ -111,7 +111,7 @@ TEST_CASE ("Testing class Pandemic.") {
 
   for (int r = 0 ; r < l ; r++ ) {   
   
-    for (int c = 0 ; c < l ; c++) {
+    for (int c = 0 ; c < lchown ; c++) {
 
       if (evolving2.Reading_cell(r,c) == Person::Infected) 
       {check++;}
@@ -120,10 +120,10 @@ TEST_CASE ("Testing class Pandemic.") {
   
   CHECK(check == infected);
 
+  }
 
 
-
-  SUBCASE("Testing number of infected neighbours.")
+  SUBCASE("Testing number of infected neighbours."){
 
   for (int i : {-1,0,1}) {
     for (int j : {-1,0,1}) {
@@ -132,7 +132,7 @@ TEST_CASE ("Testing class Pandemic.") {
   }
   //non sho grandi idee s come scrivere il test dei vicini
 
-
+  }
 
 }
 
