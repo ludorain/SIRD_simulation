@@ -122,6 +122,7 @@ TEST_CASE ("Testing class Pandemic.") {
   CHECK(check == 90);
   }
   
+
   SUBCASE("Setting the initial grid by calling the member function start().") {
   int l = 40;
   evolving2.set_Side(l);
@@ -145,41 +146,5 @@ TEST_CASE ("Testing class Pandemic.") {
 
   }
 
-  SUBCASE("Testing number of infected neighbours."){
-
-  for (int i : {-1,0,1}) {
-    for (int j : {-1,0,1}) {
-      neighbours.Writing_cell(4+i,6+j) = Person::Infected;
-    }
-  }
-  //non sho grandi idee s come scrivere il test dei vicini
-
-  }
 
 }
-
-
-
-
-
-/*
-{
-  
-  neighbours.Writing_cell(4,6) = Person::Infected;
-  neighbours.Writing_cell(2,5) = Person::Susceptible;
-  neighbours.Writing_cell(3,2) = Person::Infected;
-  neighbours.Writing_cell(2,3) = Person::Susceptible;
-  //evolving states 5 times
-  for (int i = 0; i < 5;i++ ){
-    Pandemic::evolve(neighbours,ps);
-  }
-  CHECK(neighbours.Reading_cell(4,6)<=8);
-  CHECK(neighbours.Reading_cell(2,5)<=8);
-  CHECK(neighbours.Reading_cell(3,2)<=8);
-  CHECK(neighbours.Reading_cell(2,3)<=8);
-} 
-
-
-
-*/
-
