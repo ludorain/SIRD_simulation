@@ -2,7 +2,11 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
+#include <typeinfo>
+#include <limits>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 
 #include "pandemic.hpp"
@@ -24,22 +28,21 @@ bool readInt(int &x) {
 
 int main () {
 
-
     Parameters ps;
     Pandemic population;
 
     float b,g,m;
 
     std::cout << "Infection probability [range 0-1]: ";
-    std::cin >> b >> '\n';
+    std::cin >> b;
     ps.set_Beta(b);
     
     std::cout << "Recovery probability [range 0-0.5]: ";
-    std::cin >> g >> '\n';
+    std::cin >> g;
     ps.set_Gamma(g);
 
     std::cout << "Death probability [range 0-0.5]: ";
-    std::cin >> m >> '\n';
+    std::cin >> m;
     ps.set_Mu(m);
     
 
@@ -63,8 +66,8 @@ int main () {
     int l;
     std::cout<<"Please insert: \nGrid lengh = ";
     std::cin >> l;
-    if (readInt(infected)) {
-      population.set_Side_(l);
+    if (readInt(l)) {
+      population.set_Side(l);
     } 
     
 
@@ -101,7 +104,7 @@ int main () {
     std::vector<std::vector <sf::RectangleShape>> tileMap;
     tileMap.resize(mapSize, std::vector<sf::RectangleShape>());
 
-    population = Pandemic::start(population, get_I()); 
+    population = Pandemic::start(population, population.get_I()); 
 
     //Initializing map with population initial values
     for(size_t x=0; x< mapSize; x++) {
@@ -153,7 +156,7 @@ int main () {
         window.clear();        
         window.draw(shape);
 
-        for (int j = 0; j != T ; j++) {
+        for (int j = 0; j != t ; j++) {
 
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             population = Pandemic::evolve(population, ps);
@@ -194,7 +197,7 @@ int main () {
         }
 
     }
-    
+
     return 0;
 
 }

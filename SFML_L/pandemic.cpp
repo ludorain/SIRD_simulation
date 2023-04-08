@@ -1,13 +1,14 @@
 #include "pandemic.hpp"
+#include "parameters.hpp"
 
 #include <iostream>
 #include <random>
 
 
-Pandemic::Pandemic()   
+Pandemic::Pandemic():
+Grid_(Side_*Side_)
 {
   Side_= 30;
-  Grid_ (Side_*Side_);
 
   S_= 882;
   I_= 18;
@@ -30,10 +31,11 @@ void Pandemic::set_I(int i){
 
 
 //Setting initial infected
-Pandemic Pandemic::start(Pandemic& clear, int& infected) {
+Pandemic Pandemic::start(Pandemic& clear, int infected) {
 
-  int l = clear.pan_side;
-  Pandemic set(l);
+  int l=clear.get_Side();
+  Pandemic set;
+  set.set_Side(l);
 
   std::default_random_engine eng{std::random_device{}()};
   std::uniform_int_distribution<int> dist{0, l - 1};
@@ -43,7 +45,7 @@ Pandemic Pandemic::start(Pandemic& clear, int& infected) {
     int k = dist(eng);
     int h = dist(eng);
     
-    while (set.Reading_cell(k,h) == Person::Infected){
+    while (set.Reading_cell(k,h) == Person::Infected) {
       k++;
       h++;
     }
@@ -54,12 +56,12 @@ Pandemic Pandemic::start(Pandemic& clear, int& infected) {
   return set;
 }
 
-
-int const Pandemic::get_Side (){
+//Getter
+int Pandemic::get_Side (){
   return  Side_;
 }
 
-Grid Pandemic::get_Grid(){
+std::vector<Person> Pandemic::get_Grid(){
   return Grid_;
 }
 
@@ -70,21 +72,21 @@ int Pandemic::get_I() {
 //Creating toroidal structure 
 Person const& Pandemic::Reading_cell(int r, int c) {
 
-  int rr = (r + pan_side) % pan_side;
-  int cc= (c + pan_side ) % pan_side;
-  int index = (rr* pan_side) + cc;
+  int rr = (r + Side_) % Side_;
+  int cc= (c + Side_ ) % Side_;
+  int index = (rr* Side_) + cc;
 
-  return pan_grid[index];
+  return Grid_[index];
 } 
 
 
 Person& Pandemic::Writing_cell(int r, int c){
 
-  int rr = (r + pan_side ) % pan_side;
-  int cc= (c + pan_side ) % pan_side;
-  int index = (rr* pan_side) + cc;
+  int rr = (r + Side_ ) % Side_;
+  int cc= (c + Side_ ) % Side_;
+  int index = (rr* Side_) + cc;
 
-  return pan_grid[index];   
+  return Grid_[index];   
 }
 
 
@@ -108,10 +110,11 @@ int Pandemic::infected_neighbours(Pandemic& pandemic, int r, int c) {
 
 
 //Day evolution
-Pandemic Pandemic::evolve(Pandemic& now, Probability& prob, Count& count) {
+Pandemic Pandemic::evolve(Pandemic& now, Parameters ps) {
 
-  int l = now.pan_side; 
-  Pandemic next (l);
+  Pandemic next;
+  int l = now.get_Side();
+  next.set_Side(l);
 
   next=now;
 
@@ -125,40 +128,39 @@ Pandemic Pandemic::evolve(Pandemic& now, Probability& prob, Count& count) {
       if (now.Reading_cell(r,c) == Person::Susceptible ) {
 
         float p1 = dis(eng);
-        double b = prob.Beta_*now.infected_neighbours(now, r, c); 
+        double b = ps.get_Beta()*now.infected_neighbours(now, r, c); 
            
-        if (prob.Alfa_ != 0 && p1 <= prob.Alfa_ ){
+        if (ps.get_Alfa() != 0 && p1 <= ps.get_Alfa()) {
 
           next.Writing_cell(r,c) = Person::Recovered; 
-          count.R_+=1;
-          count.S_-=1;
+          next.R_ += 1;
+          next.S_ -= 1;
 
-        } else  if ( p1 <= (prob.Alfa_+ b)) {
+        } else  if ( p1 <= (ps.get_Alfa() + b)) {
 
           next.Writing_cell(r,c) = Person::Infected;
-          count.I_+=1; 
-          count.S_-=1; 
+          next.I_+=1; 
+          next.S_-=1; 
               
         } else {
           //It doesn't change states
         }
 
-
       } else if (now.Reading_cell(r,c) == Person::Infected) {                 
 
         double p2 = dis(eng);
 
-        if (p2<=(prob.Gamma_)) {
+        if (p2<=(ps.get_Gamma())) {
 
           next.Writing_cell(r,c) = Person::Recovered;
-          count.R_+=1;
-          count.I_-=1; 
+          next.R_+=1;
+          next.I_-=1; 
 
-        } else if ( p2 <= (prob.Gamma_+prob.Mu_)) {
+        } else if ( p2 <= (ps.get_Gamma()+ps.get_Mu())) {
 
           next.Writing_cell(r,c) = Person::Dead; 
-          count.I_-=1;
-          count.D_+=1;
+          next.I_-=1;
+          next.D_+=1;
 
         } else { 
           //Here it doesn't change state
@@ -169,70 +171,3 @@ Pandemic Pandemic::evolve(Pandemic& now, Probability& prob, Count& count) {
 
   return next;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-void life::Pandemic::check_number(int& n ,int& lato)
-{ 
-  if ( lato > 50){
-    std::cout<< "the value insered  for the grid side is too much big "<< '\n' << "It will be asigned a value by default"<<'\n';//molto improvvisato il testo è da riguardare , c'ho provato
-    pan_side = 50;
-    lato = 50 ;
-  }
-
-  double limit = (lato * lato ) * 0.02;
-  int lim = (int)limit;
- 
-  if ((limit -lim)>=0.5) {lim++;}//limit è un double e lo devo approssimare per farlo diventare intero 
-     
-  if (n > lim ) {
-    std::cout<< "the value insered  for the initial number of infected is ...... "<< '\n' << "It will be asigned a value by default"<<'\n';//molto improvvisato il testo è da riguardare , c'ho provato
-    n = lim;
-  }
-
-} */
-
-
-//std::this_thread::sleep_for(std::chrono::seconds(5));  
-
-
-
-
-
-/////////////////////////////////////////////////////////////////
-// inizializza all'inizio 
-
- /*bool operator==(Pandemic const& left, Pandemic const& right)//utile per i testcase; cosa utile per orale=> qua si sfrutta l'operatore == dei vector, per evitare di scorrere cella per cella e verificare che il contenuto sia uguale 
-{
-   return left.Pandemic::grid() == right.Pandemic::grid(); 
-}
- bool operator!=(Pandemic const& left, Pandemic const& right)
-{
-  return left.pan_grid != right.pan_grid;
-}
-
-  assert ((l*l) == (count.s + count.i + count.r + count.d));
-  assert ((prob.alfa + prob.beta) < 100);
-
-*/

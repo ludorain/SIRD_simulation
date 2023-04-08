@@ -13,7 +13,7 @@ Parameters::Parameters() {
 //Setter 
 
 void Parameters::set_Beta(float b) {
-  if( b>0 && b<1 ){
+  if( b>0 && b< 0.999 ){
     Beta_ = b;
   }
 }

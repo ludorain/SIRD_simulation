@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-
+#include "parameters.hpp"
 
 //Possible states
 enum Person {Susceptible = 0, Infected, Recovered, Dead};
@@ -20,11 +20,11 @@ class Pandemic
    void set_I (int);
    void set_Side (int);
 
-   static Pandemic start (Pandemic& , int&);
+   static Pandemic start (Pandemic& , int);
 
    //Getter
-   int const get_Side();
-   Grid get_Grid();
+   int get_Side();
+   std::vector<Person> get_Grid();
    int get_I();
    
 
@@ -36,18 +36,18 @@ class Pandemic
 
    //Operator overloading
    friend bool operator== (Pandemic const& left, Pandemic const& right){
-      return left.pan_grid == right.pan_grid;
+      return left.Grid_ == right.Grid_;
    }
 
    friend bool operator!= (Pandemic const& left, Pandemic const& right){
-      return left.pan_grid != right.pan_grid;
+      return left.Grid_ != right.Grid_;
    }
 
    friend std::ostream& operator<< (std::ostream& output,  Pandemic& pan){ 
 
-      for( int r = 0; r != pan.pan_side; r++ ){
+      for( int r = 0; r != pan.Side_; r++ ){
 
-         for(int c = 0; c != pan.pan_side; c++ ) {
+         for(int c = 0; c != pan.Side_; c++ ) {
 
             std::cout<< pan.Writing_cell(r,c)<< " " ;
             
@@ -60,17 +60,11 @@ class Pandemic
    }
 
 
-
    //Check number of infected next to the cell
    int infected_neighbours(Pandemic& pandemic, int r, int c);
 
    //Day evolution 
-   static Pandemic evolve(Pandemic& current, Probability& prob, Count& count); 
-
-
-   //void check_number(int& n, int& lato);
-
-   //void print(Pandemic& p, Probability& prob, Count& count,int& T);
+   static Pandemic evolve(Pandemic& current, Parameters ps); 
 
 
    private: 
@@ -84,7 +78,6 @@ class Pandemic
    int D_;
 
 };
-
 
 
 #endif
