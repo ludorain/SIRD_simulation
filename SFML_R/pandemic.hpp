@@ -17,8 +17,9 @@ class Pandemic
    Pandemic(int, int);
 
    //Setting the grid 
-   void set_I (int);
+   void set_SIRD (int);
    void set_Side (int);
+   void set_I(int);
 
    static Pandemic start (Pandemic&, int);
 

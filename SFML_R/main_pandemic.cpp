@@ -27,9 +27,9 @@ bool readInt(int &x) {
 int main () {
 
     Parameters ps;
-   
+    Pandemic population;
     float b,g,m;
-
+    
     std::cout << "Infection probability [range 0-1]: ";
     std::cin >> b;
     ps.set_Beta(b);
@@ -59,17 +59,20 @@ int main () {
 
     //Init simulation values
     int l;
-    std::cout<<"Please insert: \nGrid lengh = ";
+    std::cout<<"Please insert: \nGrid lenght = ";
 
-    int infected;
-    std:: cout << "Infected = " ;
-
-    if (readInt(l) && readInt(infected)) {
-    Pandemic population(l, infected);
-    } else {Pandemic population();}
+    if (readInt(l)) {    
+     population.set_Side(l);
+    }
     
-   
-
+    int i;
+    std:: cout << "Infected = " ;
+    
+    if (readInt(i)) {    
+     population.set_SIRD(i);;
+    }
+        
+     
     int t;
     std::cout<<"Simulation time = ";
     std::cin >> t;

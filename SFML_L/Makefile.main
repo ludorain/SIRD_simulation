@@ -1,0 +1,21 @@
+LIBS=-lsfml-graphics -lsfml-window -lsfml-system
+
+all: simulation
+
+parameters.o: parameters.cpp
+        g++ -c "parameters.cpp" -o parameters.o
+
+pandemic.o: pandemic.cpp
+		g++ -c "pandemic.cpp" -o pandemic.o
+
+main_pandemic.o: main_pandemic.cpp
+		g++ -c "main_pandemic.cpp" -o main_pandemic.o
+
+simulation: parameters.o pandemic.o main_pandemic.o
+       
+        g++ -o simulation parameters.o pandemic.o main_pandemic.o $(LIBS)
+run:
+	make && ./main
+
+clean:
+	rm ./*.o && rm main

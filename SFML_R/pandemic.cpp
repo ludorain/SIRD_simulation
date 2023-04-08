@@ -19,8 +19,6 @@ Grid_(50*50)
 Pandemic::Pandemic(int lengh, int infected)
 {
   set_Side(lengh); 
-  std::vector<Person> temp(Side_);
-  Grid_ = temp;
   set_I(infected);
   S_= Side_*Side_ - I_;
   R_= 0;
@@ -30,12 +28,22 @@ Pandemic::Pandemic(int lengh, int infected)
 void Pandemic::set_Side(int s){
   if ( s>10 && s<50) {
     Side_=s;
+    std::vector<Person> temp(Side_*Side_);
+    Grid_ = temp;
   }
 }
 
 void Pandemic::set_I(int i){
   if (i>0 && i<=Side_*Side_) {
+    I_=i;}
+}
+
+void Pandemic::set_SIRD(int i){
+  if (i>0 && i<=Side_*Side_) {
     I_=i;
+    S_= Side_*Side_ - I_;
+    R_= 0;
+    D_= 0;
   }
 }
 
