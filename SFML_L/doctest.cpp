@@ -53,7 +53,7 @@ TEST_CASE ("Testing class Pandemic.") {
   CHECK(pan.get_I()==100);
 
   pan.set_Side(30);
-  CHECK(pan.get_I()==30);
+  CHECK(pan.get_Side()==30);
   }
   
 
@@ -104,6 +104,7 @@ TEST_CASE ("Testing class Pandemic.") {
   int l = 50;
   evolving2.set_Side(l);
   int infected = 90;
+  evol
 
   evolving2 = Pandemic::start(evolving2, infected);
   
@@ -111,14 +112,14 @@ TEST_CASE ("Testing class Pandemic.") {
 
   for (int r = 0 ; r < l ; r++ ) {   
   
-    for (int c = 0 ; c < lchown ; c++) {
+    for (int c = 0 ; c < l ; c++) {
 
       if (evolving2.Reading_cell(r,c) == Person::Infected) 
       {check++;}
     }
   }
   
-  CHECK(check == infected);
+  CHECK(check == 90);
 
   }
 

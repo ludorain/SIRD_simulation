@@ -45,11 +45,11 @@ Pandemic Pandemic::start(Pandemic& clear, int infected) {
     int h = dist(eng);
     
     while (set.Reading_cell(k,h) == Person::Infected) {
-      k++;
-      h++;
+      k+=2;
+      h+=2;
     }
-
     set.Writing_cell(k,h) = Person::Infected;
+    
   }
 
   return set;
